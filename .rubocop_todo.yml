@@ -27,13 +27,7 @@ Style/ClassAndModuleChildren:
 # Offense count: 5
 Style/Documentation:
   Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'app/controllers/application_controller.rb'
-    - 'app/helpers/application_helper.rb'
-    - 'app/models/user.rb'
-    - 'config/application.rb'
-    - 'db/migrate/20160823050547_devise_create_users.rb'
+    - '**/*'
 
 # Offense count: 2
 # Cop supports --auto-correct.
