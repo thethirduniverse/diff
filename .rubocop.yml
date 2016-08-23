@@ -1,1 +1,58 @@
-inherit_from: .rubocop_todo.yml
+# Configuration parameters: AllowHeredoc, AllowURI, URISchemes.
+# URISchemes: http, https
+Metrics/LineLength:
+  Max: 160
+
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Max: 15
+
+Style/IndentationWidth:
+  Width: 2
+
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+# SupportedStyles: nested, compact
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'test/test_helper.rb'
+
+Style/Documentation:
+  Exclude:
+    - '**/*'
+
+Style/EmptyLines:
+  AutoCorrect: true
+  Exclude:
+    - 'Gemfile'
+    - 'db/migrate/*'
+
+Style/EmptyLinesAroundBlockBody:
+  AutoCorrect: true
+  EnforcedStyle: no_empty_lines
+  Exclude:
+    - 'db/schema.rb'
+
+# Cop supports --auto-correct.
+# Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
+Style/ExtraSpacing:
+  Exclude:
+    - 'bin/setup'
+    - 'db/schema.rb'
+
+# Cop supports --auto-correct.
+Style/NumericLiterals:
+  MinDigits: 15
+
+Style/StringLiterals:
+  AutoCorrect: true
+  EnforcedStyle: single_quotes
+  Exclude:
+    - 'bin/setup'
+    - 'db/migrate/*'
+    - 'db/schema.rb'
+
+Style/TrailingBlankLines:
+  AutoCorrect: true
+  EnforcedStyle: final_newline
+  Exclude:
+    - 'Gemfile'
