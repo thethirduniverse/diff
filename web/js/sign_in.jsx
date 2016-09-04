@@ -6,6 +6,7 @@ var SignInBox = React.createClass({
       <div className="card">
         <form>
           <div className="card-content">
+            <legend>Sign In</legend>
             <div className="row">
               <div className="input-field col s12">
                 <input type="text" id="sign_in_email_field" name="sign_in_email" /><br/>
