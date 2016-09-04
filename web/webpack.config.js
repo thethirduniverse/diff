@@ -1,5 +1,5 @@
 module.exports = {
-  entry: "./debatable.jsx",
+  entry: "./js/debatable.jsx",
   output: {
     filename: "bundle.js"
   },

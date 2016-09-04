@@ -1,0 +1,19 @@
+{
+    "rules": {
+      "space-before-function-paren": ["error", "never"]
+    },
+    "extends": [
+      "standard",
+      "plugin:react/recommended"
+    ],
+    "plugins": [
+        "standard",
+        "promise",
+        "react"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    }
+}

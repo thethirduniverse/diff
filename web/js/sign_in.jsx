@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('react')
 
 var SignInBox = React.createClass({
   render: function() {
@@ -9,8 +9,8 @@ var SignInBox = React.createClass({
         Password<br/>
         <input type="password" name="sign_in_password" /><br/>
         </div>
-    );
+    )
   }
-});
+})
 
-module.exports = SignInBox;
+module.exports = SignInBox
