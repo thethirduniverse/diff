@@ -1,7 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var SignInBox = require('./sign_in.jsx');
+
 ReactDOM.render(
-  <h1>Hello World</h1>, 
+  <SignInBox />,
   document.getElementById('react-root')
 );
