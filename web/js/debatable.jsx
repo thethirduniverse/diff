@@ -1,8 +1,8 @@
 var React = require('react')
 var ReactDOM = require('react-dom')
-var SignInBox = require('./sign_in.jsx')
+var AccountCard = require('./account_card.jsx')
 
 ReactDOM.render(
-  <SignInBox />,
+  <AccountCard />,
   document.getElementById('react-root')
 )
