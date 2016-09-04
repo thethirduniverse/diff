@@ -4,6 +4,9 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+####################################
+# Server
+####################################
 # Ignore bundler config.
 server/.bundle
 
@@ -15,3 +18,12 @@ server/db/*.sqlite3-journal
 server/log/*
 server!/log/.keep
 server/tmp
+
+####################################
+# Web
+####################################
+# Ignore node modules
+web/node_modules/*
+
+# Ignore bundled js
+web/bundle.js
