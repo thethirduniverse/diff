@@ -3,13 +3,19 @@ var SignInCard = require('./sign_in.jsx')
 var SignUpCard = require('./sign_up.jsx')
 
 var AccountCard = React.createClass({
+  propTypes: {
+    haveAccountClicked: React.PropTypes.func.isRequired,
+    notHaveAccountClicked: React.PropTypes.func.isRequired,
+    visible: React.PropTypes.string.isRequired
+  },
+
   signInClicked: function() {
     console.info('sign in clicked')
   },
 
   notHaveAccountClicked: function() {
     console.info('not have account clicked')
-    this.setState({visible: 'sign-up'})
+    this.props.notHaveAccountClicked()
   },
 
   signUpClicked: function() {
@@ -18,15 +24,11 @@ var AccountCard = React.createClass({
 
   haveAccountClicked: function() {
     console.info('have account clicked')
-    this.setState({visible: 'sign-in'})
-  },
-
-  getInitialState: function() {
-    return {visible: 'sign-in'}
+    this.props.haveAccountClicked()
   },
 
   render: function() {
-    var content = this.state.visible === 'sign-in'
+    var content = this.props.visible === 'sign-in'
       ? <SignInCard signInClicked={this.signInClicked} notHaveAccountClicked={this.notHaveAccountClicked}/>
       : <SignUpCard signUpClicked={this.signUpClicked} haveAccountClicked={this.haveAccountClicked}/>
 
