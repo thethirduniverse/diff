@@ -7,6 +7,7 @@ require('jquery')
 
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 var appReducer = require('./reducers')
 
@@ -15,8 +16,10 @@ const store = createStore(appReducer)
 var AccountCardController = require('./controllers/account_card_controller.js')
 
 ReactDOM.render(
-  <Provider store={store}>
-    <AccountCardController />
-  </Provider>,
+  <MuiThemeProvider>
+    <Provider store={store}>
+      <AccountCardController />
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('react-root')
 )
