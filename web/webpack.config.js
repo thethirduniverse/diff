@@ -1,3 +1,5 @@
+const webpack = require('webpack')
+
 module.exports = {
   entry: "./js/debatable.jsx",
   output: {
@@ -12,6 +14,11 @@ module.exports = {
         query: {
           presets: ['es2015', 'react']
         }
+      },
+      {
+        // http://stackoverflow.com/questions/29080148/expose-jquery-to-real-window-object-with-webpack
+        test: require.resolve('jquery'),
+        loader: 'expose?jQuery!expose?$'
       }
     ]
   }

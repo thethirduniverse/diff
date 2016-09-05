@@ -1,5 +1,6 @@
 var React = require('react')
 var ReactDOM = require('react-dom')
+require('jquery')
 
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
