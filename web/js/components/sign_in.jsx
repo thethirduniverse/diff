@@ -1,4 +1,8 @@
 var React = require('react')
+import { Card, CardText, CardActions, CardHeader } from 'material-ui/Card'
+import TextField from 'material-ui/TextField'
+import RaisedButton from 'material-ui/RaisedButton'
+import FlatButton from 'material-ui/FlatButton'
 
 var SignInBox = React.createClass({
   propTypes: {
@@ -17,25 +21,19 @@ var SignInBox = React.createClass({
 
   render: function() {
     return (
-      <form>
-        <legend>Sign In</legend>
-        <div className="row">
-          <div className="input-field col s12">
-            <input type="text" id="sign_in_email_field" name="sign_in_email" /><br/>
-            <label htmlFor="sign_in_email_field">Email</label>
-          </div>
-        </div>
-        <div className="row">
-          <div className="input-field col s12">
-            <input type="password" id="sign_in_password_field" name="sign_in_password" /><br/>
-            <label htmlFor="sign_in_password_field">Password</label>
-          </div>
-        </div>
-        <div className="card-action">
-          <button className="btn" type="submit" onClick={this.signInClicked}>Sign In</button>
-          <a className="right" onClick={this.notHaveAccountClicked}>Doesn't have an account yet?</a>
-        </div>
-      </form>
+      <Card>
+        <form>
+          <CardHeader title="Sign In" />
+          <CardText>
+            <TextField floatingLabelText={"Email"} hintText={"Email"} type="text" fullWidth={true} />
+            <TextField floatingLabelText={"Password"} hintText={"Password"} type="password" fullWidth={true} />
+          </CardText>
+          <CardActions>
+            <RaisedButton label="Sign In" primary={true} style={{margin: 12}} onClick={this.signInClicked} />
+            <FlatButton label="Doesn't have an account yet?" secondary={true} onClick={this.notHaveAccountClicked} />
+          </CardActions>
+        </form>
+      </Card>
     )
   }
 })

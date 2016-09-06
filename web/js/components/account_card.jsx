@@ -28,17 +28,9 @@ var AccountCard = React.createClass({
   },
 
   render: function() {
-    var content = this.props.visible === 'sign-in'
+    return this.props.visible === 'sign-in'
       ? <SignInCard signInClicked={this.signInClicked} notHaveAccountClicked={this.notHaveAccountClicked}/>
       : <SignUpCard signUpClicked={this.signUpClicked} haveAccountClicked={this.haveAccountClicked}/>
-
-    return (
-      <div className="card">
-        <div className="card-content">
-          {content}
-        </div>
-      </div>
-    )
   }
 })
 
