@@ -1,9 +1,9 @@
 var React = require('react')
-
 import { Card, CardText, CardActions, CardHeader } from 'material-ui/Card'
-import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
+import { Field, reduxForm } from 'redux-form'
+import { renderTextField } from '../helpers/redux_form_helpers.jsx'
 
 var SignUpBox = React.createClass({
   propTypes: {
@@ -11,9 +11,8 @@ var SignUpBox = React.createClass({
     haveAccountClicked: React.PropTypes.func.isRequired
   },
 
-  signUpClicked: function(e) {
-    e.preventDefault()
-    this.props.signUpClicked()
+  signUpClicked: function(data) {
+    this.props.signUpClicked(data)
   },
 
   haveAccountClicked: function() {
@@ -23,14 +22,16 @@ var SignUpBox = React.createClass({
   render: function() {
     return (
       <Card>
-        <form>
+        {/* eslint-disable react/prop-types */}
+        <form onSubmit={this.props.handleSubmit(this.signUpClicked)}>
+        {/* eslint-enable react/prop-types */}
           <CardHeader title="Sign Up" />
           <CardText>
-            <TextField floatingLabelText={"Email"} hintText={"Email"} type="text" fullWidth={true} />
-            <TextField floatingLabelText={"Password"} hintText={"Password"} type="password" fullWidth={true} />
+            <Field name="email" label="Email" type="email" fullWidth={true} component={renderTextField} />
+            <Field name="password" label="Password" type="password" fullWidth={true} component={renderTextField} />
           </CardText>
           <CardActions>
-            <RaisedButton label="Sign Up" primary={true} style={{margin: 12}} onClick={this.signUpClicked} />
+            <RaisedButton label="Sign Up" primary={true} style={{margin: 12}} type="submit" />
             <FlatButton label="Already have an account?" secondary={true} onClick={this.haveAccountClicked} />
           </CardActions>
         </form>
@@ -39,4 +40,6 @@ var SignUpBox = React.createClass({
   }
 })
 
-module.exports = SignUpBox
+module.exports = reduxForm({
+  form: 'sign-up'
+})(SignUpBox)

@@ -5,7 +5,13 @@ const AccountCard = require('../components/account_card.jsx')
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    visible: state.accountCardReducer.visible
+    visible: state.accountCardReducer.visible,
+    signInClicked: function(data) {
+      console.log(data)
+    },
+    signUpClicked: function(data) {
+      console.log(data)
+    }
   }
 }
 

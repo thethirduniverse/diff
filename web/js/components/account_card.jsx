@@ -6,11 +6,14 @@ var AccountCard = React.createClass({
   propTypes: {
     haveAccountClicked: React.PropTypes.func.isRequired,
     notHaveAccountClicked: React.PropTypes.func.isRequired,
+    signInClicked: React.PropTypes.func.isRequired,
+    signUpClicked: React.PropTypes.func.isRequired,
     visible: React.PropTypes.string.isRequired
   },
 
-  signInClicked: function() {
+  signInClicked: function(data) {
     console.info('sign in clicked')
+    this.props.signInClicked(data)
   },
 
   notHaveAccountClicked: function() {
@@ -18,8 +21,9 @@ var AccountCard = React.createClass({
     this.props.notHaveAccountClicked()
   },
 
-  signUpClicked: function() {
+  signUpClicked: function(data) {
     console.info('sign up clicked')
+    this.props.signUpClicked(data)
   },
 
   haveAccountClicked: function() {

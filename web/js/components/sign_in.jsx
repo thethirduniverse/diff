@@ -1,8 +1,9 @@
 var React = require('react')
 import { Card, CardText, CardActions, CardHeader } from 'material-ui/Card'
-import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
+import { Field, reduxForm } from 'redux-form'
+import { renderTextField } from '../helpers/redux_form_helpers.jsx'
 
 var SignInBox = React.createClass({
   propTypes: {
@@ -10,9 +11,8 @@ var SignInBox = React.createClass({
     notHaveAccountClicked: React.PropTypes.func.isRequired
   },
 
-  signInClicked: function(e) {
-    e.preventDefault()
-    this.props.signInClicked()
+  signInClicked: function(data) {
+    this.props.signInClicked(data)
   },
 
   notHaveAccountClicked: function() {
@@ -22,14 +22,16 @@ var SignInBox = React.createClass({
   render: function() {
     return (
       <Card>
-        <form>
+        {/* eslint-disable react/prop-types */}
+        <form onSubmit={this.props.handleSubmit(this.signInClicked)}>
+        {/* eslint-enable react/prop-types */}
           <CardHeader title="Sign In" />
           <CardText>
-            <TextField floatingLabelText={"Email"} hintText={"Email"} type="text" fullWidth={true} />
-            <TextField floatingLabelText={"Password"} hintText={"Password"} type="password" fullWidth={true} />
+            <Field name="email" label="Email" type="email" fullWidth={true} component={renderTextField} />
+            <Field name="password" label="Password" type="password" fullWidth={true} component={renderTextField} />
           </CardText>
           <CardActions>
-            <RaisedButton label="Sign In" primary={true} style={{margin: 12}} onClick={this.signInClicked} />
+            <RaisedButton label="Sign In" primary={true} style={{margin: 12}} type="submit" />
             <FlatButton label="Doesn't have an account yet?" secondary={true} onClick={this.notHaveAccountClicked} />
           </CardActions>
         </form>
@@ -38,4 +40,6 @@ var SignInBox = React.createClass({
   }
 })
 
-module.exports = SignInBox
+module.exports = reduxForm({
+  form: 'sign-in'
+})(SignInBox)
