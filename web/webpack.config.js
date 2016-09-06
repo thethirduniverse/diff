@@ -13,7 +13,11 @@ module.exports = {
         loader: 'babel',
         query: {
           presets: ['es2015', 'react', 'stage-0']
-        }
+        },
+        plugins:[
+          'transform-es2015-arrow-functions',
+          'transform-object-rest-spread'
+        ]
       },
       {
         // http://stackoverflow.com/questions/29080148/expose-jquery-to-real-window-object-with-webpack
