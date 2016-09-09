@@ -10,12 +10,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import appReducer from './reducers'
 const store = createStore(appReducer)
 
-import AccountCardController from './controllers/account_card_controller.js'
+import AppController from './controllers/app_controller.js'
 
 ReactDOM.render(
   <MuiThemeProvider>
     <Provider store={store}>
-      <AccountCardController />
+      <AppController />
     </Provider>
   </MuiThemeProvider>,
   document.getElementById('react-root')
