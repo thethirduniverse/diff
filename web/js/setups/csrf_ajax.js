@@ -1,6 +1,6 @@
-const $ = require('jquery')
+import $ from 'jquery'
 
-module.exports = function() {
+export default function() {
   $.ajaxSetup({
     headers: {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')

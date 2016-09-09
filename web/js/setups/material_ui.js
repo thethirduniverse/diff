@@ -1,5 +1,5 @@
 import injectTapEventPlugin from 'react-tap-event-plugin'
 
-module.exports = function() {
+export default function() {
   injectTapEventPlugin()
 }

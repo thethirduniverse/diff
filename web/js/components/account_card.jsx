@@ -1,8 +1,8 @@
-var React = require('react')
-var SignInCard = require('./sign_in.jsx')
-var SignUpCard = require('./sign_up.jsx')
+import React from 'react'
+import SignInCard from './sign_in.jsx'
+import SignUpCard from './sign_up.jsx'
 
-var AccountCard = React.createClass({
+const AccountCard = React.createClass({
   propTypes: {
     haveAccountClicked: React.PropTypes.func.isRequired,
     notHaveAccountClicked: React.PropTypes.func.isRequired,
@@ -38,4 +38,4 @@ var AccountCard = React.createClass({
   }
 })
 
-module.exports = AccountCard
+export default AccountCard

@@ -1,4 +1,4 @@
-var React = require('react')
+import React from 'react'
 import { Card, CardText, CardActions, CardHeader } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
@@ -40,6 +40,6 @@ var SignInBox = React.createClass({
   }
 })
 
-module.exports = reduxForm({
+export default reduxForm({
   form: 'sign-in'
 })(SignInBox)

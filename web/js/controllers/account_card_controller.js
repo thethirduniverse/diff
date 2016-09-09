@@ -1,8 +1,7 @@
 import { connect } from 'react-redux'
 import { accountCardShowSignIn, accountCardShowSignUp } from '../actions'
 import $ from 'jquery'
-
-const AccountCard = require('../components/account_card.jsx')
+import AccountCard from '../components/account_card.jsx'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -43,4 +42,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(AccountCard)
+export default connect(mapStateToProps, mapDispatchToProps)(AccountCard)

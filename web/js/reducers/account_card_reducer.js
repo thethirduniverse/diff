@@ -1,4 +1,4 @@
-const accountCardReducer = (state = {'visible': 'sign-in'}, action) => {
+export default (state = {'visible': 'sign-in'}, action) => {
   switch (action.type) {
     case 'SHOW_SIGN_IN':
       return Object.assign({}, state, {visible: 'sign-in'})
@@ -8,5 +8,3 @@ const accountCardReducer = (state = {'visible': 'sign-in'}, action) => {
       return state
   }
 }
-
-module.exports = accountCardReducer

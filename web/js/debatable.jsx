@@ -1,19 +1,16 @@
-var setups = require('./setups')
+import setups from './setups'
 setups()
 
-var React = require('react')
-var ReactDOM = require('react-dom')
-require('jquery')
-
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-var appReducer = require('./reducers')
-
+import appReducer from './reducers'
 const store = createStore(appReducer)
 
-var AccountCardController = require('./controllers/account_card_controller.js')
+import AccountCardController from './controllers/account_card_controller.js'
 
 ReactDOM.render(
   <MuiThemeProvider>
