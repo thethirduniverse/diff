@@ -10,6 +10,11 @@ import TopicForm from './topic_form.jsx'
 
 const App = React.createClass({
   propTypes: {
+    onComponentWillMount: React.PropTypes.func.isRequired
+  },
+
+  componentWillMount: function() {
+    this.props.onComponentWillMount()
   },
 
   render: function() {
