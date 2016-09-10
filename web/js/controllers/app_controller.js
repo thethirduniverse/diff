@@ -5,7 +5,8 @@ import { userSignIn } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.accountReducer
+    userSignedIn: state.accountReducer.signed_in,
+    user: state.accountReducer.user
   }
 }
 
