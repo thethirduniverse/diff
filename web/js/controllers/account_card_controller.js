@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { accountCardShowSignIn, accountCardShowSignUp, userSignIn, userSignUp } from '../actions'
 import $ from 'jquery'
 import AccountCard from '../components/account_card.jsx'
+import { updatePageAndAjaxCSRFToken } from '../helpers/csrf_token_helpers.js'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -22,7 +23,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         .done((res) => {
           console.log("sign in succeeded with response:")
           console.log(res)
-          dispatch(userSignIn(res))
+          dispatch(userSignIn(res.user))
+          updatePageAndAjaxCSRFToken(res.newCSRFToken)
         })
         .fail((res) => {
           console.log("sign in failed with response:")

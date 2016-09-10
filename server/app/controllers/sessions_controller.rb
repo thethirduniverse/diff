@@ -2,11 +2,26 @@ class SessionsController < Devise::SessionsController
   clear_respond_to
   respond_to :json
 
+  # http://stackoverflow.com/questions/13836139/rails-how-to-override-devise-sessionscontroller-to-perform-specific-tasks-when
+  def create
+    self.resource = warden.authenticate!(auth_options)
+    sign_in(resource_name, resource)
+    render json: { user: user_response(current_user), newCSRFToken: form_authenticity_token }
+  end
+
   def verify
     if user_signed_in?
-      render json: { email: current_user.email }
+      render json: user_response(current_user)
     else
       render json: { error: 'user not signed in' }, status: 401
     end
+  end
+
+  private
+
+  def user_response(user)
+    {
+      email: user.email
+    }
   end
 end
