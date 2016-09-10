@@ -7,6 +7,9 @@
 ####################################
 # Server
 ####################################
+# Debugger history
+server/.byebug_history
+
 # Ignore bundler config.
 server/.bundle
 
