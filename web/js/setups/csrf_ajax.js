@@ -1,9 +1,6 @@
 import $ from 'jquery'
+import { setAjaxCSRFToken } from '../helpers/csrf_token_helpers.js'
 
 export default function() {
-  $.ajaxSetup({
-    headers: {
-      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-    }
-  });
+  setAjaxCSRFToken($('meta[name="csrf-token"]').attr('content'))
 }
