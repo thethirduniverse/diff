@@ -3,7 +3,7 @@ import { Card, CardText, CardActions, CardHeader } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import { Field, reduxForm } from 'redux-form'
-import { renderTextField } from '../helpers/redux_form_helpers.jsx'
+import { renderTextField, renderCheckbox } from '../helpers/redux_form_helpers.jsx'
 
 var SignInBox = React.createClass({
   propTypes: {
@@ -29,6 +29,7 @@ var SignInBox = React.createClass({
           <CardText>
             <Field name="email" label="Email" type="email" fullWidth={true} component={renderTextField} />
             <Field name="password" label="Password" type="password" fullWidth={true} component={renderTextField} />
+            <Field name="remember_me" label="Remember Me" component={renderCheckbox} />
           </CardText>
           <CardActions>
             <RaisedButton label="Sign In" primary={true} style={{margin: 12}} type="submit" />
