@@ -6,6 +6,8 @@ import MenuItem from 'material-ui/MenuItem'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import AccountCardController from '../controllers/account_card_controller.js'
 
+import TopicForm from './topic_form.jsx'
+
 const App = React.createClass({
   propTypes: {
   },
@@ -31,6 +33,13 @@ const App = React.createClass({
           }
         />
         <AccountCardController />
+        <TopicForm
+          title = "Topic Form Title"
+          submitButtonLabel = "Submit"
+          onSubmit = {(data) => { console.log(data) }}
+          secondaryButtonLabel = "Secondary"
+          onSecondaryButtonClick = {() => { console.log('topic form secondary button clicked') }}
+        />
       </div>
     )
   }
