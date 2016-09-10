@@ -10,9 +10,10 @@ export const accountCardShowSignUp = () => {
   }
 }
 
-export const userSignIn = () => {
+export const userSignIn = (user) => {
   return {
-    type: 'USER_SIGN_IN'
+    type: 'USER_SIGN_IN',
+    user: user
   }
 }
 

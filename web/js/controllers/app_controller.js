@@ -1,9 +1,11 @@
 import { connect } from 'react-redux'
 import $ from 'jquery'
 import App from '../components/app.jsx'
+import { userSignIn } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    user: state.accountReducer
   }
 }
 
@@ -14,6 +16,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         done((res) => {
           console.log('verify successed with response:')
           console.log(res)
+          dispatch(userSignIn(res))
         }).
         fail((res) => {
           console.log('verify failed with response:')

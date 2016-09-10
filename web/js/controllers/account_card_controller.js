@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { accountCardShowSignIn, accountCardShowSignUp } from '../actions'
+import { accountCardShowSignIn, accountCardShowSignUp, userSignIn, userSignUp } from '../actions'
 import $ from 'jquery'
 import AccountCard from '../components/account_card.jsx'
 
@@ -22,6 +22,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         .done((res) => {
           console.log("sign in succeeded with response:")
           console.log(res)
+          dispatch(userSignIn(res))
         })
         .fail((res) => {
           console.log("sign in failed with response:")
@@ -33,6 +34,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         .done((res) => {
           console.log("sign up succeeded with response:")
           console.log(res)
+          dispatch(userSignUp(res))
         })
         .fail((res) => {
           console.log("sign up failed with response:")

@@ -1,11 +1,13 @@
-export default (state = {'signed-in': false}, action) => {
+const defaultState = {signed_in: false, user: {}}
+
+export default (state = defaultState, action) => {
   switch (action.type) {
     case 'USER_SIGN_IN':
-      return Object.assign({}, state, {'signed-in': true})
+      return Object.assign({}, state, {signed_in: true, user:action.user})
     case 'USER_SIGN_UP':
       return state
     case 'USER_SIGN_OUT':
-      return Object.assign({}, state, {'signed-in': false})
+      return defaultState
     default:
       return state
   }

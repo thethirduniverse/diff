@@ -10,7 +10,8 @@ import TopicForm from './topic_form.jsx'
 
 const App = React.createClass({
   propTypes: {
-    onComponentWillMount: React.PropTypes.func.isRequired
+    onComponentWillMount: React.PropTypes.func.isRequired,
+    user: React.PropTypes.object.isRequired
   },
 
   componentWillMount: function() {
@@ -18,6 +19,10 @@ const App = React.createClass({
   },
 
   render: function() {
+    const accountStatus = this.props.user.signed_in
+      ? <h1>Signed In</h1>
+      : <h1>Not Signed In</h1>
+
     return (
       <div>
         <AppBar
@@ -38,6 +43,7 @@ const App = React.createClass({
           }
         />
         <AccountCardController />
+        { accountStatus }
         <TopicForm
           title = "Topic Form Title"
           submitButtonLabel = "Submit"
