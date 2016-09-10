@@ -6,6 +6,7 @@ import TopicForm from './topic_form.jsx'
 const App = React.createClass({
   propTypes: {
     onComponentWillMount: React.PropTypes.func.isRequired,
+    onSignOutClicked: React.PropTypes.func.isRequired,
     userSignedIn: React.PropTypes.bool.isRequired
   },
 
@@ -16,7 +17,10 @@ const App = React.createClass({
   render: function() {
     return (
       <div>
-        <NavBar userSignedIn = {this.props.userSignedIn} />
+        <NavBar
+          userSignedIn = {this.props.userSignedIn}
+          onSignOutClicked = {this.props.onSignOutClicked}
+        />
         <AccountCardController />
         <TopicForm
           title = "Topic Form Title"

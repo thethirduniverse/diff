@@ -9,6 +9,12 @@ class SessionsController < Devise::SessionsController
     render json: { user: user_response(current_user), newCSRFToken: form_authenticity_token }
   end
 
+  # http://stackoverflow.com/questions/11845500/rails-devise-authentication-csrf-issue
+  def destroy
+    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+    render json: { newCSRFToken: form_authenticity_token }
+  end
+
   def verify
     if user_signed_in?
       render json: user_response(current_user)

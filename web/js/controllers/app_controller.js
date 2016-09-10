@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 import $ from 'jquery'
 import App from '../components/app.jsx'
-import { userSignIn } from '../actions'
+import { userSignIn, userSignOut } from '../actions'
+import { updatePageAndAjaxCSRFToken } from '../helpers/csrf_token_helpers.js'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -21,6 +22,22 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         }).
         fail((res) => {
           console.log('verify failed with response:')
+          console.log(res)
+        })
+    },
+    onSignOutClicked: () => {
+      $.ajax({
+        url: '/users/sign_out',
+        method: 'DELETE',
+      })
+        .done((res) => {
+          console.log('log out succeed with response')
+          console.log(res)
+          dispatch(userSignOut())
+          updatePageAndAjaxCSRFToken(res.newCSRFToken)
+        })
+        .fail((res) => {
+          console.log('log out failed with response')
           console.log(res)
         })
     }
