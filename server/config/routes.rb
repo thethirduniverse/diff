@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations' }
+  scope :api do
+    devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations' }
+
+    # This API successes when the user is signed-in, returns 401 when there is none
+    # This is useful when single-page web app wants to know whether the user signed-in or not
+    devise_scope :user do
+      post 'users/verify' => 'sessions#verify'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
-  # This API successes when the user is signed-in, returns 401 when there is none
-  # This is useful when single-page web app wants to know whether the user signed-in or not
-  devise_scope :user do
-    post 'users/verify' => 'sessions#verify'
-  end
 
   # You can have the root of your site routed with "root"
   root 'main#index'

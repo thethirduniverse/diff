@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(accountCardShowSignIn())
     },
     signInClicked: (data) => {
-      $.post("/users/sign_in", {user: data})
+      $.post("/api/users/sign_in", {user: data})
         .done((res) => {
           console.log("sign in succeeded with response:")
           console.log(res)
@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         })
     },
     signUpClicked: (data) => {
-      $.post("/users", {user: data})
+      $.post("/api/users", {user: data})
         .done((res) => {
           console.log("sign up succeeded with response:")
           console.log(res)
