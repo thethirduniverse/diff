@@ -10,12 +10,18 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import appReducer from './reducers'
 const store = createStore(appReducer)
 
+import { Router, Route, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
+const history = syncHistoryWithStore(browserHistory, store)
+
 import AppController from './controllers/app_controller.js'
 
 ReactDOM.render(
   <MuiThemeProvider>
     <Provider store={store}>
-      <AppController />
+      <Router history={history}>
+        <Route path="/" component={AppController} />
+      </Router>
     </Provider>
   </MuiThemeProvider>,
   document.getElementById('react-root')
