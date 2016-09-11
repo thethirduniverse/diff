@@ -9,16 +9,15 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import promise from 'redux-promise'
+import { Router, browserHistory } from 'react-router'
+import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 import appReducer from './reducers'
 import createLogger from './helpers/redux_logger_helpers.js'
 const logger = createLogger()
 const store = createStore(
   appReducer,
-  applyMiddleware(thunk, promise, logger)
+  applyMiddleware(routerMiddleware(browserHistory), thunk, promise, logger)
 )
-
-import { Router, browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
 const history = syncHistoryWithStore(browserHistory, store)
 
 import routes from './routes.jsx'

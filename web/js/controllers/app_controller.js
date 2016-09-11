@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import $ from 'jquery'
+import { push } from 'react-router-redux'
 import App from '../components/app.jsx'
 import { userSignIn, userSignOut } from '../actions'
 import { updatePageAndAjaxCSRFToken } from '../helpers/csrf_token_helpers.js'
@@ -40,6 +41,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           console.log('log out failed with response')
           console.log(res)
         })
+    },
+    onSignInClicked: () => {
+      dispatch(push('/sign-in'))
+    },
+    onTitleClicked: () => {
+      dispatch(push('/'))
     }
   }
 }

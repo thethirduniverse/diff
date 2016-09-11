@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem'
 import MoodGoodIcon from 'material-ui/svg-icons/social/mood'
 import MoodBadIcon from 'material-ui/svg-icons/social/sentiment-dissatisfied'
 
-const NavBar = ({userSignedIn, onSignOutClicked}) => {
+const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked}) => {
   const iconMenu = (
     userSignedIn
       ? <IconMenu
@@ -26,12 +26,13 @@ const NavBar = ({userSignedIn, onSignOutClicked}) => {
         anchorOrigin = {{horizontal: 'right', vertical: 'bottom'}}
         targetOrigin = {{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem primaryText="Sign In" />
+        <MenuItem primaryText="Sign In" onClick={onSignInClicked}/>
       </IconMenu>
   )
 
   return <AppBar
     title = 'Debatable'
+    onTitleTouchTap = {onTitleClicked}
     showMenuIconButton = {false}
     iconElementRight = {iconMenu}
   />
@@ -39,7 +40,9 @@ const NavBar = ({userSignedIn, onSignOutClicked}) => {
 
 NavBar.propTypes = {
   userSignedIn: React.PropTypes.bool.isRequired,
-  onSignOutClicked: React.PropTypes.func.isRequired
+  onSignOutClicked: React.PropTypes.func.isRequired,
+  onSignInClicked: React.PropTypes.func.isRequired,
+  onTitleClicked: React.PropTypes.func.isRequired
 }
 
 export default NavBar
