@@ -9,8 +9,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { applyMiddleware, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import promise from 'redux-promise'
-import createLogger from 'redux-logger'
 import appReducer from './reducers'
+import createLogger from './helpers/redux_logger_helpers.js'
 const logger = createLogger()
 const store = createStore(
   appReducer,
