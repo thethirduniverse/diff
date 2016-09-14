@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+psw = '12345678'
+user = User.create email: 'test@example.com', password: psw, password_confirmation: psw
+
+Topic.create user_id: user.id, title: 'Should eating apples be banned', content: '15 reasons not to ban eating apples...'
