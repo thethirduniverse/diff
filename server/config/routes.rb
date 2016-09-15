@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     devise_scope :user do
       post 'users/verify' => 'sessions#verify'
     end
+
+    get '/topics' => 'topics#index'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
