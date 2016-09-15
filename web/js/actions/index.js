@@ -1,30 +1,39 @@
+const actions = {
+  accountCardShowSignIn: 'SHOW_SIGN_IN',
+  accountCardShowSignUp: 'SHOW_SIGN_UP',
+  userSignIn: 'USER_SIGN_IN',
+  userSignUp: 'USER_SIGN_UP',
+  userSignOut: 'USER_SIGN_OUT',
+}
+export default actions
+
 export const accountCardShowSignIn = () => {
   return {
-    type: 'SHOW_SIGN_IN'
+    type: actions.accountCardShowSignIn
   }
 }
 
 export const accountCardShowSignUp = () => {
   return {
-    type: 'SHOW_SIGN_UP'
+    type: actions.accountCardShowSignUp
   }
 }
 
 export const userSignIn = (user) => {
   return {
-    type: 'USER_SIGN_IN',
+    type: actions.userSignIn,
     user: user
   }
 }
 
 export const userSignUp = () => {
   return {
-    type: 'USER_SIGN_UP'
+    type: actions.userSignUp
   }
 }
 
 export const userSignOut = () => {
   return {
-    type: 'USER_SIGN_OUT'
+    type: actions.userSignOut
   }
 }

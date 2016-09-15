@@ -1,8 +1,10 @@
+import actions from '../actions'
+
 export default (state = {'visible': 'sign-in'}, action) => {
   switch (action.type) {
-    case 'SHOW_SIGN_IN':
+    case actions.accountCardShowSignIn:
       return Object.assign({}, state, {visible: 'sign-in'})
-    case 'SHOW_SIGN_UP':
+    case actions.accountCardShowSignUp:
       return Object.assign({}, state, {visible: 'sign-up'})
     default:
       return state
