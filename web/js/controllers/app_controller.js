@@ -19,7 +19,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         done((res) => {
           console.log('verify successed with response:')
           console.log(res)
-          dispatch(userSignIn(res))
+          if (res.signedIn) {
+            dispatch(userSignIn(res.user))
+          }
         }).
         fail((res) => {
           console.log('verify failed with response:')

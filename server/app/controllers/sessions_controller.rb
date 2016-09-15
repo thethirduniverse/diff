@@ -17,9 +17,9 @@ class SessionsController < Devise::SessionsController
 
   def verify
     if user_signed_in?
-      render json: user_response(current_user)
+      render json: { user: user_response(current_user), signedIn: true }
     else
-      render json: { error: 'user not signed in' }, status: 401
+      render json: { user: {}, signedIn: false }
     end
   end
 
