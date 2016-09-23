@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import $ from 'jquery'
+import { push } from 'react-router-redux'
 import TopicFeed from '../components/topic_feed.jsx'
 import { topicFeedReload } from '../actions'
 
@@ -20,6 +21,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           console.log('load topics from server failed with response:')
           console.log(res)
         })
+    },
+    onCardClick: (id) => {
+      dispatch(push('/topics/' + id))
     }
   }
 }
