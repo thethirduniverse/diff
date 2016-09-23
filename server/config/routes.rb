@@ -9,8 +9,7 @@ Rails.application.routes.draw do
       post 'users/verify' => 'sessions#verify'
     end
 
-    get '/topics' => 'topics#index'
-    get '/topics/:id' => 'topics#show'
+    resources :topics, only: [:index, :show, :create]
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

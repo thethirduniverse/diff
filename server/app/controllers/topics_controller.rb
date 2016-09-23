@@ -3,6 +3,8 @@ class TopicsController < ApplicationController
   clear_respond_to
   respond_to :json
 
+  before_action :authenticate_user!, except: [:show, :index]
+
   def index
     topics = Topic.first(5)
     render json: {
@@ -24,6 +26,16 @@ class TopicsController < ApplicationController
     head 404, content_type: 'application/json'
   end
 
+  def create
+    topic = Topic.new(topic_params)
+    topic[:user_id] = current_user.id
+    topic.save!
+
+    render json: {
+      topic: topic_response(topic)
+    }
+  end
+
   private
 
   def topic_response(t)
@@ -32,5 +44,9 @@ class TopicsController < ApplicationController
       title: t.title,
       content: t.content
     }
+  end
+
+  def topic_params
+    params.require(:topic).permit(:title, :content)
   end
 end
