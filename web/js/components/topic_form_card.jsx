@@ -1,6 +1,6 @@
 import React from 'react'
 import TopicFormController from '../controllers/topic_form_controller.js'
-import { Card, CardHeader, CardText } from 'material-ui/Card'
+import { Card, CardTitle, CardText } from 'material-ui/Card'
 
 const TopicFormCard = React.createClass({
   propTypes: {
@@ -9,7 +9,7 @@ const TopicFormCard = React.createClass({
   render: function() {
     return (
       <Card>
-        <CardHeader
+        <CardTitle
           title = "Write a new topic"
         />
         <CardText>

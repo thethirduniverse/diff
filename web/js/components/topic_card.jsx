@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
+import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import Chip from 'material-ui/Chip'
 
@@ -35,7 +35,7 @@ const TopicCard = React.createClass({
 
     return (
       <Card>
-        <CardHeader
+        <CardTitle
           title = {this.props.topic.title}
           onClick = {clickHandler}
         />
