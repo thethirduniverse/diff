@@ -26,6 +26,8 @@ const TopicFeed = React.createClass({
 
             cardClickEnabled={true}
             onCardClick={this.props.onCardClick}
+
+            hideActions={true}
           />
         ))
       }
