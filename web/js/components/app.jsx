@@ -1,6 +1,5 @@
 import React from 'react'
 import NavBar from './nav_bar.jsx'
-import TopicFormController from '../controllers/topic_form_controller.js'
 
 const App = React.createClass({
   propTypes: {
@@ -28,7 +27,6 @@ const App = React.createClass({
           onProfileClicked = {this.props.onProfileClicked}
         />
         {this.props.children}
-        <TopicFormController />
       </div>
     )
   }
