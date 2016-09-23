@@ -15,3 +15,4 @@ user = User.create email: 'test@example.com', password: psw, password_confirmati
 end
 
 Topic.create user_id: user.id, title: 'Should eating apples be banned', content: '15 reasons not to ban eating apples...'
+Topic.create user_id: user.id, title: 'A complicated question', content: 'What is this question about?', categories: [Category.find(1)]
