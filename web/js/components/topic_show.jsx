@@ -1,5 +1,6 @@
 import React from 'react'
 import TopicCard from './topic_card.jsx'
+import NoReplyCard from './no_reply_card.jsx'
 import CircularProgress from 'material-ui/CircularProgress'
 
 const TopicShow = React.createClass({
@@ -20,9 +21,8 @@ const TopicShow = React.createClass({
 
     return (
       <div>
-        <h1>You are viewing topic number {this.props.topicID}</h1>
         {topicCardContent}
-        <h1>no reply yet</h1>
+        <NoReplyCard />
       </div>
     )
   }
