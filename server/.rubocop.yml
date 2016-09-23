@@ -1,5 +1,8 @@
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes.
 # URISchemes: http, https
+AllCops:
+  TargetRubyVersion: 2.3
+
 Metrics/LineLength:
   Max: 160
 
