@@ -29,6 +29,13 @@ class TopicsControllerTest < ActionController::TestCase
     assert_equal 'application/json', @response.content_type
   end
 
+  test 'show increments topic view count' do
+    view_before = Topic.find(1).view
+    get :show, xhr: true, params: { id: 1 }
+
+    assert_equal view_before + 1, Topic.find(1).view
+  end
+
   test 'logged in user can post new topic' do
     assert_nil Topic.find_by_title('New Topic')
     adam = User.find(1)

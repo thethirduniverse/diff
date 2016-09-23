@@ -18,6 +18,7 @@ class TopicsController < ApplicationController
     id = params[:id]
 
     topic = Topic.find(id)
+    topic.update(view: topic.view + 1)
     render json: {
       topic: topic_response(topic)
     }
@@ -42,7 +43,8 @@ class TopicsController < ApplicationController
     {
       id: t.id,
       title: t.title,
-      content: t.content
+      content: t.content,
+      view: t.view
     }
   end
 
