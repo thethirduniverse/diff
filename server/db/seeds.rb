@@ -10,4 +10,8 @@
 psw = '12345678'
 user = User.create email: 'test@example.com', password: psw, password_confirmation: psw
 
+%w(Other Religion Philosophy Politics).each do |c|
+  Category.create name: c
+end
+
 Topic.create user_id: user.id, title: 'Should eating apples be banned', content: '15 reasons not to ban eating apples...'
