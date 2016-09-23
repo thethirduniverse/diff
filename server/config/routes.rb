@@ -10,11 +10,14 @@ Rails.application.routes.draw do
     end
 
     resources :topics, only: [:index, :show, :create]
+
+    get '/profiles/:id' => 'profiles#show'
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   get '/topics/*ignored' => 'main#index'
+  get '/profiles/*ignored' => 'main#index'
   get '/sign-in' => 'main#index'
 
   # You can have the root of your site routed with "root"
