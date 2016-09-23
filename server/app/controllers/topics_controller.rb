@@ -6,7 +6,7 @@ class TopicsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
 
   def index
-    topics = Topic.first(5)
+    topics = Topic.order(created_at: :desc).first(10)
     render json: {
       topics: topics.map do |topic|
         topic_response topic
