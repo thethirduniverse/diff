@@ -5,7 +5,8 @@ const actions = {
   userSignUp: 'USER_SIGN_UP',
   userSignOut: 'USER_SIGN_OUT',
   topicFeedAppendBack: 'TOPIC_FEED_APPEND_BACK',
-  topicFeedReload: 'TOPIC_FEED_RELOAD'
+  topicFeedReload: 'TOPIC_FEED_RELOAD',
+  topicShowLoadTopic: 'TOPIC_SHOW_LOAD_TOPIC'
 }
 export default actions
 
@@ -51,5 +52,12 @@ export const topicFeedReload = (topics) => {
   return {
     type: actions.topicFeedReload,
     topics
+  }
+}
+
+export const topicShowLoadTopic = (topic) => {
+  return {
+    type: actions.topicShowLoadTopic,
+    topic
   }
 }
