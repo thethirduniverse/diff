@@ -9,6 +9,7 @@ const App = React.createClass({
     onSignInClicked: React.PropTypes.func.isRequired,
     onTitleClicked: React.PropTypes.func.isRequired,
     userSignedIn: React.PropTypes.bool.isRequired,
+    onProfileClicked: React.PropTypes.func,
     children: React.PropTypes.node.isRequired
   },
 
@@ -24,6 +25,7 @@ const App = React.createClass({
           onSignOutClicked = {this.props.onSignOutClicked}
           onSignInClicked = {this.props.onSignInClicked}
           onTitleClicked = {this.props.onTitleClicked}
+          onProfileClicked = {this.props.onProfileClicked}
         />
         {this.props.children}
         <TopicFormController />

@@ -4,6 +4,7 @@ import accountCardReducer from './account_card_reducer.js'
 import accountReducer from './account_reducer.js'
 import topicFeedReducer from './topic_feed_reducer.js'
 import topicShowReducer from './topic_show_reducer.js'
+import profileReducer from './profile_reducer.js'
 import { routerReducer } from 'react-router-redux'
 
 export default combineReducers({
@@ -11,6 +12,7 @@ export default combineReducers({
   accountReducer,
   topics: topicFeedReducer,
   topicShow: topicShowReducer,
+  profile: profileReducer,
   form: formReducer,
   routing: routerReducer
 })

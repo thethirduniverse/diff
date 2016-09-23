@@ -28,6 +28,7 @@ class SessionsController < Devise::SessionsController
 
   def user_response(user)
     {
+      id: user.id,
       email: user.email
     }
   end

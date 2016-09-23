@@ -6,7 +6,8 @@ const actions = {
   userSignOut: 'USER_SIGN_OUT',
   topicFeedAppendBack: 'TOPIC_FEED_APPEND_BACK',
   topicFeedReload: 'TOPIC_FEED_RELOAD',
-  topicShowLoadTopic: 'TOPIC_SHOW_LOAD_TOPIC'
+  topicShowLoadTopic: 'TOPIC_SHOW_LOAD_TOPIC',
+  profileLoadUser: 'PROFILE_LOAD_USER'
 }
 export default actions
 
@@ -59,5 +60,12 @@ export const topicShowLoadTopic = (topic) => {
   return {
     type: actions.topicShowLoadTopic,
     topic
+  }
+}
+
+export const profileLoadUser = (user) => {
+  return {
+    type: actions.profileLoadUser,
+    user
   }
 }

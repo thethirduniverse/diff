@@ -49,8 +49,25 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onTitleClicked: () => {
       dispatch(push('/'))
+    },
+    _onProfileClicked: (id) => {
+      dispatch(push('/profiles/' + id))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  const { user } = stateProps
+  const { _onProfileClicked } = dispatchProps
+
+  return {
+    ...ownProps,
+    ...stateProps,
+    ...dispatchProps,
+    onProfileClicked: () => {
+      _onProfileClicked(user.id)
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(App)
