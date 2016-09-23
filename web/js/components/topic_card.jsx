@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
+import Chip from 'material-ui/Chip'
 
 const TopicCard = React.createClass({
   propTypes: {
@@ -32,6 +33,7 @@ const TopicCard = React.createClass({
           {this.props.topic.content}
         </CardText>
         <CardActions>
+          <Chip>{this.props.topic.view} views</Chip>
           <FlatButton label="Reply" />
           <FlatButton label="Report" />
         </CardActions>
