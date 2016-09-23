@@ -1,6 +1,6 @@
 import React from 'react'
 import NavBar from './nav_bar.jsx'
-import TopicForm from './topic_form.jsx'
+import TopicFormController from '../controllers/topic_form_controller.js'
 
 const App = React.createClass({
   propTypes: {
@@ -26,13 +26,7 @@ const App = React.createClass({
           onTitleClicked = {this.props.onTitleClicked}
         />
         {this.props.children}
-        <TopicForm
-          title = "Topic Form Title"
-          submitButtonLabel = "Submit"
-          onSubmit = {(data) => { console.log(data) }}
-          secondaryButtonLabel = "Secondary"
-          onSecondaryButtonClick = {() => { console.log('topic form secondary button clicked') }}
-        />
+        <TopicFormController />
       </div>
     )
   }
