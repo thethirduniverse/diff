@@ -3,6 +3,17 @@ import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import Chip from 'material-ui/Chip'
 
+// Example style from http://www.material-ui.com/#/components/chip
+const styles = {
+  chip: {
+    margin: 4
+  },
+  wrapper: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  }
+}
+
 const TopicCard = React.createClass({
   propTypes: {
     topic: React.PropTypes.object.isRequired,
@@ -32,6 +43,9 @@ const TopicCard = React.createClass({
           <FlatButton label="Report" />
         </div>
       )
+    const categoryChips = this.props.topic.categories.map((c) => (
+      <Chip key={c.id} style={styles.chip}>{c.name}</Chip>
+    ))
 
     return (
       <Card>
@@ -43,9 +57,10 @@ const TopicCard = React.createClass({
           onClick = {clickHandler} >
           {this.props.topic.content}
         </CardText>
-        <CardActions>
-          <Chip>{this.props.topic.view} views</Chip>
+        <CardActions style={styles.wrapper}>
           {actions}
+          <Chip style={styles.chip}>{this.props.topic.view} views</Chip>
+          {categoryChips}
         </CardActions>
       </Card>
     )
