@@ -2,3 +2,4 @@ topic1:
   id: 1
   title: Title 1
   content: Content 1
+  categories: [category1, category2]

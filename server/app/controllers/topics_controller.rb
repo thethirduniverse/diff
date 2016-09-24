@@ -44,7 +44,17 @@ class TopicsController < ApplicationController
       id: t.id,
       title: t.title,
       content: t.content,
-      view: t.view
+      view: t.view,
+      categories: t.categories.map do |c|
+        category_response c
+      end
+    }
+  end
+
+  def category_response(c)
+    {
+      id: c.id,
+      name: c.name
     }
   end
 
