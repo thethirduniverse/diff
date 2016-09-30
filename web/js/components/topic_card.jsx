@@ -41,12 +41,14 @@ const TopicCard = React.createClass({
 
     return (
       <Card>
-        <CardTitle
-          title = {this.props.topic.title}
-          onClick = {clickHandler}
-        />
-        <CardText
-          onClick = {clickHandler} >
+        <CardTitle onClick={clickHandler}>
+          <h2>
+            <a href="javascript:void(0)">
+              {this.props.topic.title}
+            </a>
+          </h2>
+        </CardTitle>
+        <CardText>
           {this.props.topic.content}
         </CardText>
         <CardActions>
