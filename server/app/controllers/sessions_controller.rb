@@ -16,8 +16,4 @@ class SessionsController < Devise::SessionsController
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
     render json: { newCSRFToken: form_authenticity_token }
   end
-
-  def verify
-    render json: verify_user
-  end
 end

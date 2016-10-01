@@ -40,24 +40,4 @@ class SessionsControllerTest < ActionController::TestCase
     assert_equal 200, @response.status
     refute_nil json['newCSRFToken']
   end
-
-  # Test Verify
-  test 'verify returns true and user info if user is signed in' do
-    adam = User.find(1)
-    sign_in adam
-    post :verify, xhr: true
-
-    json = JSON.parse(@response.body)
-    assert_equal true, json['signedIn']
-    assert_equal 'adam@example.com', json['user']['email']
-  end
-
-  test 'verify returns false if user is not signed in' do
-    post :verify, xhr: true
-
-    json = JSON.parse(@response.body)
-    empty_hash = {} # there seems to be an issue forbidding empty hash directly followed by comma
-    assert_equal false, json['signedIn']
-    assert_equal empty_hash, json['user']
-  end
 end
