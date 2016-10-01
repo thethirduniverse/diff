@@ -12,16 +12,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onComponentWillMount: () => {
-      $.get('/api/topics')
-        .done((res) => {
-          dispatch(topicFeedReload(res.topics))
-        })
-        .fail((res) => {
-          console.log('load topics from server failed with response:')
-          console.log(res)
-        })
-    },
     onCardClick: (id) => {
       dispatch(push('/topics/' + id))
     }
