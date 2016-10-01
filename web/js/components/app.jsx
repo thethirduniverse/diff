@@ -3,7 +3,7 @@ import NavBar from './nav_bar.jsx'
 
 const App = React.createClass({
   propTypes: {
-    onComponentWillMount: React.PropTypes.func.isRequired,
+    onComponentWillMount: React.PropTypes.func,
     onSignOutClicked: React.PropTypes.func.isRequired,
     onSignInClicked: React.PropTypes.func.isRequired,
     onTitleClicked: React.PropTypes.func.isRequired,
@@ -13,7 +13,10 @@ const App = React.createClass({
   },
 
   componentWillMount: function() {
-    this.props.onComponentWillMount()
+    const f = this.props.onComponentWillMount
+    if (f) {
+      f()
+    }
   },
 
   render: function() {

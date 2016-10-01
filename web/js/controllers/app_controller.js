@@ -14,20 +14,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onComponentWillMount: () => {
-      $.post('/api/users/verify').
-        done((res) => {
-          console.log('verify successed with response:')
-          console.log(res)
-          if (res.signedIn) {
-            dispatch(userSignIn(res.user))
-          }
-        }).
-        fail((res) => {
-          console.log('verify failed with response:')
-          console.log(res)
-        })
-    },
     onSignOutClicked: () => {
       $.ajax({
         url: '/api/users/sign_out',

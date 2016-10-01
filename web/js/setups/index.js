@@ -1,9 +1,11 @@
 import csrf_ajax from './csrf_ajax'
 import material_ui from './material_ui'
+import bootstrap from './bootstrap'
 
-export default function() {
+export default function(store) {
   [
     csrf_ajax,
-    material_ui
-  ].forEach((f) => { f() })
+    material_ui,
+    bootstrap
+  ].forEach((f) => { f(store) })
 }

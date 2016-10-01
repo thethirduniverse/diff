@@ -1,6 +1,3 @@
-import setups from './setups'
-setups()
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -19,6 +16,9 @@ const store = createStore(
   applyMiddleware(routerMiddleware(browserHistory), thunk, promise, logger)
 )
 const history = syncHistoryWithStore(browserHistory, store)
+
+import setups from './setups'
+setups(store)
 
 import routes from './routes.jsx'
 
