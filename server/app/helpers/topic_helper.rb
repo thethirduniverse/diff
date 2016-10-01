@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 module TopicHelper
+  include CategoryHelper
+
   def topics_feed
     topics = index_topics_query
 
@@ -29,13 +31,6 @@ module TopicHelper
       categories: t.categories.map do |c|
         category_response c
       end
-    }
-  end
-
-  def category_response(c)
-    {
-      id: c.id,
-      name: c.name
     }
   end
 end
