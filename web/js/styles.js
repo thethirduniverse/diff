@@ -6,5 +6,8 @@ export default {
   },
     chip: {
       margin: 4
+    },
+    title: {
+      cursor: 'pointer'
     }
 }

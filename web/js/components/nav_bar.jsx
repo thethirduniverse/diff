@@ -5,6 +5,7 @@ import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
 import MoodGoodIcon from 'material-ui/svg-icons/social/mood'
 import MoodBadIcon from 'material-ui/svg-icons/social/sentiment-dissatisfied'
+import styles from '../styles.js'
 
 const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked, onProfileClicked}) => {
   const iconMenu = (
@@ -31,7 +32,7 @@ const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked
   )
 
   return <AppBar
-    title = 'Debatable'
+    title={<span style={styles.title}>Debatable</span>}
     onTitleTouchTap = {onTitleClicked}
     showMenuIconButton = {false}
     iconElementRight = {iconMenu}
