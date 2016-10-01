@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class SessionsController < Devise::SessionsController
+  include UserHelper
   clear_respond_to
   respond_to :json
 
@@ -17,19 +18,6 @@ class SessionsController < Devise::SessionsController
   end
 
   def verify
-    if user_signed_in?
-      render json: { user: user_response(current_user), signedIn: true }
-    else
-      render json: { user: {}, signedIn: false }
-    end
-  end
-
-  private
-
-  def user_response(user)
-    {
-      id: user.id,
-      email: user.email
-    }
+    render json: verify_user
   end
 end
