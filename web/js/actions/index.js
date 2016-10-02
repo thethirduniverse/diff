@@ -6,6 +6,8 @@ const actions = {
   userSignOut: 'USER_SIGN_OUT',
   topicFeedAppendBack: 'TOPIC_FEED_APPEND_BACK',
   topicFeedReload: 'TOPIC_FEED_RELOAD',
+  topicFeedShowNewest: 'TOPIC_FEED_SHOW_NEWEST',
+  topicFeedShowCategory: 'TOPIC_FEED_SHOW_CATEGORY',
   topicShowLoadTopic: 'TOPIC_SHOW_LOAD_TOPIC',
   profileLoadUser: 'PROFILE_LOAD_USER',
   categoryLoad: 'CATEGORY_LOAD',
@@ -54,6 +56,19 @@ export const topicFeedReload = (topics) => {
   return {
     type: actions.topicFeedReload,
     topics
+  }
+}
+
+export const topicFeedShowNewest = () => {
+  return {
+    type: actions.topicFeedShowNewest
+  }
+}
+
+export const topicFeedShowCategory = (idx) => {
+  return {
+    type: actions.topicFeedShowCategory,
+    index: idx
   }
 }
 

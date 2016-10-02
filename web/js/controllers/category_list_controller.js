@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import $ from 'jquery'
 import CategoryList from '../components/category_list.jsx'
-import { categoryChange, categoryShowNewest } from '../actions'
+import { topicFeedShowNewest, topicFeedShowCategory } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -11,6 +11,12 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    clickedNewest: () => {
+      dispatch(topicFeedShowNewest())
+    },
+    clickedCategoryAtIndex: (idx) => {
+      dispatch(topicFeedShowCategory(idx))
+    }
   }
 }
 

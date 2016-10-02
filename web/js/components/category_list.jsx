@@ -3,11 +3,17 @@ import {List, ListItem, MakeSelectable} from 'material-ui/List'
 
 const CategoryList = React.createClass({
   propTypes: {
-    categories: React.PropTypes.array.isRequired
+    categories: React.PropTypes.array.isRequired,
+    clickedNewest: React.PropTypes.func.isRequired,
+    clickedCategoryAtIndex: React.PropTypes.func.isRequired
   },
 
   itemClicked: function(event, index) {
-    console.log('clicked item at position ' + index)
+    if (index === 0) {
+      this.props.clickedNewest()
+      return
+    }
+    this.props.clickedCategoryAtIndex(index - 1)
   },
 
   render: function() {

@@ -5,18 +5,10 @@ import TopicFormCard from './topic_form_card.jsx'
 const TopicFeed = React.createClass({
   propTypes: {
     topics: React.PropTypes.array.isRequired,
-    onComponentWillMount: React.PropTypes.func,
 
     /* Invoked when one of the cards in feed is clicked
      */
     onCardClick: React.PropTypes.func.isRequired
-  },
-
-  componentWillMount: function() {
-    const f = this.props.onComponentWillMount
-    if (f) {
-      f()
-    }
   },
 
   render: function() {
