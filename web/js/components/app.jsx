@@ -29,9 +29,7 @@ const App = React.createClass({
           onTitleClicked = {this.props.onTitleClicked}
           onProfileClicked = {this.props.onProfileClicked}
         />
-        <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            {this.props.children}
-        </div>
+        {this.props.children}
       </div>
     )
   }
