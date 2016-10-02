@@ -7,7 +7,8 @@ const actions = {
   topicFeedAppendBack: 'TOPIC_FEED_APPEND_BACK',
   topicFeedReload: 'TOPIC_FEED_RELOAD',
   topicShowLoadTopic: 'TOPIC_SHOW_LOAD_TOPIC',
-  profileLoadUser: 'PROFILE_LOAD_USER'
+  profileLoadUser: 'PROFILE_LOAD_USER',
+  categoryLoad: 'CATEGORY_LOAD',
 }
 export default actions
 
@@ -67,5 +68,12 @@ export const profileLoadUser = (user) => {
   return {
     type: actions.profileLoadUser,
     user
+  }
+}
+
+export const categoryLoad = (categories) => {
+  return {
+    type: actions.categoryLoad,
+    categories
   }
 }

@@ -15,7 +15,7 @@ const TopicFeed = React.createClass({
   componentWillMount: function() {
     const f = this.props.onComponentWillMount
     if (f) {
-      f();
+      f()
     }
   },
 
