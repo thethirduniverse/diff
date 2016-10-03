@@ -22,6 +22,9 @@ server/log/*
 server!/log/.keep
 server/tmp
 
+# Environment variables
+server/config/application.yml
+
 ####################################
 # Web
 ####################################
