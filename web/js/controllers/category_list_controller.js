@@ -5,7 +5,8 @@ import { topicFeedShowNewest, topicFeedShowCategory } from '../actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    categories: state.category.categories
+    categories: state.category.categories,
+    content: state.topics.content
   }
 }
 
