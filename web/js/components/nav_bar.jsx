@@ -3,16 +3,16 @@ import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
-import MoodGoodIcon from 'material-ui/svg-icons/social/mood'
-import MoodBadIcon from 'material-ui/svg-icons/social/sentiment-dissatisfied'
 import styles from '../styles.js'
+import FlatButton from 'material-ui/FlatButton'
+import MoreIcon from 'material-ui/svg-icons/navigation/more-vert'
 
 const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked, onProfileClicked}) => {
   const iconMenu = (
     userSignedIn
       ? <IconMenu
         iconButtonElement = {
-          <IconButton><MoodGoodIcon /></IconButton>
+          <IconButton><MoreIcon /></IconButton>
         }
         anchorOrigin = {{horizontal: 'right', vertical: 'bottom'}}
         targetOrigin = {{horizontal: 'right', vertical: 'top'}}
@@ -20,15 +20,7 @@ const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked
         <MenuItem primaryText="Profile" onClick={onProfileClicked} />
         <MenuItem primaryText="Sign Out" onClick={onSignOutClicked} />
       </IconMenu>
-      : <IconMenu
-        iconButtonElement = {
-          <IconButton><MoodBadIcon /></IconButton>
-        }
-        anchorOrigin = {{horizontal: 'right', vertical: 'bottom'}}
-        targetOrigin = {{horizontal: 'right', vertical: 'top'}}
-      >
-        <MenuItem primaryText="Sign In" onClick={onSignInClicked}/>
-      </IconMenu>
+      : <FlatButton label="Login" onClick={onSignInClicked}/>
   )
 
   return <AppBar
