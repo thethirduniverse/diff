@@ -8,7 +8,8 @@ const AccountCard = React.createClass({
     notHaveAccountClicked: React.PropTypes.func.isRequired,
     signInClicked: React.PropTypes.func.isRequired,
     signUpClicked: React.PropTypes.func.isRequired,
-    visible: React.PropTypes.string.isRequired
+    visible: React.PropTypes.string.isRequired,
+    errors: React.PropTypes.object
   },
 
   signInClicked: function(data) {
@@ -33,8 +34,8 @@ const AccountCard = React.createClass({
 
   render: function() {
     return this.props.visible === 'sign-in'
-      ? <SignInCard signInClicked={this.signInClicked} notHaveAccountClicked={this.notHaveAccountClicked}/>
-      : <SignUpCard signUpClicked={this.signUpClicked} haveAccountClicked={this.haveAccountClicked}/>
+      ? <SignInCard signInClicked={this.signInClicked} errors={this.props.errors} notHaveAccountClicked={this.notHaveAccountClicked}/>
+      : <SignUpCard signUpClicked={this.signUpClicked} errors={this.props.errors} haveAccountClicked={this.haveAccountClicked}/>
   }
 })
 

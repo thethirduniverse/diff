@@ -8,7 +8,8 @@ import { renderTextField, renderCheckbox } from '../helpers/redux_form_helpers.j
 var SignInBox = React.createClass({
   propTypes: {
     signInClicked: React.PropTypes.func.isRequired,
-    notHaveAccountClicked: React.PropTypes.func.isRequired
+    notHaveAccountClicked: React.PropTypes.func.isRequired,
+    errors: React.PropTypes.object
   },
 
   signInClicked: function(data) {
@@ -20,6 +21,7 @@ var SignInBox = React.createClass({
   },
 
   render: function() {
+    const formError = this.props.errors ? this.props.errors.form : null
     return (
       <Card>
         {/* eslint-disable react/prop-types */}
@@ -27,8 +29,8 @@ var SignInBox = React.createClass({
         {/* eslint-enable react/prop-types */}
           <CardHeader title="Sign In" />
           <CardText>
-            <Field name="email" label="Email" type="email" fullWidth={true} component={renderTextField} />
-            <Field name="password" label="Password" type="password" fullWidth={true} component={renderTextField} />
+            <Field name="email" label="Email" type="email" fullWidth={true} errorText={formError} component={renderTextField} />
+            <Field name="password" label="Password" type="password" fullWidth={true} errorText={formError} component={renderTextField} />
             <Field name="remember_me" label="Remember Me" component={renderCheckbox} />
           </CardText>
           <CardActions>

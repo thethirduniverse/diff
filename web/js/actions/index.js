@@ -4,6 +4,8 @@ const actions = {
   userSignIn: 'USER_SIGN_IN',
   userSignUp: 'USER_SIGN_UP',
   userSignOut: 'USER_SIGN_OUT',
+  userShowSignInError: 'USER_SHOW_SIGN_IN_ERROR',
+  userShowSignUpError: 'USER_SHOW_SIGN_UP_ERROR',
   topicFeedAppendBack: 'TOPIC_FEED_APPEND_BACK',
   topicFeedReload: 'TOPIC_FEED_RELOAD',
   topicFeedShowNewest: 'TOPIC_FEED_SHOW_NEWEST',
@@ -42,6 +44,20 @@ export const userSignUp = () => {
 export const userSignOut = () => {
   return {
     type: actions.userSignOut
+  }
+}
+
+export const userShowSignInError = (e) => {
+  return {
+    type: actions.userShowSignInError,
+    error: e
+  }
+}
+
+export const userShowSignUpError = (e) => {
+  return {
+    type: actions.userShowSignUpError,
+    error: e
   }
 }
 
