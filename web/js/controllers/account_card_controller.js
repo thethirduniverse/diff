@@ -26,9 +26,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           updatePageAndAjaxCSRFToken(res.newCSRFToken)
         })
         .fail((res) => {
-          console.log(res)
           if (res.status === 401) {
             dispatch(userShowSignInError({form: res.responseText}))
+          } else {
+            dispatch(userShowSignInError({form: 'operation failed for unknown reason'}))
           }
         })
     },
@@ -38,7 +39,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           dispatch(userSignUp(res))
         })
         .fail((res) => {
-          dispatch(userShowSignUpError(res.errors))
+          console.log(res)
+          if (res.status === 422) {
+            dispatch(userShowSignUpError(res.responseJSON['errors']))
+          } else {
+            dispatch(userShowSignUpError({form: 'operation failed for unknown reason'}))
+          }
         })
     }
   }

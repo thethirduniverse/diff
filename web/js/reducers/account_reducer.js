@@ -15,15 +15,18 @@ export default (state = defaultState, action) => {
         errors: null
       }
     case actions.userSignUp:
-      return state
-    case actions.userSignOut:
-      return defaultState
+      return {
+        ...state,
+        errors: null
+      }
     case actions.userShowSignInError:
     case actions.userShowSignUpError:
       return {
         ...state,
         errors: action.error
       }
+    case actions.userSignOut:
+      return defaultState
     default:
       return state
   }
