@@ -8,8 +8,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 psw = '12345678'
-user = User.create email: 'test@example.com', password: psw, password_confirmation: psw
-User.create email: 'gyan4@wisc.edu', password: psw, password_confirmation: psw
+user = User.create email: 'test@example.com', password: psw, password_confirmation: psw, confirmed_at: Time.now
+User.create email: 'gyan4@wisc.edu', password: psw, password_confirmation: psw, confirmed_at: Time.now
 
 %w(Other Religion Philosophy Politics).each do |c|
   Category.create name: c
