@@ -23,6 +23,7 @@ var SignUpBox = React.createClass({
   render: function() {
     const emailError = this.props.errors ? this.props.errors['email'] : null
     const passwordError = this.props.errors ? this.props.errors['password'] : null
+    const confirmationError = this.props.errors ? this.props.errors['password_confirmation'] : null
 
     return (
       <Card>
@@ -33,6 +34,7 @@ var SignUpBox = React.createClass({
           <CardText>
             <Field name="email" label="Email" type="email" fullWidth={true} errorText={emailError} component={renderTextField} />
             <Field name="password" label="Password" type="password" fullWidth={true} errorText={passwordError} component={renderTextField} />
+            <Field name="password_confirmation" label="Password Confirmation" type="password" fullWidth={true} errorText={confirmationError} component={renderTextField} />
           </CardText>
           <CardActions>
             <RaisedButton label="Sign Up" primary={true} style={{margin: 12}} type="submit" />
