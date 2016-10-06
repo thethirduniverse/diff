@@ -7,11 +7,15 @@ import { push } from 'react-router-redux'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    visible: state.accountReducer.visible_form,
+    visible: state.accountReducer.visible_content,
     errors: state.accountReducer.errors,
+    signUpEmail: state.accountReducer.sign_up_email,
     _userSignedIn: state.accountReducer.signed_in,
   }
 }
+
+const getUserFromSignInResponse = (res) => ( res.user )
+const getUserFromSignUpResponse = (res) => ( res )
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -24,7 +28,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     signInClicked: (data) => {
       $.post("/api/users/sign_in", {user: data})
         .done((res) => {
-          dispatch(userSignIn(res.user))
+          dispatch(userSignIn(getUserFromSignInResponse(res)))
           updatePageAndAjaxCSRFToken(res.newCSRFToken)
           dispatch(push('/'))
         })
@@ -39,7 +43,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     signUpClicked: (data) => {
       $.post("/api/users", {user: data})
         .done((res) => {
-          dispatch(userSignUp(res))
+          console.log(res)
+          dispatch(userSignUp(getUserFromSignUpResponse(res)))
         })
         .fail((res) => {
           console.log(res)
@@ -50,8 +55,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           }
         })
     },
-    _navigate: (url) => {
-      dispatch(push(url))
+    navigateToRoot: () => {
+      dispatch(push('/'))
     }
   }
 }
@@ -63,7 +68,7 @@ const mergeProps = (s, d, o) => {
     ...o,
     onComponentWillMount: () => {
       if (s._userSignedIn) {
-        d._navigate('/')
+        d.navigateToRoot()
       }
     }
   }

@@ -2,7 +2,8 @@ import actions from '../actions'
 
 const defaultState = {
   signed_in: false,
-  visible_form: 'sign-in',
+  visible_content: 'sign-in',
+  sign_up_email: null, //after sign up, temporary store user's email to display a tip.
   errors: null,
   user: {}
 }
@@ -11,13 +12,13 @@ export default (state = defaultState, action) => {
     case actions.userShowSignInForm:
       return {
         ...state,
-        visible_form: 'sign-in',
+        visible_content: 'sign-in',
         errors: null
       }
     case actions.userShowSignUpForm:
       return {
         ...state,
-        visible_form: 'sign-up',
+        visible_content: 'sign-up',
         errors: null
       }
     case actions.userSignIn:
@@ -30,6 +31,8 @@ export default (state = defaultState, action) => {
     case actions.userSignUp:
       return {
         ...state,
+        visible_content: 'email-confirmation',
+        sign_up_email: action.user.email,
         errors: null
       }
     case actions.userShowSignInError:

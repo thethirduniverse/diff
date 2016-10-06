@@ -14,5 +14,8 @@ class RegistrationsControllerTest < ActionController::TestCase
 
     assert_equal 201, @response.status
     refute_nil User.find_by_email('new@example.com')
+
+    json = JSON.parse(@response.body)
+    refute_nil json['email']
   end
 end

@@ -35,9 +35,10 @@ export const userSignIn = (user) => {
   }
 }
 
-export const userSignUp = () => {
+export const userSignUp = (user) => {
   return {
-    type: actions.userSignUp
+    type: actions.userSignUp,
+    user: user
   }
 }
 
