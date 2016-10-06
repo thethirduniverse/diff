@@ -33,4 +33,15 @@ module TopicHelper
       end
     }
   end
+
+  def topic_response_simplified(t)
+    {
+      id: t.id,
+      title: t.title,
+      view: t.view,
+      categories: t.categories.map do |c|
+        category_response c
+      end
+    }
+  end
 end

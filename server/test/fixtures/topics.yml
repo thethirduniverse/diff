@@ -15,3 +15,10 @@ topic_category1_only:
   title: Title 3
   content: Content 3
   categories: [category2]
+
+posted_by_one:
+  id: 4
+  title: Title 4
+  content: Content 4
+  categories: []
+  user_id: 1
