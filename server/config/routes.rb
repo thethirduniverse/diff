@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 Rails.application.routes.draw do
   scope :api do
-    devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations' }
+    devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations', confirmations: 'confirmations' }
 
     resources :topics, only: [:index, :show, :create]
 
