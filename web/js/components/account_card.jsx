@@ -8,6 +8,7 @@ const AccountCard = React.createClass({
     notHaveAccountClicked: React.PropTypes.func.isRequired,
     signInClicked: React.PropTypes.func.isRequired,
     signUpClicked: React.PropTypes.func.isRequired,
+    onComponentWillMount: React.PropTypes.func,
     visible: React.PropTypes.string.isRequired,
     errors: React.PropTypes.object
   },
@@ -30,6 +31,13 @@ const AccountCard = React.createClass({
   haveAccountClicked: function() {
     console.info('have account clicked')
     this.props.haveAccountClicked()
+  },
+
+  componentWillMount: function() {
+    const f = this.props.onComponentWillMount
+    if (f) {
+      f()
+    }
   },
 
   render: function() {

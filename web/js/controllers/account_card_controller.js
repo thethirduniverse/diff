@@ -3,11 +3,13 @@ import { userShowSignInForm, userShowSignUpForm, userSignIn, userSignUp, userSho
 import $ from 'jquery'
 import AccountCard from '../components/account_card.jsx'
 import { updatePageAndAjaxCSRFToken } from '../helpers/csrf_token_helpers.js'
+import { push } from 'react-router-redux'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     visible: state.accountReducer.visible_form,
-    errors: state.accountReducer.errors
+    errors: state.accountReducer.errors,
+    _userSignedIn: state.accountReducer.signed_in,
   }
 }
 
@@ -46,8 +48,24 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(userShowSignUpError({form: 'operation failed for unknown reason'}))
           }
         })
+    },
+    _navigate: (url) => {
+      dispatch(push(url))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AccountCard)
+const mergeProps = (s, d, o) => {
+  return {
+    ...s,
+    ...d,
+    ...o,
+    onComponentWillMount: () => {
+      if (s._userSignedIn) {
+        d._navigate('/')
+      }
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(AccountCard)
