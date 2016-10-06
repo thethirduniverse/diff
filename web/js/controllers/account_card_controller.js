@@ -1,12 +1,12 @@
 import { connect } from 'react-redux'
-import { accountCardShowSignIn, accountCardShowSignUp, userSignIn, userSignUp, userShowSignInError, userShowSignUpError } from '../actions'
+import { userShowSignInForm, userShowSignUpForm, userSignIn, userSignUp, userShowSignInError, userShowSignUpError } from '../actions'
 import $ from 'jquery'
 import AccountCard from '../components/account_card.jsx'
 import { updatePageAndAjaxCSRFToken } from '../helpers/csrf_token_helpers.js'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    visible: state.accountCardReducer.visible,
+    visible: state.accountReducer.visible_form,
     errors: state.accountReducer.errors
   }
 }
@@ -14,10 +14,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     notHaveAccountClicked: () => {
-      dispatch(accountCardShowSignUp())
+      dispatch(userShowSignUpForm())
     },
     haveAccountClicked: () => {
-      dispatch(accountCardShowSignIn())
+      dispatch(userShowSignInForm())
     },
     signInClicked: (data) => {
       $.post("/api/users/sign_in", {user: data})

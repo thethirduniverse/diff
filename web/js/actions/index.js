@@ -1,6 +1,6 @@
 const actions = {
-  accountCardShowSignIn: 'SHOW_SIGN_IN',
-  accountCardShowSignUp: 'SHOW_SIGN_UP',
+  userShowSignInForm: 'USER_SHOW_SIGN_IN_FORM',
+  userShowSignUpForm: 'USER_SHOW_SIGN_UP_FORM',
   userSignIn: 'USER_SIGN_IN',
   userSignUp: 'USER_SIGN_UP',
   userSignOut: 'USER_SIGN_OUT',
@@ -16,15 +16,15 @@ const actions = {
 }
 export default actions
 
-export const accountCardShowSignIn = () => {
+export const userShowSignInForm = () => {
   return {
-    type: actions.accountCardShowSignIn
+    type: actions.userShowSignInForm
   }
 }
 
-export const accountCardShowSignUp = () => {
+export const userShowSignUpForm = () => {
   return {
-    type: actions.accountCardShowSignUp
+    type: actions.userShowSignUpForm
   }
 }
 
