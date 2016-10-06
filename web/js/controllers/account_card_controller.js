@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         .done((res) => {
           dispatch(userSignIn(res.user))
           updatePageAndAjaxCSRFToken(res.newCSRFToken)
+          dispatch(push('/'))
         })
         .fail((res) => {
           if (res.status === 401) {
