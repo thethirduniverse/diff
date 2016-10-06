@@ -25,5 +25,7 @@ module Debatable
     config.active_record.raise_in_transactional_callbacks = true
 
     config.active_record.time_zone_aware_types = [:datetime]
+
+    config.active_job.queue_adapter = :delayed_job
   end
 end
