@@ -1,6 +1,7 @@
 import React from 'react'
-import TopicCard from './topic_card.jsx'
-import TopicFormCard from './topic_form_card.jsx'
+
+import TopicCard from 'components/topic_card.jsx'
+import TopicFormCard from 'components/topic_form_card.jsx'
 
 const TopicFeed = React.createClass({
   propTypes: {

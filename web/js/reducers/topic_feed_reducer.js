@@ -1,4 +1,4 @@
-import actions from '../actions'
+import actions from 'actions'
 
 export const contentTypes = {
   newest: "TOPIC_FEED_SHOW_NEWEST",

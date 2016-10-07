@@ -1,7 +1,8 @@
 import React from 'react'
-import SignInCard from './sign_in.jsx'
-import SignUpCard from './sign_up.jsx'
-import EmailConfirmationCard from './email_confirmation_card.jsx'
+
+import EmailConfirmationCard from 'components/email_confirmation_card.jsx'
+import SignInCard from 'components/sign_in.jsx'
+import SignUpCard from 'components/sign_up.jsx'
 
 const AccountCard = React.createClass({
   propTypes: {

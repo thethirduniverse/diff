@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../styles.js'
+import styles from '~/styles.js'
 
 const ChipList = React.createClass({
   propTypes: {

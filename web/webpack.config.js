@@ -1,9 +1,21 @@
 const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
   entry: "./js/debatable.jsx",
   output: {
     filename: "bundle.js"
+  },
+  resolve: {
+    alias: {
+      '~': path.resolve(__dirname, 'js'),
+      'actions': path.resolve(__dirname, 'js', 'actions'),
+      'components': path.resolve(__dirname, 'js', 'components'),
+      'controllers': path.resolve(__dirname, 'js', 'controllers'),
+      'helpers': path.resolve(__dirname, 'js', 'helpers'),
+      'reducers': path.resolve(__dirname, 'js', 'reducers'),
+      'setups': path.resolve(__dirname, 'js', 'setups')
+    }
   },
   module: {
     loaders: [

@@ -1,7 +1,8 @@
-import { connect } from 'react-redux'
 import $ from 'jquery'
-import CategoryList from '../components/category_list.jsx'
-import { topicFeedShowNewest, topicFeedShowCategory } from '../actions'
+import { connect } from 'react-redux'
+
+import CategoryList from 'components/category_list.jsx'
+import { topicFeedShowNewest, topicFeedShowCategory } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

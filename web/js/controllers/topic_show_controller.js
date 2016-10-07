@@ -1,7 +1,8 @@
-import { connect } from 'react-redux'
 import $ from 'jquery'
-import TopicShow from '../components/topic_show.jsx'
-import { topicShowLoadTopic } from '../actions'
+import { connect } from 'react-redux'
+
+import TopicShow from 'components/topic_show.jsx'
+import { topicShowLoadTopic } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

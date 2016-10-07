@@ -1,6 +1,7 @@
 import React from 'react'
 import {List, ListItem, MakeSelectable} from 'material-ui/List'
-import { contentTypes } from '../reducers/topic_feed_reducer.js'
+
+import { contentTypes } from 'reducers/topic_feed_reducer.js'
 
 const CategoryList = React.createClass({
   propTypes: {

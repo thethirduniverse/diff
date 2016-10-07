@@ -1,11 +1,12 @@
-import React from 'react'
 import AppBar from 'material-ui/AppBar'
+import FlatButton from 'material-ui/FlatButton'
 import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
-import styles from '../styles.js'
-import FlatButton from 'material-ui/FlatButton'
 import MoreIcon from 'material-ui/svg-icons/navigation/more-vert'
+import React from 'react'
+
+import styles from '~/styles.js'
 
 const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked, onProfileClicked}) => {
   const iconMenu = (

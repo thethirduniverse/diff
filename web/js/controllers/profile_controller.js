@@ -1,7 +1,8 @@
-import { connect } from 'react-redux'
 import $ from 'jquery'
-import Profile from '../components/profile.jsx'
-import { profileLoadUser } from '../actions'
+import { connect } from 'react-redux'
+
+import Profile from 'components/profile.jsx'
+import { profileLoadUser } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

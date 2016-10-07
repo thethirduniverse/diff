@@ -1,9 +1,10 @@
-import { connect } from 'react-redux'
 import $ from 'jquery'
-import TopicForm from '../components/topic_form.jsx'
-import { topicFeedReload } from '../actions'
+import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
+
+import TopicForm from 'components/topic_form.jsx'
+import { topicFeedReload } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

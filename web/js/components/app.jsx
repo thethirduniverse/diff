@@ -1,5 +1,6 @@
 import React from 'react'
-import NavBar from './nav_bar.jsx'
+
+import NavBar from 'components/nav_bar.jsx'
 
 const App = React.createClass({
   propTypes: {

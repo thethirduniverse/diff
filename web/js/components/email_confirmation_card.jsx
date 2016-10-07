@@ -1,6 +1,6 @@
+import RaisedButton from 'material-ui/RaisedButton'
 import React from 'react'
 import { Card, CardText, CardActions, CardHeader } from 'material-ui/Card'
-import RaisedButton from 'material-ui/RaisedButton'
 
 var EmailConfirmationCard = React.createClass({
   propTypes: {

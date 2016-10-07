@@ -1,9 +1,10 @@
+import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 import React from 'react'
 import { Card, CardText, CardActions, CardHeader } from 'material-ui/Card'
-import RaisedButton from 'material-ui/RaisedButton'
-import FlatButton from 'material-ui/FlatButton'
 import { Field, reduxForm } from 'redux-form'
-import { renderTextField } from '../helpers/redux_form_helpers.jsx'
+
+import { renderTextField } from 'helpers/redux_form_helpers.jsx'
 
 var SignUpBox = React.createClass({
   propTypes: {

@@ -1,6 +1,7 @@
 import React from 'react'
-import TopicFeedController from '../controllers/topic_feed_controller.js'
-import CategoryListController from '../controllers/category_list_controller.js'
+
+import CategoryListController from 'controllers/category_list_controller.js'
+import TopicFeedController from 'controllers/topic_feed_controller.js'
 
 const Home = React.createClass({
   propTypes: {

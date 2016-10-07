@@ -1,7 +1,8 @@
-import React from 'react'
-import TopicCard from './topic_card.jsx'
-import NoReplyCard from './no_reply_card.jsx'
 import CircularProgress from 'material-ui/CircularProgress'
+import React from 'react'
+
+import NoReplyCard from 'components/no_reply_card.jsx'
+import TopicCard from 'components/topic_card.jsx'
 
 const TopicShow = React.createClass({
   propTypes: {

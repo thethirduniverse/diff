@@ -1,10 +1,11 @@
+import Chip from 'material-ui/Chip'
+import FlatButton from 'material-ui/FlatButton'
 import React from 'react'
 import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
-import FlatButton from 'material-ui/FlatButton'
-import CategoryChip from './category_chip.jsx'
-import ChipList from './chip_list.jsx'
-import Chip from 'material-ui/Chip'
-import styles from '../styles.js'
+
+import CategoryChip from 'components/category_chip.jsx'
+import ChipList from 'components/chip_list.jsx'
+import styles from '~/styles.js'
 
 const TopicCard = React.createClass({
   propTypes: {

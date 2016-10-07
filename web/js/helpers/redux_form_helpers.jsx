@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types, no-unneeded-ternary */
 // Copy and paste from http://redux-form.com/6.0.2/examples/material-ui/
 
-import React from 'react'
-import TextField from 'material-ui/TextField'
 import Checkbox from 'material-ui/Checkbox'
-import { RadioButtonGroup } from 'material-ui/RadioButton'
+import React from 'react'
 import SelectField from 'material-ui/SelectField'
+import TextField from 'material-ui/TextField'
+import { RadioButtonGroup } from 'material-ui/RadioButton'
 
 export const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
     <TextField hintText={label}

@@ -1,4 +1,4 @@
-import { userSignIn, userSignOut, topicFeedReload, categoryLoad } from '../actions'
+import { userSignIn, userSignOut, topicFeedReload, categoryLoad } from 'actions'
 
 export default function(store) {
   const data = JSON.parse(document.getElementById('bootstrap').innerHTML)

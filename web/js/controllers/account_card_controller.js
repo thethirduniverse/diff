@@ -1,9 +1,10 @@
-import { connect } from 'react-redux'
-import { userShowSignInForm, userShowSignUpForm, userSignIn, userSignUp, userShowSignInError, userShowSignUpError } from '../actions'
 import $ from 'jquery'
-import AccountCard from '../components/account_card.jsx'
-import { updatePageAndAjaxCSRFToken } from '../helpers/csrf_token_helpers.js'
+import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
+
+import AccountCard from 'components/account_card.jsx'
+import { updatePageAndAjaxCSRFToken } from 'helpers/csrf_token_helpers.js'
+import { userShowSignInForm, userShowSignUpForm, userSignIn, userSignUp, userShowSignInError, userShowSignUpError } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

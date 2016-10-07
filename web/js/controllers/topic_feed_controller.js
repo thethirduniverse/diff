@@ -1,9 +1,10 @@
-import { connect } from 'react-redux'
 import $ from 'jquery'
+import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import TopicFeed from '../components/topic_feed.jsx'
-import { topicFeedReload } from '../actions'
-import { contentTypes } from '../reducers/topic_feed_reducer.js'
+
+import TopicFeed from 'components/topic_feed.jsx'
+import { contentTypes } from 'reducers/topic_feed_reducer.js'
+import { topicFeedReload } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

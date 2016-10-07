@@ -1,6 +1,6 @@
-import csrf_ajax from './csrf_ajax'
-import material_ui from './material_ui'
-import bootstrap from './bootstrap'
+import csrf_ajax from 'setups/csrf_ajax.js'
+import material_ui from 'setups/material_ui.js'
+import bootstrap from 'setups/bootstrap.js'
 
 export default function(store) {
   [

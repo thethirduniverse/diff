@@ -1,5 +1,5 @@
 const defaultState = {}
-import actions from '../actions'
+import actions from 'actions'
 
 export default (state = defaultState, action) => {
   switch (action.type) {

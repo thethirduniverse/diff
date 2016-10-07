@@ -1,6 +1,7 @@
 import React from 'react'
-import TopicFormController from '../controllers/topic_form_controller.js'
 import { Card, CardTitle, CardText } from 'material-ui/Card'
+
+import TopicFormController from 'controllers/topic_form_controller.js'
 
 const TopicFormCard = React.createClass({
   propTypes: {

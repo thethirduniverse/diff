@@ -1,9 +1,10 @@
-import { connect } from 'react-redux'
 import $ from 'jquery'
+import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
-import App from '../components/app.jsx'
-import { userSignIn, userSignOut } from '../actions'
-import { updatePageAndAjaxCSRFToken } from '../helpers/csrf_token_helpers.js'
+
+import App from 'components/app.jsx'
+import { updatePageAndAjaxCSRFToken } from 'helpers/csrf_token_helpers.js'
+import { userSignIn, userSignOut } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

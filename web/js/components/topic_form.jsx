@@ -1,8 +1,9 @@
-import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
+import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import { renderTextField } from '../helpers/redux_form_helpers.jsx'
+
+import { renderTextField } from 'helpers/redux_form_helpers.jsx'
 
 var TopicForm = React.createClass({
   propTypes: {

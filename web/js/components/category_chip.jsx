@@ -1,6 +1,7 @@
-import React from 'react'
 import Chip from 'material-ui/Chip'
-import styles from '../styles.js'
+import React from 'react'
+
+import styles from '~/styles.js'
 
 const CategoryChip = React.createClass({
   propTypes: {
