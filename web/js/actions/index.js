@@ -13,6 +13,7 @@ const actions = {
   topicShowLoadTopic: 'TOPIC_SHOW_LOAD_TOPIC',
   topicFormAddCategory: 'TOPIC_FORM_ADD_CATEGORY',
   topicFormRemoveCategory: 'TOPIC_FORM_REMOVE_CATEGORY',
+  topicFormUpdateCategoryFilter: 'TOPIC_FORM_UPDATE_CATEGORY_FILTER',
   profileLoadUser: 'PROFILE_LOAD_USER',
   categoryLoad: 'CATEGORY_LOAD',
 }
@@ -109,6 +110,13 @@ export const topicFormRemoveCategory = (categoryId) => {
   return {
     type: actions.topicFormRemoveCategory,
     categoryId
+  }
+}
+
+export const topicFormUpdateCategoryFilter = (filter) => {
+  return {
+    type: actions.topicFormUpdateCategoryFilter,
+    filter
   }
 }
 

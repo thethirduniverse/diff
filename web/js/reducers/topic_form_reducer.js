@@ -1,7 +1,8 @@
 import actions from 'actions'
 
 const defaultState = {
-  categories: [{id: 1, name: 'AAA'}, {id: 2, name: 'BBB'}]
+  categories: [],
+  filter: ''
 }
 
 const sortByName = (c1, c2) => {
@@ -25,6 +26,11 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         categories: state.categories.filter((c) => (c.id != action.categoryId)).sort(sortByName)
+      }
+    case actions.topicFormUpdateCategoryFilter:
+      return {
+        ...state,
+        filter: action.filter
       }
     default:
       return state

@@ -1,3 +1,4 @@
+import AutoComplete from 'material-ui/AutoComplete'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import React from 'react'
@@ -18,7 +19,10 @@ var TopicForm = React.createClass({
     onSecondaryButtonClick: React.PropTypes.func,
 
     categories: React.PropTypes.array.isRequired,
-    onRequestDelete: React.PropTypes.func
+    onRequestDelete: React.PropTypes.func,
+    categoryAutoCompletions: React.PropTypes.array,
+    onUpdateCategoryInput: React.PropTypes.func.isRequired,
+    onNewCategoryRequest: React.PropTypes.func.isRequired
   },
 
   getDefaultProps: () => {
@@ -33,6 +37,8 @@ var TopicForm = React.createClass({
       <CategoryChip key={c.id} category={c} onRequestDelete={this.props.onRequestDelete} />
     ))
 
+    console.log(this.props.categoryAutoCompletions)
+
     return (
       /* eslint-disable react/prop-types */
       <form onSubmit={this.props.handleSubmit(this.props.onSubmit)}>
@@ -41,6 +47,17 @@ var TopicForm = React.createClass({
         <Field name="topic[content]" label="Content" type="text" fullWidth={true} multiLine={true} component={renderTextField} />
         <ChipList>
           {categoryChips}
+          {/* Suppose user entered 'a', and there is a category called 'AAA'.
+         It is the controller that figures out 'AAA' should be in the dateSource
+         array. The existence of the filter field on AutoComplete is simply to
+         let AutoComplete recognize the option 'AAA'. */}
+          <AutoComplete
+            hintText="Enter a category"
+            filter={AutoComplete.caseInsensitiveFilter}
+            dataSource={this.props.categoryAutoCompletions}
+            onUpdateInput={this.props.onUpdateCategoryInput}
+            onNewRequest={this.props.onNewCategoryRequest}
+          />
         </ChipList>
         <RaisedButton label={this.props.submitButtonLabel} primary={true} style={{margin: 12}} type="submit" />
         <FlatButton label={this.props.secondaryButtonLabel} secondary={true} onClick={this.props.onSecondaryButtonClick} />
