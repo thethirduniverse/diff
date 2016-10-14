@@ -38,12 +38,8 @@ var TopicForm = React.createClass({
       <CategoryChip key={c.id} category={c} onRequestDelete={this.props.onRequestDelete} />
     ))
 
-    console.log(this.props.categoryAutoCompletions)
-
     return (
-      /* eslint-disable react/prop-types */
-      <form onSubmit={this.props.handleSubmit(this.props.onSubmit)}>
-        {/* eslint-enable react/prop-types */}
+      <form>
         <Field name="topic[title]" label="Title" type="text" fullWidth={true} component={renderTextField} />
         <Field name="topic[content]" label="Content" type="text" fullWidth={true} multiLine={true} component={renderTextField} />
         <ChipList>
@@ -52,18 +48,20 @@ var TopicForm = React.createClass({
          It is the controller that figures out 'AAA' should be in the dateSource
          array. The existence of the filter field on AutoComplete is simply to
          let AutoComplete recognize the option 'AAA'. */}
-          <AutoComplete
-            hintText="Enter a category"
-            filter={AutoComplete.caseInsensitiveFilter}
-            dataSource={this.props.categoryAutoCompletions}
-            onUpdateInput={this.props.onUpdateCategoryInput}
-            onNewRequest={this.props.onNewCategoryRequest}
-            searchText={this.props.categoryInput}
-          />
-        </ChipList>
-        <RaisedButton label={this.props.submitButtonLabel} primary={true} style={{margin: 12}} type="submit" />
-        <FlatButton label={this.props.secondaryButtonLabel} secondary={true} onClick={this.props.onSecondaryButtonClick} />
-      </form>
+         <AutoComplete
+           hintText="Enter a category"
+           filter={AutoComplete.caseInsensitiveFilter}
+           dataSource={this.props.categoryAutoCompletions}
+           onUpdateInput={this.props.onUpdateCategoryInput}
+           onNewRequest={this.props.onNewCategoryRequest}
+           searchText={this.props.categoryInput}
+         />
+       </ChipList>
+       {/* eslint-disable react/prop-types */}
+       <RaisedButton label={this.props.submitButtonLabel} primary={true} style={{margin: 12}} onClick={this.props.handleSubmit(this.props.onSubmit)}/>
+       {/* eslint-enable react/prop-types */}
+       <FlatButton label={this.props.secondaryButtonLabel} secondary={true} onClick={this.props.onSecondaryButtonClick} />
+     </form>
     )
   }
 })
