@@ -4,10 +4,11 @@ import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import TopicForm from 'components/topic_form.jsx'
-import { topicFeedReload } from 'actions'
+import { topicFeedReload, topicFormRemoveCategory } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    categories: state.topicForm.categories
   }
 }
 
@@ -23,6 +24,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           console.log('create new topic failed with response:')
           console.log(res)
         })
+    },
+    onRequestDelete: (id) => {
+      dispatch(topicFormRemoveCategory(id))
     }
   }
 }

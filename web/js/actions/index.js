@@ -11,6 +11,8 @@ const actions = {
   topicFeedShowNewest: 'TOPIC_FEED_SHOW_NEWEST',
   topicFeedShowCategory: 'TOPIC_FEED_SHOW_CATEGORY',
   topicShowLoadTopic: 'TOPIC_SHOW_LOAD_TOPIC',
+  topicFormAddCategory: 'TOPIC_FORM_ADD_CATEGORY',
+  topicFormRemoveCategory: 'TOPIC_FORM_REMOVE_CATEGORY',
   profileLoadUser: 'PROFILE_LOAD_USER',
   categoryLoad: 'CATEGORY_LOAD',
 }
@@ -93,6 +95,20 @@ export const topicShowLoadTopic = (topic) => {
   return {
     type: actions.topicShowLoadTopic,
     topic
+  }
+}
+
+export const topicFormAddCategory = (category) => {
+  return {
+    type: actions.topicFormAddCategory,
+    category
+  }
+}
+
+export const topicFormRemoveCategory = (categoryId) => {
+  return {
+    type: actions.topicFormRemoveCategory,
+    categoryId
   }
 }
 
