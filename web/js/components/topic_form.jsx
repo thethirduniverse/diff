@@ -22,7 +22,8 @@ var TopicForm = React.createClass({
     onRequestDelete: React.PropTypes.func,
     categoryAutoCompletions: React.PropTypes.array,
     onUpdateCategoryInput: React.PropTypes.func.isRequired,
-    onNewCategoryRequest: React.PropTypes.func.isRequired
+    onNewCategoryRequest: React.PropTypes.func.isRequired,
+    categoryInput: React.PropTypes.string.isRequired
   },
 
   getDefaultProps: () => {
@@ -57,6 +58,7 @@ var TopicForm = React.createClass({
             dataSource={this.props.categoryAutoCompletions}
             onUpdateInput={this.props.onUpdateCategoryInput}
             onNewRequest={this.props.onNewCategoryRequest}
+            searchText={this.props.categoryInput}
           />
         </ChipList>
         <RaisedButton label={this.props.submitButtonLabel} primary={true} style={{margin: 12}} type="submit" />

@@ -9,12 +9,13 @@ import { topicFeedReload, topicFormAddCategory, topicFormRemoveCategory, topicFo
 const mapStateToProps = (state, ownProps) => {
   return {
     categories: state.topicForm.categories,
-    _allCategories: state.category.categories,
     categoryAutoCompletions: state.category.categories.filter(
       (c) => (c.name.toLowerCase().includes(state.topicForm.filter.toLowerCase()))
     ).map(
       (c) => (c.name)
-    )
+    ),
+    categoryInput: state.topicForm.filter,
+    _allCategories: state.category.categories,
   }
 }
 
