@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import { connect } from 'react-redux'
 
-import CategoryList from 'components/category_list.jsx'
+import NavigationList from 'components/navigation_list.jsx'
 import { topicFeedShowNewest, topicFeedShowCategory } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
@@ -22,4 +22,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryList)
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationList)

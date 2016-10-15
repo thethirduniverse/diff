@@ -3,7 +3,7 @@ import {List, ListItem, MakeSelectable} from 'material-ui/List'
 
 import { contentTypes } from 'reducers/topic_feed_reducer.js'
 
-const CategoryList = React.createClass({
+const NavigationList = React.createClass({
   propTypes: {
     categories: React.PropTypes.array.isRequired,
     clickedNewest: React.PropTypes.func.isRequired,
@@ -58,4 +58,4 @@ const CategoryList = React.createClass({
   }
 })
 
-export default CategoryList
+export default NavigationList
