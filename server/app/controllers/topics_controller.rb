@@ -27,6 +27,7 @@ class TopicsController < ApplicationController
   def create
     topic = Topic.new(topic_params)
     topic[:user_id] = current_user.id
+    add_categories topic
     topic.save!
 
     render json: {
@@ -35,6 +36,10 @@ class TopicsController < ApplicationController
   end
 
   private
+
+  def add_categories(topic)
+    topic.categories << params[:topic][:category_ids].map { |id| Category.find_by_id(id) }.compact if params[:topic][:category_ids]
+  end
 
   def topic_params
     params.require(:topic).permit(:title, :content)

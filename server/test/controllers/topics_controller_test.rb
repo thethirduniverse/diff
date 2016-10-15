@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'test_helper'
 
+# rubocop:disable ClassLength
 class TopicsControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
@@ -87,5 +88,56 @@ class TopicsControllerTest < ActionController::TestCase
 
     assert_equal 401, @response.status
     assert_nil Topic.find_by_title('New Topic')
+  end
+
+  test 'user can specify an array of category ids' do
+    assert_nil Topic.find_by_title('New Topic')
+    adam = User.find(1)
+    sign_in adam
+    post :create, xhr: true, params: { 'topic[title]': 'New Topic',
+                                       'topic[content]': 'New Content',
+                                       'topic[category_ids]': [
+                                         categories(:category1).id,
+                                         categories(:category2).id
+                                       ] }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+    refute_nil json['topic']
+
+    topic = Topic.find_by_title('New Topic')
+    refute_nil topic
+
+    category_ids = topic.category_ids
+    assert_equal 2, category_ids.length
+    assert_includes category_ids, categories(:category1).id
+    assert_includes category_ids, categories(:category2).id
+  end
+
+  test 'invalid category is droped' do
+    assert_nil Topic.find_by_title('New Topic')
+    assert_equal(false, Category.exists?(99999), msg: "don't expect a category to have id 99999")
+
+    adam = User.find(1)
+    sign_in adam
+    post :create, xhr: true, params: { 'topic[title]': 'New Topic',
+                                       'topic[content]': 'New Content',
+                                       'topic[category_ids]': [
+                                         categories(:category1).id,
+                                         categories(:category2).id,
+                                         99999
+                                       ] }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+    refute_nil json['topic']
+
+    topic = Topic.find_by_title('New Topic')
+    refute_nil topic
+
+    category_ids = topic.category_ids
+    assert_equal 2, category_ids.length
+    assert_includes category_ids, categories(:category1).id
+    assert_includes category_ids, categories(:category2).id
   end
 end
