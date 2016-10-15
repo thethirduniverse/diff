@@ -10,11 +10,17 @@ const containsFilter = (name, key) => (
   name.toLowerCase().includes(key.toLowerCase())
 )
 
+const notSelectedFilter = (currentCategories, name) => (
+  !currentCategories.find((c) => (c.name === name))
+)
+
 const mapStateToProps = (state, ownProps) => {
   return {
     categories: state.topicForm.categories,
     categoryAutoCompletions: state.category.categories.filter(
       (c) => (containsFilter(c.name, state.topicForm.filter))
+    ).filter(
+      (c) => (notSelectedFilter(state.topicForm.categories, c.name))
     ).map(
       (c) => (c.name)
     ),
@@ -42,12 +48,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onUpdateCategoryInput: (text) => {
       dispatch(topicFormUpdateCategoryFilter(text))
     },
-    _onNewCategoryRequest: (categories, text, idx) => {
+    _onNewCategoryRequest: (allCategories, currentCategories, text, idx) => {
       let cat
       if (idx === -1) {
-        cat = categories.find((c) => (containsFilter(c.name, text)))
+        cat = allCategories.find((c) => (containsFilter(c.name, text) && notSelectedFilter(currentCategories, c.name)))
       } else {
-        cat = categories.find((c) => (c.name === text))
+        cat = allCategories.find((c) => (c.name === text))
       }
       if (cat) {
         dispatch(topicFormAddCategory(cat))
@@ -62,7 +68,7 @@ const mergeProps = (s, d, o) => {
     ...d,
     ...o,
     onNewCategoryRequest: (text, idx) => {
-      d._onNewCategoryRequest(s._allCategories, text, idx)
+      d._onNewCategoryRequest(s._allCategories, s.categories, text, idx)
     }
   }
 }
