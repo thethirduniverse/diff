@@ -6,11 +6,15 @@ import { reset } from 'redux-form'
 import TopicForm from 'components/topic_form.jsx'
 import { topicFeedReload, topicFormAddCategory, topicFormRemoveCategory, topicFormUpdateCategoryFilter } from 'actions'
 
+const containsFilter = (name, key) => (
+  name.toLowerCase().includes(key.toLowerCase())
+)
+
 const mapStateToProps = (state, ownProps) => {
   return {
     categories: state.topicForm.categories,
     categoryAutoCompletions: state.category.categories.filter(
-      (c) => (c.name.toLowerCase().includes(state.topicForm.filter.toLowerCase()))
+      (c) => (containsFilter(c.name, state.topicForm.filter))
     ).map(
       (c) => (c.name)
     ),
@@ -39,7 +43,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(topicFormUpdateCategoryFilter(text))
     },
     _onNewCategoryRequest: (categories, text, idx) => {
-      dispatch(topicFormAddCategory(categories.find((c) => (c.name === text))))
+      let cat
+      if (idx === -1) {
+        cat = categories.find((c) => (containsFilter(c.name, text)))
+      } else {
+        cat = categories.find((c) => (c.name === text))
+      }
+      if (cat) {
+        dispatch(topicFormAddCategory(cat))
+      }
     }
   }
 }
