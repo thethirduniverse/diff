@@ -40,8 +40,6 @@ var TopicForm = React.createClass({
       <CategoryChip key={c.id} category={c} onRequestDelete={this.props.onRequestDelete} />
     ))
 
-    console.log(this.props.errors)
-
     return (
       <form>
         <Field name="topic[title]" label="Title" type="text" fullWidth={true} errorText={this.props.errors.title} component={renderTextField} />
