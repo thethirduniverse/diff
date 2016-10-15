@@ -4,7 +4,7 @@ import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import TopicForm from 'components/topic_form.jsx'
-import { topicFeedReload, topicFormAddCategory, topicFormRemoveCategory, topicFormUpdateCategoryFilter } from 'actions'
+import { topicFeedReload, topicFormAddCategory, topicFormRemoveCategory, topicFormUpdateCategoryFilter, topicFormUpdateErrors } from 'actions'
 
 const containsFilter = (name, key) => (
   name.toLowerCase().includes(key.toLowerCase())
@@ -25,6 +25,7 @@ const mapStateToProps = (state, ownProps) => {
       (c) => (c.name)
     ),
     categoryInput: state.topicForm.filter,
+    errors: state.topicForm.errors,
     _allCategories: state.category.categories,
   }
 }
@@ -34,12 +35,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     _onSubmit: (data) => {
       $.post('/api/topics', data)
         .done((res) => {
+          dispatch(topicFormUpdateErrors({}))
           dispatch(push('/topics/' + res.topic.id))
           dispatch(reset('topic-form'))
         })
         .fail((res) => {
-          console.log('create new topic failed with response:')
-          console.log(res)
+          dispatch(topicFormUpdateErrors(res.responseJSON.errors))
         })
     },
     onRequestDelete: (id) => {

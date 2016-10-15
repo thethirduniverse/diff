@@ -23,7 +23,9 @@ var TopicForm = React.createClass({
     categoryAutoCompletions: React.PropTypes.array,
     onUpdateCategoryInput: React.PropTypes.func.isRequired,
     onNewCategoryRequest: React.PropTypes.func.isRequired,
-    categoryInput: React.PropTypes.string.isRequired
+    categoryInput: React.PropTypes.string.isRequired,
+
+    errors: React.PropTypes.object
   },
 
   getDefaultProps: () => {
@@ -38,10 +40,12 @@ var TopicForm = React.createClass({
       <CategoryChip key={c.id} category={c} onRequestDelete={this.props.onRequestDelete} />
     ))
 
+    console.log(this.props.errors)
+
     return (
       <form>
-        <Field name="topic[title]" label="Title" type="text" fullWidth={true} component={renderTextField} />
-        <Field name="topic[content]" label="Content" type="text" fullWidth={true} multiLine={true} component={renderTextField} />
+        <Field name="topic[title]" label="Title" type="text" fullWidth={true} errorText={this.props.errors.title} component={renderTextField} />
+        <Field name="topic[content]" label="Content" type="text" fullWidth={true} multiLine={true} errorText={this.props.errors.content} component={renderTextField} />
         <ChipList>
           {categoryChips}
           {/* Suppose user entered 'a', and there is a category called 'AAA'.
