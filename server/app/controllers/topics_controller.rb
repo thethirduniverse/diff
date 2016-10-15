@@ -28,11 +28,16 @@ class TopicsController < ApplicationController
     topic = Topic.new(topic_params)
     topic[:user_id] = current_user.id
     add_categories topic
-    topic.save!
-
-    render json: {
-      topic: topic_response(topic)
-    }
+    if topic.valid?
+      topic.save!
+      render json: {
+        topic: topic_response(topic)
+      }
+    else
+      render json: {
+        errors: topic.errors.messages
+      }, status: 400
+    end
   end
 
   private

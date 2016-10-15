@@ -90,6 +90,36 @@ class TopicsControllerTest < ActionController::TestCase
     assert_nil Topic.find_by_title('New Topic')
   end
 
+  test 'cannot post without content' do
+    assert_nil Topic.find_by_title('New Topic')
+    adam = User.find(1)
+    sign_in adam
+    post :create, xhr: true, params: { 'topic[title]': 'New Topic' }
+
+    json = JSON.parse(@response.body)
+    assert_equal 400, @response.status
+    refute_nil json['errors']
+    assert_equal ['can\'t be blank'], json['errors']['content']
+
+    topic = Topic.find_by_title('New Topic')
+    assert_nil topic
+  end
+
+  test 'cannot post without title' do
+    assert_nil Topic.find_by_content('New Content')
+    adam = User.find(1)
+    sign_in adam
+    post :create, xhr: true, params: { 'topic[content]': 'New Content' }
+
+    json = JSON.parse(@response.body)
+    assert_equal 400, @response.status
+    refute_nil json['errors']
+    assert_equal ['can\'t be blank'], json['errors']['title']
+
+    topic = Topic.find_by_content('New Content')
+    assert_nil topic
+  end
+
   test 'user can specify an array of category ids' do
     assert_nil Topic.find_by_title('New Topic')
     adam = User.find(1)
