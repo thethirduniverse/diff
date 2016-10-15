@@ -31,7 +31,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onSubmit: (data) => {
+    _onSubmit: (data) => {
       $.post('/api/topics', data)
         .done((res) => {
           dispatch(push('/topics/' + res.topic.id))
@@ -69,6 +69,12 @@ const mergeProps = (s, d, o) => {
     ...o,
     onNewCategoryRequest: (text, idx) => {
       d._onNewCategoryRequest(s._allCategories, s.categories, text, idx)
+    },
+    onSubmit: (data) => {
+      d._onSubmit({
+        ...data,
+        'topic[category_ids]': s.categories.map((c)=>(c.id))
+      })
     }
   }
 }
