@@ -16,5 +16,8 @@ User.create email: 'unconfirmed@example.com', password: psw, password_confirmati
   Category.create name: c
 end
 
-Topic.create user_id: user.id, title: 'Should eating apples be banned', content: '15 reasons not to ban eating apples...'
+t1 = Topic.create user_id: user.id, title: 'Should eating apples be banned', content: '15 reasons not to ban eating apples...'
+Reply.create title: 'That sounds good', content: 'I agree', creator: user, topic: t1
+Reply.create title: 'That doesn not sound right', content: 'I don\'t agree', creator: user, topic: t1
+
 Topic.create user_id: user.id, title: 'A complicated question', content: 'What is this question about?', categories: [Category.find(1)]
