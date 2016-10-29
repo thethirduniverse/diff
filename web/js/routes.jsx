@@ -5,6 +5,7 @@ import AccountCardController from 'controllers/account_card_controller.js'
 import AppController from 'controllers/app_controller.js'
 import HomeController from 'controllers/home_controller.js'
 import ProfileController from 'controllers/profile_controller.js'
+import TopicFormCard from 'components/topic_form_card.jsx'
 import TopicShowController from 'controllers/topic_show_controller.js'
 
 export default (
@@ -12,6 +13,7 @@ export default (
     <IndexRoute component={HomeController} />
     <Route path="sign-in" component={AccountCardController} />
     <Route path="topics/:id" component={TopicShowController} />
+    <Route path="topics" component={TopicFormCard} />
     <Route path="profiles/:id" component={ProfileController} />
   </Route>
 )

@@ -9,14 +9,16 @@ const TopicFormCard = React.createClass({
 
   render: function() {
     return (
-      <Card>
-        <CardTitle
-          title = "Write a new topic"
-        />
-        <CardText>
-          <TopicFormController />
-        </CardText>
-      </Card>
+      <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <Card>
+          <CardTitle
+            title = "Write a new topic"
+          />
+          <CardText>
+            <TopicFormController />
+          </CardText>
+        </Card>
+      </div>
     )
   }
 })

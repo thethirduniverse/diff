@@ -11,9 +11,11 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   get '/topics/*ignored' => 'main#index'
+  get '/topics' => 'main#index'
   get '/profiles/*ignored' => 'main#index'
   get '/sign-in' => 'main#index'
 
+  get '/sign-in' => 'main#index'
   # You can have the root of your site routed with "root"
   root 'main#index'
 

@@ -10,6 +10,7 @@ const App = React.createClass({
     onTitleClicked: React.PropTypes.func.isRequired,
     userSignedIn: React.PropTypes.bool.isRequired,
     onProfileClicked: React.PropTypes.func,
+    onNewTopicClicked: React.PropTypes.func.isRequired,
     children: React.PropTypes.node.isRequired
   },
 
@@ -29,6 +30,7 @@ const App = React.createClass({
           onSignInClicked = {this.props.onSignInClicked}
           onTitleClicked = {this.props.onTitleClicked}
           onProfileClicked = {this.props.onProfileClicked}
+          onNewTopicClicked = {this.props.onNewTopicClicked}
         />
         {this.props.children}
       </div>
