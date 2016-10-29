@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 20161015202416) do
   end
 
   create_table "replies", force: :cascade do |t|
-    t.string  "title"
     t.text    "content"
     t.integer "creator_id"
     t.integer "topic_id"
