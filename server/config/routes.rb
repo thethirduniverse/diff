@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations', confirmations: 'confirmations' }
 
     resources :topics, only: [:index, :show, :create]
+    resources :replies, only: [:create]
 
     get '/profiles/:id' => 'profiles#show'
   end
