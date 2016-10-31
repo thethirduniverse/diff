@@ -14,9 +14,8 @@ class RepliesControllerTest < ActionController::TestCase
       'reply[content]': 'reply content'
     }
 
-    json = JSON.parse(@response.body)
+    JSON.parse(@response.body)
     assert_equal 200, @response.status
-
 
     reply = Reply.find_by_content('reply content')
     refute_nil reply

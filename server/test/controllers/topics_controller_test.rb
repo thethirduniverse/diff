@@ -65,6 +65,16 @@ class TopicsControllerTest < ActionController::TestCase
     assert_equal 'Metaphysics', json['topic']['categories'][1]['name']
   end
 
+  test 'show returns a topic with replies' do
+    get :show, xhr: true, params: { id: 1 }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+    assert_equal 'application/json', @response.content_type
+    assert_equal 'Some Content 1', json['topic']['replies'][0]['content']
+    assert_equal 'Some Content 2', json['topic']['replies'][1]['content']
+  end
+
   # Create
   test 'logged in user can post new topic' do
     assert_nil Topic.find_by_title('New Topic')
