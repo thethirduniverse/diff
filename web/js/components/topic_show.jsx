@@ -23,7 +23,7 @@ const TopicShow = React.createClass({
     return (
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         {topicCardContent}
-        <NoReplyCard />
+        <NoReplyCard topicID={this.props.topicID}/>
       </div>
     )
   }

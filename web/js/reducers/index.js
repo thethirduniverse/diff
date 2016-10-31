@@ -5,6 +5,7 @@ import { routerReducer } from 'react-router-redux'
 import accountReducer from 'reducers/account_reducer.js'
 import categoryReducer from 'reducers/category_reducer.js'
 import profileReducer from 'reducers/profile_reducer.js'
+import replyFormReducer from 'reducers/reply_form_reducer.js'
 import topicFeedReducer from 'reducers/topic_feed_reducer.js'
 import topicFormReducer from 'reducers/topic_form_reducer.js'
 import topicShowReducer from 'reducers/topic_show_reducer.js'
@@ -17,5 +18,6 @@ export default combineReducers({
   profile: profileReducer,
   category: categoryReducer,
   form: formReducer,
-  routing: routerReducer
+  routing: routerReducer,
+  replyForm: replyFormReducer
 })
