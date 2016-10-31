@@ -5,6 +5,11 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 ####################################
+# General
+####################################
+*.swp
+
+####################################
 # Server
 ####################################
 # Debugger history
