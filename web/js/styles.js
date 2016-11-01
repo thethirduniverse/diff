@@ -10,5 +10,10 @@ export default {
     },
     title: {
       cursor: 'pointer'
+    },
+    paperCard: {
+      margin: 6,
+      width: '100%',
+      display: 'inline-block'
     }
 }
