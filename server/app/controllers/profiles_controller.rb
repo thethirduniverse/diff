@@ -31,7 +31,8 @@ class ProfilesController < ApplicationController
       email: u.email,
       posted_topics: u.topics.last(10).map do |t|
         topic_response_simplified t
-      end
+      end,
+      avatar: u.avatar.url(:large)
     }
   end
 end

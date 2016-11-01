@@ -1,4 +1,5 @@
 import CircularProgress from 'material-ui/CircularProgress'
+import Paper from 'material-ui/Paper'
 import React from 'react'
 
 const Profile = React.createClass({
@@ -16,6 +17,9 @@ const Profile = React.createClass({
     const content = this.props.user
       ? (
         <div>
+          <Paper style={{'maxHeight': '500px', 'maxWidth': '500px', margin: 'auto'}}>
+            <img src={this.props.user.avatar} alt="User Avatar" style={{'maxHeight': '100%', 'maxWidth': '100%'}}/>
+          </Paper>
           <h1>{this.props.user.id}</h1>
           <h1>{this.props.user.email}</h1>
         </div>
