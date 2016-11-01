@@ -1,3 +1,4 @@
+import RaisedButton from 'material-ui/RaisedButton'
 import React from 'react'
 import { Card, CardActions, CardText } from 'material-ui/Card'
 
@@ -13,6 +14,8 @@ const ReplyCard = React.createClass({
           {this.props.reply.content}
         </CardText>
         <CardActions>
+          <RaisedButton label="Reply" primary={true}/>
+          <RaisedButton label="Report" />
         </CardActions>
       </Card>
     )
