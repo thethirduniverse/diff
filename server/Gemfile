@@ -33,6 +33,8 @@ gem 'selenium-webdriver', '2.53.4'
 
 gem 'figaro'
 
+gem 'paperclip'
+
 gem 'delayed_job_active_record'
 
 # Use ActiveModel has_secure_password
