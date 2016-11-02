@@ -36,3 +36,25 @@ export const renderSelectField = ({ input, label, meta: { touched, error }, chil
       onChange={(event, index, value) => input.onChange(value)}
       children={children}/>
 )
+
+// https://github.com/erikras/redux-form/issues/71
+export class FileInput extends React.Component {
+  constructor(props) {
+    super(props)
+    this.onChange = this.onChange.bind(this)
+  }
+
+  onChange(e) {
+    const { input: { onChange } } = this.props
+    onChange(e.target.files[0])
+  }
+
+  render() {
+    const { accept } = this.props
+    return (<input
+      type="file"
+      accept={accept}
+      onChange={this.onChange}
+    />)
+  }
+}

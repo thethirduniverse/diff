@@ -17,6 +17,9 @@ const actions = {
   topicFormUpdateErrors: 'TOPIC_FORM_UPDATE_ERRORS',
   replyFormUpdateErrors: 'REPLY_FORM_UPDATE_ERRORS',
   profileLoadUser: 'PROFILE_LOAD_USER',
+  profileShowAvatarForm: 'PROFILE_SHOW_AVATAR_FORM',
+  profileHideAvatarForm: 'PROFILE_HIDE_AVATAR_FORM',
+  profileUpdateAvatarFormErrors: 'PROFILE_UPDATE_AVATAR_FORM_ERRORS',
   categoryLoad: 'CATEGORY_LOAD',
 }
 export default actions
@@ -140,6 +143,25 @@ export const profileLoadUser = (user) => {
   return {
     type: actions.profileLoadUser,
     user
+  }
+}
+
+export const profileShowAvatarForm = () => {
+  return {
+    type: actions.profileShowAvatarForm
+  }
+}
+
+export const profileHideAvatarForm = () => {
+  return {
+    type: actions.profileHideAvatarForm
+  }
+}
+
+export const profileUpdateAvatarFormErrors = (errors) => {
+  return {
+    type: actions.profileUpdateAvatarFormErrors,
+    errors
   }
 }
 
