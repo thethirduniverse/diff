@@ -3,8 +3,8 @@ module TopicHelper
   include CategoryHelper
   include ReplyHelper
 
-  def topics_feed
-    topics = index_topics_query
+  def topics_feed(offset = 0)
+    topics = index_topics_query offset
 
     {
       topics: topics.map do |topic|
@@ -13,13 +13,13 @@ module TopicHelper
     }
   end
 
-  def index_topics_query
+  def index_topics_query(offset)
     category_id = params[:category_id]
 
     if category_id
-      Category.find(category_id).topics.order(created_at: :desc).first(10)
+      Category.find(category_id).topics.order(created_at: :desc).offset(offset).first(10)
     else
-      Topic.order(created_at: :desc).first(10)
+      Topic.order(created_at: :desc).offset(offset).first(10)
     end
   end
 
