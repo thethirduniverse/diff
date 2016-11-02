@@ -4,6 +4,7 @@ import Paper from 'material-ui/Paper'
 import React from 'react'
 
 import AvatarForm from 'components/profile_avatar_form.jsx'
+import TopicListController from 'controllers/topic_list_controller.js'
 
 const Profile = React.createClass({
   propTypes: {
@@ -25,7 +26,7 @@ const Profile = React.createClass({
   avatarContent: function() {
     const avatar = (
       <div>
-        <Paper style={{'maxHeight': '500px', 'maxWidth': '500px', margin: 'auto'}}>
+        <Paper style={{'maxHeight': '500px', 'maxWidth': '500px', margin: '40px auto'}}>
           <img src={this.props.user.avatar} alt="User Avatar" style={{'maxHeight': '100%', 'maxWidth': '100%'}}/>
         </Paper>
         <FlatButton label="Change Avatar" onClick={this.props.onShowAvatarClicked}/>
@@ -41,19 +42,20 @@ const Profile = React.createClass({
   },
 
   render: function() {
-    const content = this.props.user
+    const user = this.props.user
+    const content = user
       ? (
         <div>
           {this.avatarContent()}
-          <h1>{this.props.user.id}</h1>
-          <h1>{this.props.user.email}</h1>
+          <h1>{user.email}</h1>
+          <h1>Posted Topics</h1>
+          <TopicListController topics={user.posted_topics} />
         </div>
       )
       : (<CircularProgress />)
 
     return (
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <h1>Person Profile</h1>
         {content}
       </div>
     )
