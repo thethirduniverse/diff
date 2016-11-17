@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
     visible: state.accountReducer.visible_content,
     errors: state.accountReducer.errors,
     signUpEmail: state.accountReducer.sign_up_email,
-    _userSignedIn: state.accountReducer.signed_in,
+    _userSignedIn: state.accountReducer.signed_in
   }
 }
 
@@ -19,6 +19,12 @@ const getUserFromSignInResponse = (res) => ( res.user )
 const getUserFromSignUpResponse = (res) => ( res )
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+  const ref = ownProps.location.query.ref
+
+  const navigateBack = () => {
+    dispatch(push(ref ? ref : '/'))
+  }
+
   return {
     notHaveAccountClicked: () => {
       dispatch(userShowSignUpForm())
@@ -31,7 +37,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         .done((res) => {
           dispatch(userSignIn(getUserFromSignInResponse(res)))
           updatePageAndAjaxCSRFToken(res.newCSRFToken)
-          dispatch(push('/'))
+          navigateBack()
         })
         .fail((res) => {
           if (res.status === 401) {
@@ -56,6 +62,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           }
         })
     },
+    navigateBack: navigateBack,
     navigateToRoot: () => {
       dispatch(push('/'))
     }
@@ -69,7 +76,7 @@ const mergeProps = (s, d, o) => {
     ...o,
     onComponentWillMount: () => {
       if (s._userSignedIn) {
-        d.navigateToRoot()
+        d.navigateBack()
       }
     }
   }

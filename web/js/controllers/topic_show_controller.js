@@ -7,7 +7,12 @@ import { topicShowLoadTopic } from 'actions'
 const mapStateToProps = (state, ownProps) => {
   return {
     topicID: ownProps.params.id,
-    topic: state.topicShow.topic
+    topic: state.topicShow.topic,
+
+    userSignedIn: state.accountReducer.signed_in,
+    user: state.accountReducer.user,
+
+    location: ownProps.location.pathname
   }
 }
 
