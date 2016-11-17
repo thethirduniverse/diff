@@ -1,4 +1,3 @@
-import Paper from 'material-ui/Paper'
 import React from 'react'
 
 import Styles from '~/styles.js'
@@ -13,11 +12,10 @@ const ReplyList = React.createClass({
     return (<div>
       {
         this.props.replies.map((reply) => (
-          <Paper zDepth={1} style={Styles.paperCard} key={reply.id}>
-            <ReplyCard
-              reply={reply}
-            />
-          </Paper>
+          <ReplyCard
+            reply={reply}
+            key={reply.id}
+          />
         ))
       }
     </div>)
