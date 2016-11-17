@@ -8,7 +8,9 @@ class TopicsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
 
   def index
-    render json: topics_feed
+    offset = params[:offset]
+
+    render json: topics_feed(offset ? Integer(offset) : 0)
   end
 
   def show

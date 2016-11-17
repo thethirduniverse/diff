@@ -3,13 +3,19 @@ module TopicHelper
   include CategoryHelper
   include ReplyHelper
 
+  BATCH_SIZE = 10
+
   def topics_feed(offset = 0)
     topics = index_topics_query offset
+    has_more = topics.length > BATCH_SIZE
 
+    topics = topics[0..BATCH_SIZE - 1] # slice indexes are inclusive
     {
       topics: topics.map do |topic|
         topic_response topic
-      end
+      end,
+      has_more: has_more,
+      next_offset: offset + topics.length
     }
   end
 
@@ -17,9 +23,9 @@ module TopicHelper
     category_id = params[:category_id]
 
     if category_id
-      Category.find(category_id).topics.order(created_at: :desc).offset(offset).first(10)
+      Category.find(category_id).topics.order(created_at: :desc).offset(offset).first(BATCH_SIZE + 1)
     else
-      Topic.order(created_at: :desc).offset(offset).first(10)
+      Topic.order(created_at: :desc).offset(offset).first(BATCH_SIZE + 1)
     end
   end
 
