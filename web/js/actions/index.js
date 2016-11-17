@@ -6,7 +6,7 @@ const actions = {
   userSignOut: 'USER_SIGN_OUT',
   userShowSignInError: 'USER_SHOW_SIGN_IN_ERROR',
   userShowSignUpError: 'USER_SHOW_SIGN_UP_ERROR',
-  topicFeedAppendBack: 'TOPIC_FEED_APPEND_BACK',
+  topicFeedLoadMore: 'TOPIC_FEED_LOAD_MORE',
   topicFeedReload: 'TOPIC_FEED_RELOAD',
   topicFeedShowNewest: 'TOPIC_FEED_SHOW_NEWEST',
   topicFeedShowCategory: 'TOPIC_FEED_SHOW_CATEGORY',
@@ -70,17 +70,21 @@ export const userShowSignUpError = (e) => {
   }
 }
 
-export const topicFeedAppendBack = (topics) => {
+export const topicFeedLoadMore = (topics, has_more, next_offset) => {
   return {
-    type: actions.topicFeedAppendBack,
-    topics
+    type: actions.topicFeedLoadMore,
+    topics,
+    has_more,
+    next_offset,
   }
 }
 
-export const topicFeedReload = (topics) => {
+export const topicFeedReload = (topics, has_more, next_offset) => {
   return {
     type: actions.topicFeedReload,
-    topics
+    topics,
+    has_more,
+    next_offset,
   }
 }
 

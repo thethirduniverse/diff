@@ -9,7 +9,7 @@ export default function(store) {
   }
 
   // Inital feed content
-  store.dispatch(topicFeedReload(data.topic_feed.topics))
+  store.dispatch(topicFeedReload(data.topic_feed.topics, data.topic_feed.has_more, data.topic_feed.next_offset))
 
   // Load topic categories
   store.dispatch(categoryLoad(data.categories))

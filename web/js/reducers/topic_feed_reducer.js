@@ -10,23 +10,33 @@ const defaultState = {
   content: {
     type: contentTypes.newest,
     currentCategoryIndex: 0,
-    loaded: false
+    loaded: false,
+
+    has_more: true,
+    next_offset: 0
   }
 }
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case actions.topicFeedAppendBack:
+    case actions.topicFeedLoadMore:
       return {
         ...state,
-        topics: [...state.topics, ...action.topics]
+        topics: [...state.topics, ...action.topics],
+        content: {
+          ...state.content,
+          has_more: action.has_more,
+          next_offset: action.next_offset
+        }
       }
     case actions.topicFeedReload:
       return {
         ...state,
         content: {
           ...state.content,
-          loaded: true
+          loaded: true,
+          has_more: action.has_more,
+          next_offset: action.next_offset
         },
         topics: action.topics,
       }
