@@ -2,6 +2,7 @@ import CircularProgress from 'material-ui/CircularProgress'
 import React from 'react'
 
 import NoReplyCard from 'components/no_reply_card.jsx'
+import PaginationDots from 'components/pagination_dots.jsx'
 import ReplyList from 'components/reply_list.jsx'
 import SignInFirstCardController from 'controllers/sign_in_first_card_controller.js'
 import TopicCard from 'components/topic_card.jsx'
@@ -39,6 +40,7 @@ const TopicShow = React.createClass({
             ? <NoReplyCard topicID={this.props.topicID}/>
             : <SignInFirstCardController location={this.props.location} promptText="You have to log in first to write a reply." />
         }
+        <PaginationDots totalDots={5} currentIndex={0} />
       </div>
     )
   }
