@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Styles from '~/styles.js'
 import ReplyCard from 'components/reply_card.jsx'
 
 const ReplyList = React.createClass({
