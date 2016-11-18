@@ -41,6 +41,7 @@ web/node_modules/*
 
 # Ignore tmp directory
 web/tmp/*
+web/.tmp/*
 
 # Ignore bundled js
 web/bundle.js
