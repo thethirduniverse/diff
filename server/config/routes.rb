@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :topics, only: [:index, :show, :create]
     resources :replies, only: [:create]
 
+    get '/profiles/load_posted_topics' => 'profiles#load_posted_topics'
     get '/profiles/:id' => 'profiles#show'
     post '/update-avatar' => 'users#update_avatar'
   end

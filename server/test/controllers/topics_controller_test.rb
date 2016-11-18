@@ -30,54 +30,6 @@ class TopicsControllerTest < ActionController::TestCase
     end
   end
 
-  test 'has_more is true when it does have more content to load' do
-    assert_equal true, Topic.count > TopicHelper::BATCH_SIZE
-    post :index, xhr: true, params: {}
-
-    json = JSON.parse(@response.body)
-    assert_equal 200, @response.status
-    assert_equal 'application/json', @response.content_type
-    assert_equal true, json['has_more']
-    assert_equal BATCH_SIZE, json['next_offset']
-  end
-
-  test 'has_more is false when it does not have more content to load' do
-    assert_equal true, Topic.count > TopicHelper::BATCH_SIZE
-    post :index, xhr: true, params: { offset: Topic.count - 1 }
-
-    json = JSON.parse(@response.body)
-    assert_equal 200, @response.status
-    assert_equal 'application/json', @response.content_type
-    assert_equal false, json['has_more']
-    assert_equal Topic.count, json['next_offset']
-  end
-
-  test 'has_more is true when it does have more content to load for a category' do
-    category = Category.find_by_name('Philosophy')
-    count = category.topics.count
-    assert_equal true, count > TopicHelper::BATCH_SIZE
-    post :index, xhr: true, params: { category_id: category.id }
-
-    json = JSON.parse(@response.body)
-    assert_equal 200, @response.status
-    assert_equal 'application/json', @response.content_type
-    assert_equal true, json['has_more']
-    assert_equal BATCH_SIZE, json['next_offset']
-  end
-
-  test 'has_more is false when it does not have more content to load for a category' do
-    category = Category.find_by_name('Philosophy')
-    count = category.topics.count
-    assert_equal true, count > TopicHelper::BATCH_SIZE
-    post :index, xhr: true, params: { category_id: category.id, offset: count - 1 }
-
-    json = JSON.parse(@response.body)
-    assert_equal 200, @response.status
-    assert_equal 'application/json', @response.content_type
-    assert_equal false, json['has_more']
-    assert_equal count, json['next_offset']
-  end
-
   # Show
   test 'show returns a single article if that article exists' do
     get :show, xhr: true, params: { id: 1 }

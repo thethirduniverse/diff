@@ -9,8 +9,12 @@ class TopicsController < ApplicationController
 
   def index
     offset = params[:offset]
+    category_id = params[:category_id]
 
-    render json: topics_feed(offset ? Integer(offset) : 0)
+    render json: topics_feed(
+      offset: offset ? Integer(offset) : 0,
+      category_id: category_id
+    )
   end
 
   def show

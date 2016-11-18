@@ -18,6 +18,15 @@ class ProfilesController < ApplicationController
     head 404, content_type: 'application/json'
   end
 
+  def load_posted_topics
+    id = params[:id]
+    offset = params[:offset] ? Integer(params[:offset]) : nil
+
+    render json: {
+      posted_topics: topics_feed(offset: offset, user_id: id, response_type: TopicHelper::TOPIC_FEED_RESPONSE_TYPE_SIMPLIFIED)
+    }
+  end
+
   private
 
   def viewing_self(u)
@@ -29,9 +38,7 @@ class ProfilesController < ApplicationController
     {
       id: u.id,
       email: u.email,
-      posted_topics: u.topics.last(10).map do |t|
-        topic_response_simplified t
-      end,
+      posted_topics: topics_feed(user_id: u.id, response_type: TopicHelper::TOPIC_FEED_RESPONSE_TYPE_SIMPLIFIED),
       avatar: u.avatar.url(:large)
     }
   end

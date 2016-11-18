@@ -14,10 +14,9 @@ class ProfilesControllerTest < ActionController::TestCase
 
     topics = json['user']['posted_topics']
 
-    assert_kind_of Array, topics
-    refute_empty topics
-    topics.each do |t|
-      assert_equal 1, Topic.find(t['id']).user.id
-    end
+    assert_kind_of Hash, topics
+    refute_nil topics['has_more']
+    refute_nil topics['next_offset']
+    refute_nil topics['topics']
   end
 end
