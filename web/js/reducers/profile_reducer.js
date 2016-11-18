@@ -13,6 +13,19 @@ export default (state = defaultState, action) => {
         ...state,
         user: action.user
       }
+    case actions.profileLoadMorePostedTopics:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          posted_topics: {
+            ...state.user.posted_topics,
+            topics: [...state.user.posted_topics.topics, ...action.topics],
+            has_more: action.has_more,
+            next_offset: action.next_offset
+          }
+        }
+      }
     case actions.profileShowAvatarForm:
       return {
         ...state,

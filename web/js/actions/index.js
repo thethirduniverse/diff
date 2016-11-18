@@ -17,6 +17,7 @@ const actions = {
   topicFormUpdateErrors: 'TOPIC_FORM_UPDATE_ERRORS',
   replyFormUpdateErrors: 'REPLY_FORM_UPDATE_ERRORS',
   profileLoadUser: 'PROFILE_LOAD_USER',
+  profileLoadMorePostedTopics: 'PROFILE_LOAD_MORE_POSTED_TOPICS',
   profileShowAvatarForm: 'PROFILE_SHOW_AVATAR_FORM',
   profileHideAvatarForm: 'PROFILE_HIDE_AVATAR_FORM',
   profileUpdateAvatarFormErrors: 'PROFILE_UPDATE_AVATAR_FORM_ERRORS',
@@ -147,6 +148,15 @@ export const profileLoadUser = (user) => {
   return {
     type: actions.profileLoadUser,
     user
+  }
+}
+
+export const profileLoadMorePostedTopics = (topics, has_more, next_offset) => {
+  return {
+    type: actions.profileLoadMorePostedTopics,
+    topics,
+    has_more,
+    next_offset
   }
 }
 

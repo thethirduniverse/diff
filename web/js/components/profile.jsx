@@ -49,7 +49,7 @@ const Profile = React.createClass({
           {this.avatarContent()}
           <h1>{user.email}</h1>
           <h1>Posted Topics</h1>
-          <TopicListController topics={user.posted_topics} />
+          <TopicListController />
         </div>
       )
       : (<CircularProgress />)
