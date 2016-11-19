@@ -4,7 +4,7 @@ import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import ReplyForm from 'components/reply_form.jsx'
-import { replyFormUpdateErrors } from 'actions'
+import { replyFormUpdateErrors,  replyFormPostedReplyTarget, replyFormPostedReply } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -20,9 +20,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         .done((res) => {
           dispatch(replyFormUpdateErrors({}))
           dispatch(reset('reply-form'))
+          dispatch(replyFormPostedReply(replyFormPostedReplyTarget.topic, res.reply))
         })
         .fail((res) => {
-          dispatch(topicFormUpdateErrors(res.responseJSON.errors))
+          dispatch(replyFormUpdateErrors(res.responseJSON.errors))
         })
     }
   }

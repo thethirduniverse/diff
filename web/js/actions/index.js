@@ -19,6 +19,7 @@ const actions = {
   topicFormUpdateCategoryFilter: 'TOPIC_FORM_UPDATE_CATEGORY_FILTER',
   topicFormUpdateErrors: 'TOPIC_FORM_UPDATE_ERRORS',
   replyFormUpdateErrors: 'REPLY_FORM_UPDATE_ERRORS',
+  replyFormPostedReply: 'REPLY_FORM_POSTED_REPLY',
   profileLoadUser: 'PROFILE_LOAD_USER',
   profileLoadMorePostedTopics: 'PROFILE_LOAD_MORE_POSTED_TOPICS',
   profileShowAvatarForm: 'PROFILE_SHOW_AVATAR_FORM',
@@ -165,6 +166,19 @@ export const replyFormUpdateErrors = (errors) => {
   return {
     type: actions.replyFormUpdateErrors,
     errors
+  }
+}
+
+export const replyFormPostedReplyTarget = {
+  topic: 'topic',
+  reply: 'reply'
+}
+
+export const replyFormPostedReply = (target, reply) => {
+  return {
+    type: actions.replyFormPostedReply,
+    target,
+    reply
   }
 }
 

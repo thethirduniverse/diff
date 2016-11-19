@@ -1,4 +1,4 @@
-import actions from 'actions'
+import actions, { replyFormPostedReplyTarget } from 'actions'
 
 const defaultState = {
   topic: null,
@@ -62,6 +62,36 @@ export const appendReplies = (state, action) => {
   }
 }
 
+export const insertReplyIfNeeded = (state, action) => {
+  switch (action.target) {
+    case replyFormPostedReplyTarget.topic:
+      if (state.topic.id == action.reply.topic_id) {
+        return _insertReplyAtRoot(state, action)
+      }
+      return state
+    case replyFormPostedReplyTarget.reply:
+    default:
+      throw new Error("Unknown target for action")
+  }
+}
+
+const _insertReplyAtRoot = (state, action) => {
+  const depth = state.replyTree.length
+
+  if (depth === 0) {
+    return {
+      ...state,
+      replyTree: [[action.reply]],
+      replyIndexes: [0]
+    }
+  } else {
+    return {
+      ...state,
+      replyTree: [[...state.replyTree[0], action.reply], ...state.replyTree.slice(1)]
+    }
+  }
+}
+
 export default (state = defaultState, action) => {
   switch (action.type) {
     case actions.topicShowLoadTopic:
@@ -77,6 +107,8 @@ export default (state = defaultState, action) => {
       return showNextReply(state, action)
     case actions.topicShowAppendReplies:
       return appendReplies(state, action)
+    case actions.replyFormPostedReply:
+      return insertReplyIfNeeded(state, action)
     default:
       return state
   }

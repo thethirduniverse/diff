@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class RepliesController < ApplicationController
+  include ReplyHelper
+
   clear_respond_to
   respond_to :json
 
@@ -10,7 +12,9 @@ class RepliesController < ApplicationController
     reply.creator = current_user
     if reply.valid?
       reply.save!
-      render json: {}, status: 200
+      render json: {
+        reply: reply_response(reply)
+      }, status: 200
     else
       render json: {
         errors: reply.errors.messages
@@ -23,4 +27,5 @@ class RepliesController < ApplicationController
   def reply_params
     params.require(:reply).permit(:content, :topic_id)
   end
+
 end
