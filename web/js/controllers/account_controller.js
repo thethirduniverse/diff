@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
-import AccountCard from 'components/account_card.jsx'
+import AccountPage from 'components/account_page.jsx'
 import { updatePageAndAjaxCSRFToken } from 'helpers/csrf_token_helpers.js'
 import { userShowSignInForm, userShowSignUpForm, userSignIn, userSignUp, userShowSignInError, userShowSignUpError } from 'actions'
 
@@ -82,4 +82,4 @@ const mergeProps = (s, d, o) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(AccountCard)
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(AccountPage)
