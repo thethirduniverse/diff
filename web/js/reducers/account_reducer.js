@@ -2,7 +2,8 @@ import actions from 'actions'
 
 const defaultState = {
   signed_in: false,
-  errors: null,
+  sign_in_errors: null,
+  sign_up_errors: null,
   user: {}
 }
 export default (state = defaultState, action) => {
@@ -12,13 +13,18 @@ export default (state = defaultState, action) => {
         ...state,
         signed_in: true,
         user:action.user,
-        errors: null
+        sign_in_errors: null,
+        sign_up_errors: null
       }
     case actions.userShowSignInError:
+      return {
+        ...state,
+        sign_in_errors: action.error
+      }
     case actions.userShowSignUpError:
       return {
         ...state,
-        errors: action.error
+        sign_up_errors: action.error
       }
     case actions.userSignOut:
       return defaultState

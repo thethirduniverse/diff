@@ -8,7 +8,7 @@ import { userSignIn, userShowSignInError } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    errors: state.accountReducer.errors
+    errors: state.accountReducer.sign_in_errors
   }
 }
 
