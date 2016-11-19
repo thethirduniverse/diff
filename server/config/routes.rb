@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     resources :topics, only: [:index, :show, :create]
     resources :replies, only: [:create]
 
+    devise_scope :user do
+      post '/request-reset-password' => 'registrations#request_reset_password'
+    end
+
     get '/profiles/load_posted_topics' => 'profiles#load_posted_topics'
     get '/profiles/:id' => 'profiles#show'
     post '/update-avatar' => 'users#update_avatar'

@@ -27,5 +27,4 @@ class RepliesController < ApplicationController
   def reply_params
     params.require(:reply).permit(:content, :topic_id)
   end
-
 end

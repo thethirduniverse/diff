@@ -18,4 +18,18 @@ class RegistrationsControllerTest < ActionController::TestCase
     json = JSON.parse(@response.body)
     refute_nil json['email']
   end
+
+  test 'user is able to request reset psw' do
+    post :request_reset_password, xhr: true, params: { 'email': User.first.email }
+
+    assert_equal 200, @response.status
+  end
+
+  test 'user is not able to request reset psw for user that does not exist' do
+    post :request_reset_password, xhr: true, params: { 'email': 'notexist@example.com' }
+
+    assert_equal 400, @response.status
+    json = JSON.parse(@response.body)
+    refute_nil json['errors']
+  end
 end
