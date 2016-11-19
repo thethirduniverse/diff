@@ -4,10 +4,31 @@ const defaultState = {
   signed_in: false,
   sign_in_errors: null,
   sign_up_errors: null,
-  user: {}
+  user: {},
+  resetPassword: {
+    email: null,
+    errors: {}
+  }
 }
 export default (state = defaultState, action) => {
   switch (action.type) {
+    case actions.accountResetPasswordEmailSent:
+      return {
+        ...state,
+        resetPassword: {
+          ...state.reset_password,
+          email: action.email,
+          errors: {}
+        }
+      }
+    case actions.accountResetPasswordUpdateErrors:
+      return {
+        ...state,
+        resetPassword: {
+          ...state.reset_password,
+          errors: action.errors
+        }
+      }
     case actions.userSignIn:
       return {
         ...state,
