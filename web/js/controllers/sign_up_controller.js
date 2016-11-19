@@ -12,15 +12,12 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  const ref = ownProps.location.query.ref
-
-  const navigateBack = () => {
-    dispatch(push(ref ? ref : '/'))
-  }
-
   return {
     haveAccountClicked: () => {
       dispatch(push('/account/sign-in'))
+    },
+    forgotPasswordClicked: () => {
+      dispatch(push('/account/reset-password'))
     },
     signUpClicked: (data) => {
       $.post("/api/users", {user: data})

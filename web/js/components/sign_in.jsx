@@ -10,6 +10,7 @@ var SignInBox = React.createClass({
   propTypes: {
     signInClicked: React.PropTypes.func.isRequired,
     notHaveAccountClicked: React.PropTypes.func.isRequired,
+    forgotPasswordClicked: React.PropTypes.func.isRequired,
     errors: React.PropTypes.object
   },
 
@@ -37,6 +38,7 @@ var SignInBox = React.createClass({
           <CardActions>
             <RaisedButton label="Sign In" primary={true} style={{margin: 12}} type="submit" />
             <FlatButton label="Doesn't have an account yet?" secondary={true} onClick={this.notHaveAccountClicked} />
+            <FlatButton label="Forgot password?" secondary={true} onClick={this.props.forgotPasswordClicked} />
           </CardActions>
         </form>
       </Card>
