@@ -1,13 +1,21 @@
 import React from 'react'
 import muiThemeable from 'material-ui/styles/muiThemeable'
+import IconButton from 'material-ui/IconButton'
+import ChevronLeft from 'material-ui/svg-icons/navigation/chevron-left'
+import ChevronRight from 'material-ui/svg-icons/navigation/chevron-right'
+import ExpandMore from 'material-ui/svg-icons/navigation/expand-more'
 
 const PaginationDots = React.createClass({
   propTypes: {
     totalDots: React.PropTypes.number.isRequired,
-    currentIndex: React.PropTypes.number.isRequired
+    currentIndex: React.PropTypes.number.isRequired,
+    leftChevronClicked: React.PropTypes.func.isRequired,
+    rightChevronClicked: React.PropTypes.func.isRequired,
+
+    showExpandMore: React.PropTypes.bool
   },
 
-  _height: 40,
+  _height: 24,
   _radius: 5,
   _padding: 5,
 
@@ -34,14 +42,31 @@ const PaginationDots = React.createClass({
     /* eslint-enable react/prop-types */
 
     return (
-      <div>
-        <svg style={{display: 'block', margin: 'auto'}} width={this._getWidth()} height={this._height}>
-          {
-            this._dotPositions().map((pos, idx) => (
-              <circle key={idx} cx={pos.x} cy={pos.y} r={this._radius} fill={idx === this.props.currentIndex ? highlight : disabled} />
-            ))
-          }
-        </svg>
+      <div style={{textAlign: 'center'}}>
+        <div style={{display: 'inline-block', margin: 'auto'}}>
+          <IconButton onClick={this.props.leftChevronClicked}>
+            <ChevronLeft />
+          </IconButton>
+          <svg width={this._getWidth()} height={this._height} >
+            {
+              this._dotPositions().map((pos, idx) => (
+                <circle key={idx} cx={pos.x} cy={pos.y} r={this._radius} fill={idx === this.props.currentIndex ? highlight : disabled} />
+              ))
+            }
+          </svg>
+          <IconButton onClick={this.props.rightChevronClicked}>
+            <ChevronRight />
+          </IconButton>
+        </div>
+        {
+          this.props.showExpandMore
+            ? (<div style={{margin: 'auto'}}>
+              <IconButton>
+                <ExpandMore />
+              </IconButton>
+            </div>)
+            : null
+        }
       </div>
     )
   }

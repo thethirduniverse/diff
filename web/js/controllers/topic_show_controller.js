@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import TopicShow from 'components/topic_show.jsx'
-import { topicShowLoadTopic } from 'actions'
+import { topicShowLoadTopic, topicShowAppendReplies } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -21,7 +21,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onComponentWillMount: () => {
       $.get('/api/topics/' + ownProps.params.id)
         .done((res) => {
-          dispatch(topicShowLoadTopic(res.topic))
+          const {replies, ...rest} = res.topic
+
+          // load topic first since it clears previous replies
+          dispatch(topicShowLoadTopic(rest))
+          dispatch(topicShowAppendReplies(replies))
         })
         .fail((res) => {
           console.log('load topic with response:')

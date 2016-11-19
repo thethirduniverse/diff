@@ -11,6 +11,9 @@ const actions = {
   topicFeedShowNewest: 'TOPIC_FEED_SHOW_NEWEST',
   topicFeedShowCategory: 'TOPIC_FEED_SHOW_CATEGORY',
   topicShowLoadTopic: 'TOPIC_SHOW_LOAD_TOPIC',
+  topicShowShowPreviousReply: 'TOPIC_SHOW_SHOW_PREVIOUS_REPLY',
+  topicShowShowNextReply: 'TOPIC_SHOW_SHOW_NEXT_REPLY',
+  topicShowAppendReplies: 'TOPIC_SHOW_APPEND_REPLIES',
   topicFormAddCategory: 'TOPIC_FORM_ADD_CATEGORY',
   topicFormRemoveCategory: 'TOPIC_FORM_REMOVE_CATEGORY',
   topicFormUpdateCategoryFilter: 'TOPIC_FORM_UPDATE_CATEGORY_FILTER',
@@ -106,6 +109,27 @@ export const topicShowLoadTopic = (topic) => {
   return {
     type: actions.topicShowLoadTopic,
     topic
+  }
+}
+
+export const topicShowShowPreviousReply = (level) => {
+  return {
+    type: actions.topicShowShowPreviousReply,
+    level
+  }
+}
+
+export const topicShowShowNextReply = (level) => {
+  return {
+    type: actions.topicShowShowNextReply,
+    level
+  }
+}
+
+export const topicShowAppendReplies = (replies) => {
+  return {
+    type: actions.topicShowAppendReplies,
+    replies
   }
 }
 

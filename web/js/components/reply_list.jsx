@@ -1,21 +1,32 @@
 import React from 'react'
 
-import ReplyCard from 'components/reply_card.jsx'
+import ReplyRow from 'components/reply_row.jsx'
 
 const ReplyList = React.createClass({
   propTypes: {
-    replies: React.PropTypes.array.isRequired
+    replyTree: React.PropTypes.array.isRequired,
+    replyIndexes: React.PropTypes.array.isRequired,
+    leftChevronClicked: React.PropTypes.func.isRequired,
+    rightChevronClicked: React.PropTypes.func.isRequired
   },
 
   render: function() {
     return (<div>
       {
-        this.props.replies.map((reply) => (
-          <ReplyCard
+        this.props.replyTree.map((replies, idx) => {
+          const reply = replies[this.props.replyIndexes[idx]]
+
+          return (<ReplyRow
             reply={reply}
+            totalDots={replies.length}
+            currentIndex={this.props.replyIndexes[idx]}
+            showPaginationDots={replies.length > 1}
             key={reply.id}
-          />
-        ))
+            leftChevronClicked={this.props.leftChevronClicked.bind(null, idx)}
+            rightChevronClicked={this.props.rightChevronClicked.bind(null, idx)}
+          />)
+        }
+        )
       }
     </div>)
   }
