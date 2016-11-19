@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         })
     },
     onSignInClicked: () => {
-      dispatch(push('/sign-in'))
+      dispatch(push('/account/sign-in'))
     },
     onTitleClicked: () => {
       dispatch(push('/'))

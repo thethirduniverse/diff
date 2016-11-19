@@ -1,8 +1,5 @@
 const actions = {
-  userShowSignInForm: 'USER_SHOW_SIGN_IN_FORM',
-  userShowSignUpForm: 'USER_SHOW_SIGN_UP_FORM',
   userSignIn: 'USER_SIGN_IN',
-  userSignUp: 'USER_SIGN_UP',
   userSignOut: 'USER_SIGN_OUT',
   userShowSignInError: 'USER_SHOW_SIGN_IN_ERROR',
   userShowSignUpError: 'USER_SHOW_SIGN_UP_ERROR',

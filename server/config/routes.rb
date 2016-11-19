@@ -16,9 +16,8 @@ Rails.application.routes.draw do
   get '/topics/*ignored' => 'main#index'
   get '/topics' => 'main#index'
   get '/profiles/*ignored' => 'main#index'
-  get '/sign-in' => 'main#index'
 
-  get '/sign-in' => 'main#index'
+  get '/account/*ignored' => 'main#index'
   # You can have the root of your site routed with "root"
   root 'main#index'
 
