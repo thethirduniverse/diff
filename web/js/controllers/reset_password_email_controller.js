@@ -2,25 +2,26 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
-import ResetPasswordCard from 'components/reset_password_card.jsx'
+import ResetPasswordEmailCard from 'components/reset_password_email_form.jsx'
 import { accountResetPasswordEmailSent, accountResetPasswordUpdateErrors } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    email: state.accountReducer.resetPassword.email,
-    errors: state.accountReducer.resetPassword.errors
+    errors: state.accountReducer.resetPassword.emailErrors
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    navigateToRoot: () => {
-      dispatch(push('/'))
-    },
     resetClicked: (data) => {
       $.post('/api/request-reset-password', data)
         .done((res) => {
-          dispatch(accountResetPasswordEmailSent(data.email))
+          dispatch(push({
+            pathname: '/account/reset-password/check-email',
+            query: {
+              email: data.email
+            }
+          }))
         })
         .fail((res) => {
           if (res.status == 400) {
@@ -34,4 +35,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordCard)
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordEmailCard)

@@ -8,7 +8,8 @@ import ProfileController from 'controllers/profile_controller.js'
 import SignInController from 'controllers/sign_in_controller.js'
 import SignUpController from 'controllers/sign_up_controller.js'
 import EmailConfirmationController from 'controllers/email_confirmation_controller.js'
-import ResetPasswordController from 'controllers/reset_password_controller.js'
+import ResetPasswordEmailController from 'controllers/reset_password_email_controller.js'
+import ResetPasswordCheckEmailController from 'controllers/reset_password_check_email_controller.js'
 import TopicFormCard from 'components/topic_form_card.jsx'
 import TopicShowController from 'controllers/topic_show_controller.js'
 
@@ -19,7 +20,12 @@ export default (
       <Route path="sign-in" component={SignInController} />
       <Route path="sign-up" component={SignUpController} />
       <Route path="email-confirmation" component={EmailConfirmationController} />
-      <Route path="reset-password" component={ResetPasswordController} />
+      <Route path="reset-password">
+        <Route path="email" component={ResetPasswordEmailController} />
+        <Route path="check-email" component={ResetPasswordCheckEmailController} />
+        <Route path="password" component={ResetPasswordEmailController} />
+        <IndexRoute component={ResetPasswordEmailController} />
+      </Route>
     </Route>
     <Route path="topics/:id" component={TopicShowController} />
     <Route path="topics" component={TopicFormCard} />

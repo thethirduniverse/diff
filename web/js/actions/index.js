@@ -1,5 +1,4 @@
 const actions = {
-  accountResetPasswordEmailSent: 'ACCOUNT_RESET_PASSWORD_EMAIL_SENT',
   accountResetPasswordUpdateErrors: 'ACCOUNT_RESET_PASSWORD_UPDATE_ERRORS',
   userSignIn: 'USER_SIGN_IN',
   userSignOut: 'USER_SIGN_OUT',
@@ -27,13 +26,6 @@ const actions = {
   categoryLoad: 'CATEGORY_LOAD',
 }
 export default actions
-
-export const accountResetPasswordEmailSent = (email) => {
-  return {
-    type: actions.accountResetPasswordEmailSent,
-    email
-  }
-}
 
 export const accountResetPasswordUpdateErrors = (errors) => {
   return {

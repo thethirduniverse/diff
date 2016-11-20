@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(push('/account/sign-up'))
     },
     forgotPasswordClicked: () => {
-      dispatch(push('/account/reset-password'))
+      dispatch(push('/account/reset-password/email'))
     },
     signInClicked: (data) => {
       $.post("/api/users/sign_in", {user: data})
