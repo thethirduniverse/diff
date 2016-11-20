@@ -1,5 +1,8 @@
 const actions = {
   accountResetPasswordUpdateErrors: 'ACCOUNT_RESET_PASSWORD_UPDATE_ERRORS',
+  accountResetPasswordUpdatePasswordErrors: 'ACCOUNT_RESET_PASSWORD_UPDATE_PASSWORD_ERRORS',
+  accountResetPasswordShowBadTokenDialog: 'ACCOUNT_RESET_PASSWORD_SHOW_BAD_TOKEN_DIALOG',
+  accountResetPasswordHideBadTokenDialog: 'ACCOUNT_RESET_PASSWORD_HIDE_BAD_TOKEN_DIALOG',
   userSignIn: 'USER_SIGN_IN',
   userSignOut: 'USER_SIGN_OUT',
   userShowSignInError: 'USER_SHOW_SIGN_IN_ERROR',
@@ -31,6 +34,25 @@ export const accountResetPasswordUpdateErrors = (errors) => {
   return {
     type: actions.accountResetPasswordUpdateErrors,
     errors
+  }
+}
+
+export const accountResetPasswordUpdatePasswordErrors = (errors) => {
+  return {
+    type: actions.accountResetPasswordUpdatePasswordErrors,
+    errors
+  }
+}
+
+export const accountResetPasswordShowBadTokenDialog = () => {
+  return {
+    type: actions.accountResetPasswordShowBadTokenDialog
+  }
+}
+
+export const accountResetPasswordHideBadTokenDialog = () => {
+  return {
+    type: actions.accountResetPasswordHideBadTokenDialog
   }
 }
 

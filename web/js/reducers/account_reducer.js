@@ -6,7 +6,9 @@ const defaultState = {
   sign_up_errors: null,
   user: {},
   resetPassword: {
-    emailErrors: {}
+    emailErrors: {},
+    passwordErrors: {},
+    showBadTokenDialog: false
   }
 }
 export default (state = defaultState, action) => {
@@ -15,8 +17,32 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         resetPassword: {
-          ...state.reset_password,
+          ...state.resetPassword,
           emailErrors: action.errors
+        }
+      }
+    case actions.accountResetPasswordUpdatePasswordErrors:
+      return {
+        ...state,
+        resetPassword: {
+          ...state.resetPassword,
+          passwordErrors: action.errors
+        }
+      }
+    case actions.accountResetPasswordShowBadTokenDialog:
+      return {
+        ...state,
+        resetPassword: {
+          ...state.resetPassword,
+          showBadTokenDialog: true
+        }
+      }
+    case actions.accountResetPasswordHideBadTokenDialog:
+      return {
+        ...state,
+        resetPassword: {
+          ...state.resetPassword,
+          showBadTokenDialog: false
         }
       }
     case actions.userSignIn:

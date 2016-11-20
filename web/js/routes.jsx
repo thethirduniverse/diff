@@ -10,6 +10,7 @@ import SignUpController from 'controllers/sign_up_controller.js'
 import EmailConfirmationController from 'controllers/email_confirmation_controller.js'
 import ResetPasswordEmailController from 'controllers/reset_password_email_controller.js'
 import ResetPasswordCheckEmailController from 'controllers/reset_password_check_email_controller.js'
+import ResetPasswordPasswordController from 'controllers/reset_password_password_controller.js'
 import TopicFormCard from 'components/topic_form_card.jsx'
 import TopicShowController from 'controllers/topic_show_controller.js'
 
@@ -23,7 +24,7 @@ export default (
       <Route path="reset-password">
         <Route path="email" component={ResetPasswordEmailController} />
         <Route path="check-email" component={ResetPasswordCheckEmailController} />
-        <Route path="password" component={ResetPasswordEmailController} />
+        <Route path="password" component={ResetPasswordPasswordController} />
         <IndexRoute component={ResetPasswordEmailController} />
       </Route>
     </Route>
