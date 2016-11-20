@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import ResetPasswordPasswordCard from 'components/reset_password_password_form.jsx'
-import { accountResetPasswordEmailSent, accountResetPasswordUpdatePasswordErrors, accountResetPasswordShowBadTokenDialog, accountResetPasswordHideBadTokenDialog } from 'actions'
+import { accountResetPasswordEmailSent, accountResetPasswordUpdatePasswordErrors, accountResetPasswordShowBadTokenDialog, accountResetPasswordHideBadTokenDialog, account, userSignIn } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -31,7 +31,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         }
       })
         .done((res) => {
-          dispatch(push('/account/sign-in'))
+          dispatch(push('/'))
+          $.post('/api/users/fetch')
+            .done((res) => {
+              dispatch(userSignIn(res.user))
+            })
+            .fail((res) => {
+              console.log('fail to load session info after resetting password')
+              console.log(res)
+            })
         })
         .fail((res) => {
           if (res.status === 422) {
