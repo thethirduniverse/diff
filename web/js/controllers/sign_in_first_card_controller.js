@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     _loginClicked: (loc) => {
       dispatch(push({
-        pathname: '/sign-in',
+        pathname: '/account/sign-in',
         query: {
           ref: loc
         }
