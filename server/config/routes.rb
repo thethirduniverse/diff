@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
     devise_scope :user do
       post '/request-reset-password' => 'registrations#request_reset_password'
+      post '/users/fetch' => 'sessions#fetch', as: 'fetch_session'
     end
 
     get '/profiles/load_posted_topics' => 'profiles#load_posted_topics'
@@ -21,7 +22,7 @@ Rails.application.routes.draw do
   get '/topics' => 'main#index'
   get '/profiles/*ignored' => 'main#index'
 
-  get '/account/reset-password/password' => 'main#index', as: 'custom-reset_password'
+  get '/account/reset-password/password' => 'main#index', as: 'custom_reset_password'
   get '/account/*ignored' => 'main#index'
   # You can have the root of your site routed with "root"
   root 'main#index'

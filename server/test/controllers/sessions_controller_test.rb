@@ -40,4 +40,22 @@ class SessionsControllerTest < ActionController::TestCase
     assert_equal 200, @response.status
     refute_nil json['newCSRFToken']
   end
+
+  test 'fetch returns empty if not signed in' do
+    post :fetch, xhr: true
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+    assert_equal({}, json)
+  end
+
+  test 'fetch returns user info if signed in' do
+    adam = User.find(1)
+    sign_in adam
+    post :fetch, xhr: true
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+    assert_equal 1, json['user']['id']
+  end
 end
