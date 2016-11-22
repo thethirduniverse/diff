@@ -4,7 +4,8 @@ module ReplyHelper
     {
       'id': r.id,
       'content': r.content,
-      'topic_id': r.topic_id
+      'topic_id': r.topic_id,
+      'reply_id': r.reply_id
     }
   end
 end

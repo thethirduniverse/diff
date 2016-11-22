@@ -72,8 +72,7 @@ class TopicsControllerTest < ActionController::TestCase
     json = JSON.parse(@response.body)
     assert_equal 200, @response.status
     assert_equal 'application/json', @response.content_type
-    assert_equal 'Some Content 1', json['topic']['replies'][0]['content']
-    assert_equal 'Some Content 2', json['topic']['replies'][1]['content']
+    assert_equal 3, json['topic']['replies'].length
   end
 
   # Create

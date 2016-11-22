@@ -1,11 +1,14 @@
 reply1:
   content: Some Content 1
   topic_id: 1
+  creator_id: 1
 
 reply2:
   content: Some Content 2
   topic_id: 1
+  creator_id: 1
 
 reply3:
   content: Some Content 3
-  topic_id: 2
+  topic_id: 1
+  creator_id: 1

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
     resources :topics, only: [:index, :show, :create]
     resources :replies, only: [:create]
+    get 'replies' => 'replies#replies'
 
     devise_scope :user do
       post '/request-reset-password' => 'registrations#request_reset_password'

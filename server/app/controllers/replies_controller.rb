@@ -5,7 +5,7 @@ class RepliesController < ApplicationController
   clear_respond_to
   respond_to :json
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:replies]
 
   def create
     reply = Reply.new(reply_params)
@@ -22,9 +22,20 @@ class RepliesController < ApplicationController
     end
   end
 
+  def replies
+    reply_id = params['reply']['reply_id']
+
+    replies = Reply.find(reply_id).replies
+    render json: {
+      replies: replies.map do |r|
+        reply_response r
+      end
+    }, status: 200
+  end
+
   private
 
   def reply_params
-    params.require(:reply).permit(:content, :topic_id)
+    params.require(:reply).permit(:content, :topic_id, :reply_id)
   end
 end

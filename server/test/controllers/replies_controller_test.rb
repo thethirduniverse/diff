@@ -53,4 +53,47 @@ class RepliesControllerTest < ActionController::TestCase
     assert_equal 400, @response.status
     assert_equal ['can\'t be blank'], json['errors']['topic']
   end
+
+  test 'replies will return list of replies' do
+    reply = Reply.first
+    assert_equal 0, reply.replies.count
+
+    post :replies, xhr: true, params: {
+      'reply[reply_id]': reply.id
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+    assert_equal [], json['replies']
+
+    # add a record
+    r2 = Reply.new(content: 'some',
+                   topic: Topic.find(reply.topic_id),
+                   reply_id: reply.id,
+                   creator: User.first)
+    assert_equal true, r2.save
+
+    post :replies, xhr: true, params: {
+      'reply[reply_id]': reply.id
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+    assert_equal 1, json['replies'].length
+
+    # add a record again
+    r3 = Reply.new(content: 'some',
+                   topic: Topic.find(reply.topic_id),
+                   reply_id: reply.id,
+                   creator: User.first)
+    assert_equal true, r3.save
+
+    post :replies, xhr: true, params: {
+      'reply[reply_id]': reply.id
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+    assert_equal 2, json['replies'].length
+  end
 end
