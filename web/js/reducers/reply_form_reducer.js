@@ -25,6 +25,12 @@ export default (state = defaultState, action) => {
         target_topic: null,
         target_reply: action.reply
       }
+    case actions.replyFormClearTarget:
+      return {
+        ...state,
+        target_topic: null,
+        target_reply: null
+      }
     default:
       return state
   }

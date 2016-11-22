@@ -9,6 +9,7 @@ import TopicCard from 'components/topic_card.jsx'
 const TopicShow = React.createClass({
   propTypes: {
     onComponentWillMount: React.PropTypes.func.isRequired,
+    onComponentWillUnmount: React.PropTypes.func.isRequired,
     topicID: React.PropTypes.string.isRequired,
     topic: React.PropTypes.object,
 
@@ -26,6 +27,10 @@ const TopicShow = React.createClass({
 
   componentWillMount: function() {
     this.props.onComponentWillMount()
+  },
+
+  componentWillUnmount: function() {
+    this.props.onComponentWillUnmount()
   },
 
   displayComposeReplyCard: function() {

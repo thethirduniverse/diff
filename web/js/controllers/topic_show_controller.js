@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import TopicShow from 'components/topic_show.jsx'
-import { topicShowLoadTopic, topicShowAppendReplies, replyFormSetTargetTopic } from 'actions'
+import { topicShowLoadTopic, topicShowAppendReplies, replyFormSetTargetTopic, replyFormClearTarget } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -40,6 +40,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           console.log('load topic with response:')
           console.log(res)
         })
+    },
+    onComponentWillUnmount: () => {
+      dispatch(replyFormClearTarget())
     }
   }
 }
