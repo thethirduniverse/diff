@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import TopicShow from 'components/topic_show.jsx'
-import { topicShowLoadTopic, topicShowAppendReplies } from 'actions'
+import { topicShowLoadTopic, topicShowAppendReplies, replyFormSetTargetTopic } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -12,12 +12,21 @@ const mapStateToProps = (state, ownProps) => {
     userSignedIn: state.accountReducer.signed_in,
     user: state.accountReducer.user,
 
-    location: ownProps.location.pathname
+    location: ownProps.location.pathname,
+
+    reply_target_topic: state.replyForm.target_topic,
+    reply_target_reply: state.replyForm.target_reply
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    _onReplyClicked: (topic) => {
+      dispatch(replyFormSetTargetTopic(topic))
+    },
+    onReportClicked: () => {
+      console.log('report clicked')
+    },
     onComponentWillMount: () => {
       $.get('/api/topics/' + ownProps.params.id)
         .done((res) => {
@@ -35,4 +44,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopicShow)
+const merge = (s, d, o) => {
+  return {
+    ...o,
+    ...s,
+    ...d,
+    onReplyClicked: () => {
+      d._onReplyClicked(s.topic)
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, merge)(TopicShow)

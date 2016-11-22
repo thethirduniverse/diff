@@ -17,7 +17,10 @@ const TopicCard = React.createClass({
     cardClickEnabled: React.PropTypes.bool,
     onCardClick: React.PropTypes.func,
 
-    hideActions: React.PropTypes.bool
+    hideActions: React.PropTypes.bool,
+
+    onReplyClicked: React.PropTypes.func,
+    onReportClicked: React.PropTypes.func
   },
 
   handleCardClick: function(id) {
@@ -32,8 +35,8 @@ const TopicCard = React.createClass({
       ? null
       : (
         <div>
-          <FlatButton label="Reply" />
-          <FlatButton label="Report" />
+          <FlatButton label="Reply" onClick={this.props.onReplyClicked} />
+          <FlatButton label="Report" onClick={this.props.onReportClicked} />
         </div>
       )
     const categoryChips = this.props.topic.categories.map((c) => (

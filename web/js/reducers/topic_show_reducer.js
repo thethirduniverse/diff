@@ -1,4 +1,4 @@
-import actions, { replyFormPostedReplyTarget } from 'actions'
+import actions, { replyTargets } from 'actions'
 
 const defaultState = {
   topic: null,
@@ -64,12 +64,12 @@ export const appendReplies = (state, action) => {
 
 export const insertReplyIfNeeded = (state, action) => {
   switch (action.target) {
-    case replyFormPostedReplyTarget.topic:
+    case replyTargets.topic:
       if (state.topic.id == action.reply.topic_id) {
         return _insertReplyAtRoot(state, action)
       }
       return state
-    case replyFormPostedReplyTarget.reply:
+    case replyTargets.reply:
     default:
       throw new Error("Unknown target for action")
   }

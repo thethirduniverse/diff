@@ -1,7 +1,7 @@
 import CircularProgress from 'material-ui/CircularProgress'
 import React from 'react'
 
-import NoReplyCard from 'components/no_reply_card.jsx'
+import ComposeReplyCard from 'components/compose_reply_card.jsx'
 import ReplyListController from 'controllers/reply_list_controller.js'
 import SignInFirstCardController from 'controllers/sign_in_first_card_controller.js'
 import TopicCard from 'components/topic_card.jsx'
@@ -15,20 +15,42 @@ const TopicShow = React.createClass({
     userSignedIn: React.PropTypes.bool.isRequired,
     user: React.PropTypes.object.isRequired,
 
-    location: React.PropTypes.string.isRequired
+    location: React.PropTypes.string.isRequired,
+
+    onReplyClicked: React.PropTypes.func,
+    onReportClicked: React.PropTypes.func,
+
+    reply_target_topic: React.PropTypes.object,
+    reply_target_reply: React.PropTypes.object
   },
 
   componentWillMount: function() {
     this.props.onComponentWillMount()
   },
 
+  displayComposeReplyCard: function() {
+    return this.props.reply_target_topic != null ||
+      this.props.reply_target_reply != null
+  },
+
   render: function() {
     const topicCardContent = this.props.topic
-      ? (<TopicCard topic={this.props.topic} hideActions={!this.props.userSignedIn}/>)
+      ? (<TopicCard
+        topic={this.props.topic}
+        hideActions={!this.props.userSignedIn}
+        onReplyClicked={this.props.onReplyClicked}
+        onReportClicked={this.props.onReportClicked}
+          />)
       : (<CircularProgress />)
     const repliesContent = this.props.topic
       ? (<ReplyListController />)
       : null
+    const composeReplyContent = this.displayComposeReplyCard()
+      ? (<ComposeReplyCard
+        topic={this.props.reply_target_topic}
+        reply={this.props.reply_target_reply}
+          />)
+        : null
 
     return (
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -36,7 +58,7 @@ const TopicShow = React.createClass({
         {repliesContent}
         {
           this.props.userSignedIn
-            ? <NoReplyCard topicID={this.props.topicID}/>
+            ? composeReplyContent
             : <SignInFirstCardController location={this.props.location} promptText="You have to log in first to write a reply." />
         }
       </div>
