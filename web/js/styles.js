@@ -15,5 +15,9 @@ export default {
       margin: 6,
       width: '100%',
       display: 'inline-block'
+    },
+    textBlock: {
+      wordWrap: 'break-word',
+      whiteSpace: 'pre-wrap'
     }
 }

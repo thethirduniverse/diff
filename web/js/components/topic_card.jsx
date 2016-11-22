@@ -49,7 +49,7 @@ const TopicCard = React.createClass({
             </a>
           </h2>
         </CardTitle>
-        <CardText style={{wordWrap: 'break-word'}}>
+        <CardText style={styles.textBlock}>
           {this.props.topic.content}
         </CardText>
         <CardActions>
