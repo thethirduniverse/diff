@@ -10,13 +10,18 @@ const ComposeReplyCard = React.createClass({
 
   getTitle: function() {
     const topic = this.props.topic
+    const reply = this.props.reply
     if (topic) {
       return 'Replying to topic: ' + topic.title
+    } else if (reply) {
+      return 'Replying to reply: ' + reply.content
     }
     return 'Replying to unknown entity'
   },
 
   render: function() {
+    const topicID = this.props.topic ? this.props.topic.id : null
+    const replyID = this.props.reply ? this.props.reply.id : null
     return (
       <Card>
         <CardHeader
@@ -24,7 +29,7 @@ const ComposeReplyCard = React.createClass({
         />
         <CardText>
           Be the first to write a reply.
-          <ReplyFormController topicID={this.props.topic.id}/>
+          <ReplyFormController topicID={topicID} replyID={replyID}/>
         </CardText>
       </Card>
     )

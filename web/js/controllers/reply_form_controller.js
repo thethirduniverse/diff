@@ -15,7 +15,13 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onSubmit: (data) => {
-      data.reply.topic_id = ownProps.topicID
+      if (ownProps.topicID) {
+        data.reply.topic_id = ownProps.topicID
+      } else if (ownProps.replyID) {
+        data.reply.reply_id = ownProps.replyID
+      } else {
+        throw new Error('one of topicID and replyID has to be set')
+      }
       $.post('/api/replies', data)
         .done((res) => {
           dispatch(replyFormUpdateErrors({}))

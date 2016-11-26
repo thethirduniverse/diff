@@ -6,7 +6,10 @@ import styles from '~/styles.js'
 
 const ReplyCard = React.createClass({
   propTypes: {
-    reply: React.PropTypes.object.isRequired
+    reply: React.PropTypes.object.isRequired,
+
+    onReplyClicked: React.PropTypes.func.isRequired,
+    onReportClicked: React.PropTypes.func.isRequired
   },
 
   render: function() {
@@ -16,8 +19,8 @@ const ReplyCard = React.createClass({
           {this.props.reply.content}
         </CardText>
         <CardActions>
-          <RaisedButton label="Reply" primary={true}/>
-          <RaisedButton label="Report" />
+          <RaisedButton label="Reply" primary={true} onClick={this.props.onReplyClicked}/>
+          <RaisedButton label="Report" onClick={this.props.onReportClicked}/>
         </CardActions>
       </Card>
     )

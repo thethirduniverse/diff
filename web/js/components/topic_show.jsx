@@ -20,6 +20,8 @@ const TopicShow = React.createClass({
 
     onReplyClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
+    onReplyReplyClicked: React.PropTypes.func,
+    onReportReplyClicked: React.PropTypes.func,
 
     reply_target_topic: React.PropTypes.object,
     reply_target_reply: React.PropTypes.object
@@ -48,7 +50,10 @@ const TopicShow = React.createClass({
           />)
       : (<CircularProgress />)
     const repliesContent = this.props.topic
-      ? (<ReplyListController />)
+      ? (<ReplyListController
+          onReplyClicked={this.props.onReplyReplyClicked}
+          onReportClicked={this.props.onReportReplyClicked}
+        />)
       : null
     const composeReplyContent = this.displayComposeReplyCard()
       ? (<ComposeReplyCard

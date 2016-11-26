@@ -7,7 +7,10 @@ const ReplyList = React.createClass({
     replyTree: React.PropTypes.array.isRequired,
     replyIndexes: React.PropTypes.array.isRequired,
     leftChevronClicked: React.PropTypes.func.isRequired,
-    rightChevronClicked: React.PropTypes.func.isRequired
+    rightChevronClicked: React.PropTypes.func.isRequired,
+
+    onReplyClicked: React.PropTypes.func.isRequired,
+    onReportClicked: React.PropTypes.func.isRequired
   },
 
   render: function() {
@@ -24,6 +27,8 @@ const ReplyList = React.createClass({
             key={reply.id}
             leftChevronClicked={this.props.leftChevronClicked.bind(null, idx)}
             rightChevronClicked={this.props.rightChevronClicked.bind(null, idx)}
+            onReplyClicked={this.props.onReplyClicked.bind(null, reply)}
+            onReportClicked={this.props.onReportClicked.bind(null, reply)}
           />)
         }
         )

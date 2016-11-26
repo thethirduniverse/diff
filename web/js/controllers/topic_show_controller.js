@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import TopicShow from 'components/topic_show.jsx'
-import { topicShowLoadTopic, topicShowAppendReplies, replyFormSetTargetTopic, replyFormClearTarget } from 'actions'
+import { topicShowLoadTopic, topicShowAppendReplies, replyFormSetTargetTopic, replyFormSetTargetReply, replyFormClearTarget } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -25,7 +25,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(replyFormSetTargetTopic(topic))
     },
     onReportClicked: () => {
-      console.log('report clicked')
+      console.log('report topic clicked')
+    },
+    onReplyReplyClicked: (reply) => {
+      dispatch(replyFormSetTargetReply(reply))
+    },
+    onReportReplyClicked: (reply) => {
+      console.log('report reply clicked')
     },
     onComponentWillMount: () => {
       $.get('/api/topics/' + ownProps.params.id)

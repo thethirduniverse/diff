@@ -9,7 +9,10 @@ const ReplyRow = React.createClass({
     totalDots: React.PropTypes.number.isRequired,
     currentIndex: React.PropTypes.number.isRequired,
     leftChevronClicked: React.PropTypes.func.isRequired,
-    rightChevronClicked: React.PropTypes.func.isRequired
+    rightChevronClicked: React.PropTypes.func.isRequired,
+
+    onReplyClicked: React.PropTypes.func.isRequired,
+    onReportClicked: React.PropTypes.func.isRequired
   },
 
   showPaginationDots: function() {
@@ -21,6 +24,8 @@ const ReplyRow = React.createClass({
       <div>
         <ReplyCard
           reply={this.props.reply}
+          onReplyClicked={this.props.onReplyClicked}
+          onReportClicked={this.props.onReportClicked}
         />
         {
           this.showPaginationDots()
