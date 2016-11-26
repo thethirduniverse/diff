@@ -4,7 +4,8 @@ require 'test_helper'
 class ReplyTest < ActiveSupport::TestCase
   test 'topic id cannot be nil or not valid' do
     reply = Reply.new(creator_id: User.first.id,
-                      content: 'some content')
+                      content: 'some content',
+                      target_type: :topic)
     assert_equal false, reply.save
     refute_nil reply.errors[:topic]
   end
@@ -12,7 +13,8 @@ class ReplyTest < ActiveSupport::TestCase
   test 'reply id can be nil' do
     reply = Reply.new(creator_id: User.first.id,
                       content: 'some content',
-                      topic_id: Topic.first.id)
+                      topic_id: Topic.first.id,
+                      target_type: :topic)
     assert_equal true, reply.save
   end
 
@@ -24,7 +26,8 @@ class ReplyTest < ActiveSupport::TestCase
     reply = Reply.new(creator_id: User.first.id,
                       content: 'some content',
                       topic_id: Topic.first.id,
-                      reply_id: 999)
+                      reply_id: 999,
+                      target_type: :reply)
     assert_equal false, reply.save
     refute_nil reply.errors[:parent_reply]
   end
@@ -33,7 +36,8 @@ class ReplyTest < ActiveSupport::TestCase
     reply = Reply.new(creator_id: User.first.id,
                       content: 'some content',
                       topic_id: Topic.first.id,
-                      reply_id: Reply.first.id)
+                      reply_id: Reply.first.id,
+                      target_type: :reply)
     assert_equal true, reply.save
   end
 end

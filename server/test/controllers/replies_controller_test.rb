@@ -59,7 +59,7 @@ class RepliesControllerTest < ActionController::TestCase
     assert_equal 0, reply.replies.count
 
     post :replies, xhr: true, params: {
-      'reply[reply_id]': reply.id
+      'reply[id]': reply.id
     }
 
     json = JSON.parse(@response.body)
@@ -74,7 +74,7 @@ class RepliesControllerTest < ActionController::TestCase
     assert_equal true, r2.save
 
     post :replies, xhr: true, params: {
-      'reply[reply_id]': reply.id
+      'reply[id]': reply.id
     }
 
     json = JSON.parse(@response.body)
@@ -89,11 +89,43 @@ class RepliesControllerTest < ActionController::TestCase
     assert_equal true, r3.save
 
     post :replies, xhr: true, params: {
-      'reply[reply_id]': reply.id
+      'reply[id]': reply.id
     }
 
     json = JSON.parse(@response.body)
     assert_equal 200, @response.status
     assert_equal 2, json['replies'].length
+  end
+
+  test 'reply can not point to an invalid reply' do
+    adam = User.find(1)
+    sign_in adam
+    assert_nil Reply.find_by_id(999)
+
+    post :create, xhr: true, params: {
+      'reply[reply_id]': 999,
+      'reply[content]': 'reply content'
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 400, @response.status
+    assert_equal ['can\'t be blank'], json['errors']['parent_reply']
+  end
+
+  test 'reply to another reply has a topic properly set' do
+    adam = User.find(1)
+    sign_in adam
+    reply = Reply.first
+
+    post :create, xhr: true, params: {
+      'reply[reply_id]': reply.id,
+      'reply[content]': 'reply content'
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+
+    refute_nil json['reply']
+    assert_equal reply.topic_id, Reply.find(json['reply']['id']).topic_id
   end
 end

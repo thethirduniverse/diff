@@ -23,7 +23,7 @@ class RepliesController < ApplicationController
   end
 
   def replies
-    reply_id = params['reply']['reply_id']
+    reply_id = params['reply']['id']
 
     replies = Reply.find(reply_id).replies
     render json: {
@@ -36,6 +36,18 @@ class RepliesController < ApplicationController
   private
 
   def reply_params
-    params.require(:reply).permit(:content, :topic_id, :reply_id)
+    ps = params.require(:reply).permit(:content, :topic_id, :reply_id)
+
+    # the topic of a reply to another reply is that reply's topic
+    if ps[:reply_id]
+      parent = Reply.find_by_id(ps[:reply_id])
+      ps[:topic_id] = parent ? parent.topic.id : nil
+      ps[:target_type] = :reply
+    else
+      ps[:reply_id] = nil
+      ps[:target_type] = :topic
+    end
+
+    ps
   end
 end
