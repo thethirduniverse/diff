@@ -6,7 +6,8 @@ module ReplyHelper
       'content': r.content,
       'topic_id': r.topic_id,
       'reply_id': r.reply_id,
-      'root_topic_id': r.root_topic_id
+      'root_topic_id': r.root_topic_id,
+      'reply_ids': r.replies.pluck(:id)
     }
   end
 end
