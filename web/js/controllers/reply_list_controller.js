@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import ReplyList from 'components/reply_list.jsx'
@@ -26,7 +25,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const merge = (stateProps, dispatchProps, ownProps) => {
-  const { replyTree, replyIndexes } = stateProps
   const { _showExpandMore } = dispatchProps
 
   return {

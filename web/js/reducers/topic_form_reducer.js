@@ -24,10 +24,9 @@ export default (state = defaultState, action) => {
         filter: ''
       }
     case actions.topicFormRemoveCategory:
-      const id = action.categoryID
       return {
         ...state,
-        categories: state.categories.filter((c) => (c.id != action.categoryId)).sort(sortByName)
+        categories: state.categories.filter((c) => (c.id !== action.categoryId)).sort(sortByName)
       }
     case actions.topicFormUpdateCategoryFilter:
       return {

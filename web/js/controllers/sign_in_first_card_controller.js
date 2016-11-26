@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 

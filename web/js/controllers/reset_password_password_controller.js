@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import ResetPasswordPasswordCard from 'components/reset_password_password_form.jsx'
-import { accountResetPasswordEmailSent, accountResetPasswordUpdatePasswordErrors, accountResetPasswordShowBadTokenDialog, accountResetPasswordHideBadTokenDialog, account, userSignIn } from 'actions'
+import { accountResetPasswordUpdatePasswordErrors, accountResetPasswordShowBadTokenDialog, accountResetPasswordHideBadTokenDialog, userSignIn } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

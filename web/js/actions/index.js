@@ -29,7 +29,7 @@ const actions = {
   profileShowAvatarForm: 'PROFILE_SHOW_AVATAR_FORM',
   profileHideAvatarForm: 'PROFILE_HIDE_AVATAR_FORM',
   profileUpdateAvatarFormErrors: 'PROFILE_UPDATE_AVATAR_FORM_ERRORS',
-  categoryLoad: 'CATEGORY_LOAD',
+  categoryLoad: 'CATEGORY_LOAD'
 }
 export default actions
 
@@ -105,12 +105,13 @@ export const userShowSignUpError = (e) => {
   }
 }
 
+/* eslint-disable camelcase */
 export const topicFeedLoadMore = (topics, has_more, next_offset) => {
   return {
     type: actions.topicFeedLoadMore,
     topics,
     has_more,
-    next_offset,
+    next_offset
   }
 }
 
@@ -119,9 +120,10 @@ export const topicFeedReload = (topics, has_more, next_offset) => {
     type: actions.topicFeedReload,
     topics,
     has_more,
-    next_offset,
+    next_offset
   }
 }
+/* eslint-enable camelcase */
 
 export const topicFeedShowNewest = () => {
   return {
@@ -239,6 +241,7 @@ export const profileLoadUser = (user) => {
   }
 }
 
+/* eslint-disable camelcase */
 export const profileLoadMorePostedTopics = (topics, has_more, next_offset) => {
   return {
     type: actions.profileLoadMorePostedTopics,
@@ -247,6 +250,7 @@ export const profileLoadMorePostedTopics = (topics, has_more, next_offset) => {
     next_offset
   }
 }
+/* eslint-enable camelcase */
 
 export const profileShowAvatarForm = () => {
   return {

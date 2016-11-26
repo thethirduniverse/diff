@@ -1,11 +1,11 @@
-import csrf_ajax from 'setups/csrf_ajax.js'
-import material_ui from 'setups/material_ui.js'
+import csrfAjax from 'setups/csrf_ajax.js'
+import materialUI from 'setups/material_ui.js'
 import bootstrap from 'setups/bootstrap.js'
 
 export default function(store) {
   [
-    csrf_ajax,
-    material_ui,
+    csrfAjax,
+    materialUI,
     bootstrap
   ].forEach((f) => { f(store) })
 }

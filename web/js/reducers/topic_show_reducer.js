@@ -7,13 +7,13 @@ const defaultState = {
 }
 
 export const showPreviousReply = (state, action) => {
-  if (state.replyTree.length != state.replyIndexes.length) {
-    throw new Error("Internal inconsistency in topic show reducer. Reply tree and reply indexes has differnt depth")
+  if (state.replyTree.length !== state.replyIndexes.length) {
+    throw new Error('Internal inconsistency in topic show reducer. Reply tree and reply indexes has differnt depth')
   }
 
   const level = action.level
   if (level < 0 || level >= state.replyIndexes.length) {
-    throw new Error("level outside of range for level " + level)
+    throw new Error('level outside of range for level ' + level)
   }
 
   const index = state.replyIndexes[level]
@@ -27,13 +27,13 @@ export const showPreviousReply = (state, action) => {
 }
 
 export const showNextReply = (state, action) => {
-  if (state.replyTree.length != state.replyIndexes.length) {
-    throw new Error("Internal inconsistency in topic show reducer. Reply tree and reply indexes has differnt depth")
+  if (state.replyTree.length !== state.replyIndexes.length) {
+    throw new Error('Internal inconsistency in topic show reducer. Reply tree and reply indexes has differnt depth')
   }
 
   const level = action.level
   if (level < 0 || level >= state.replyIndexes.length) {
-    throw new Error("level outside of range for level " + level)
+    throw new Error('level outside of range for level ' + level)
   }
 
   const index = state.replyIndexes[level]
@@ -47,8 +47,8 @@ export const showNextReply = (state, action) => {
 }
 
 export const appendReplies = (state, action) => {
-  if (state.replyTree.length != state.replyIndexes.length) {
-    throw new Error("Internal inconsistency in topic show reducer. Reply tree and reply indexes has differnt depth")
+  if (state.replyTree.length !== state.replyIndexes.length) {
+    throw new Error('Internal inconsistency in topic show reducer. Reply tree and reply indexes has differnt depth')
   }
 
   if (action.replies.length > 0) {
@@ -65,13 +65,13 @@ export const appendReplies = (state, action) => {
 export const insertReplyIfNeeded = (state, action) => {
   switch (action.target) {
     case replyTargets.topic:
-      if (state.topic.id == action.reply.topic_id) {
+      if (state.topic.id === action.reply.topic_id) {
         return _insertReplyAtRoot(state, action)
       }
       return state
     case replyTargets.reply:
     default:
-      throw new Error("Unknown target for action")
+      throw new Error('Unknown target for action')
   }
 }
 

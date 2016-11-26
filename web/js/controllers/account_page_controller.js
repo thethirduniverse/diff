@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
@@ -14,7 +13,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     _navigateBack: () => {
       const ref = ownProps.location.query.ref
-      dispatch(push(ref ? ref : '/'))
+      dispatch(push(ref || '/'))
     }
   }
 }

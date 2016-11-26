@@ -4,7 +4,7 @@ import { push } from 'react-router-redux'
 
 import App from 'components/app.jsx'
 import { updatePageAndAjaxCSRFToken } from 'helpers/csrf_token_helpers.js'
-import { userSignIn, userSignOut } from 'actions'
+import { userSignOut } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onSignOutClicked: () => {
       $.ajax({
         url: '/api/users/sign_out',
-        method: 'DELETE',
+        method: 'DELETE'
       })
         .done((res) => {
           console.log('log out succeed with response')

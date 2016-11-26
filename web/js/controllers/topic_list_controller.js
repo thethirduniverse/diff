@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           console.log('load more topics from server failed with response:')
           console.log(res)
         })
-    },
+    }
   }
 }
 

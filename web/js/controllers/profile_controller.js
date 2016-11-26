@@ -32,15 +32,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onSubmitAvatarClicked: (data) => {
       console.log(data)
 
+      /* eslint-disable no-undef */
       var f = new FormData()
+      /* eslint-enable no-undef */
       f.append('user[avatar]', data.user.avatar)
 
       $.ajax({
-          url: '/api/update-avatar',
-          data: f,
-          processData: false,
-          contentType: false,
-          type: 'POST'
+        url: '/api/update-avatar',
+        data: f,
+        processData: false,
+        contentType: false,
+        type: 'POST'
       })
         .done((res) => {
           dispatch(profileHideAvatarForm())

@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import NavigationList from 'components/navigation_list.jsx'

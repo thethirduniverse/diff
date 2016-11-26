@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import ResetPasswordEmailCard from 'components/reset_password_email_form.jsx'
-import { accountResetPasswordEmailSent, accountResetPasswordUpdateErrors } from 'actions'
+import { accountResetPasswordUpdateErrors } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           }))
         })
         .fail((res) => {
-          if (res.status == 400) {
+          if (res.status === 400) {
             dispatch(accountResetPasswordUpdateErrors(res.responseJSON.errors))
           } else {
             console.log('request reset password failed with response:')

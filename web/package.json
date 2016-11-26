@@ -42,7 +42,7 @@
   },
   "scripts": {
     "test": "mocha-webpack --webpack-config webpack.config.js \"test/**/*.js\"",
-    "lint": "./node_modules/.bin/eslint ./js --ext .jsx"
+    "lint": "./node_modules/.bin/eslint ./js --ext .jsx,.js --fix"
   },
   "author": "",
   "license": "ISC"

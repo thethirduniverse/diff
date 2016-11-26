@@ -4,7 +4,7 @@ export default () => (
   createLogger({
     predicate: (getState, action) => (
       !([
-        'redux-form',
+        'redux-form'
       ].some((prefix) => (
         action.type.startsWith(prefix)
       )))

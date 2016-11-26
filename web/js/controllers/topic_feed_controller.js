@@ -50,7 +50,7 @@ const merge = (stateProps, dispatchProps, ownProps) => {
   var initialLoadParams = {}
   var loadMoreParams = { offset: _content.next_offset }
 
-  switch(_content.type) {
+  switch (_content.type) {
     case contentTypes.category:
       const category = _categories[_content.currentCategoryIndex]
       initialLoadParams.category_id = category.id

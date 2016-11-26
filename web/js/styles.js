@@ -3,21 +3,21 @@ export default {
   wrapper: {
     alignItems: 'flex-start',
     display: 'flex',
-      flexWrap: 'wrap'
+    flexWrap: 'wrap'
   },
-    chip: {
-      margin: 4
-    },
-    title: {
-      cursor: 'pointer'
-    },
-    paperCard: {
-      margin: 6,
-      width: '100%',
-      display: 'inline-block'
-    },
-    textBlock: {
-      wordWrap: 'break-word',
-      whiteSpace: 'pre-wrap'
-    }
+  chip: {
+    margin: 4
+  },
+  title: {
+    cursor: 'pointer'
+  },
+  paperCard: {
+    margin: 6,
+    width: '100%',
+    display: 'inline-block'
+  },
+  textBlock: {
+    wordWrap: 'break-word',
+    whiteSpace: 'pre-wrap'
+  }
 }

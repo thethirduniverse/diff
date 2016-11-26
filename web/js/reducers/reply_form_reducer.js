@@ -1,4 +1,4 @@
-import actions, { replyTargets } from 'actions'
+import actions from 'actions'
 
 const defaultState = {
   target_topic: null,

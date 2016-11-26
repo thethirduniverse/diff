@@ -1,10 +1,9 @@
 import $ from 'jquery'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import ReplyForm from 'components/reply_form.jsx'
-import { replyFormUpdateErrors,  replyTargets, replyFormPostedReply } from 'actions'
+import { replyFormUpdateErrors, replyTargets, replyFormPostedReply } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

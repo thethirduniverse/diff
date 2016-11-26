@@ -49,7 +49,7 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         signed_in: true,
-        user:action.user,
+        user: action.user,
         sign_in_errors: null,
         sign_up_errors: null
       }

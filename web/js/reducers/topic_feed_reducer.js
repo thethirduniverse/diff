@@ -1,8 +1,8 @@
 import actions from 'actions'
 
 export const contentTypes = {
-  newest: "TOPIC_FEED_SHOW_NEWEST",
-  category: "TOPIC_FEED_SHOW_CATEGORY"
+  newest: 'TOPIC_FEED_SHOW_NEWEST',
+  category: 'TOPIC_FEED_SHOW_CATEGORY'
 }
 
 const defaultState = {
@@ -38,7 +38,7 @@ export default (state = defaultState, action) => {
           has_more: action.has_more,
           next_offset: action.next_offset
         },
-        topics: action.topics,
+        topics: action.topics
       }
     case actions.topicFeedShowNewest:
       const contentTypeWasNotNewest = state.content.type !== contentTypes.newest

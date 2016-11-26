@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import SignUpCard from 'components/sign_up.jsx'
-import { userShowSignInForm, userSignUp, userShowSignUpError } from 'actions'
+import { userShowSignUpError } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -20,11 +20,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(push('/account/reset-password/email'))
     },
     signUpClicked: (data) => {
-      $.post("/api/users", {user: data})
+      $.post('/api/users', {user: data})
         .done((res) => {
           console.log(res)
           dispatch(push({
-            pathname: '/account/email-confirmation', 
+            pathname: '/account/email-confirmation',
             query: {
               email: res.email
             }

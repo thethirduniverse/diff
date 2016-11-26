@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const getUserFromSignInResponse = (res) => ( res.user )
+const getUserFromSignInResponse = (res) => (res.user)
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -23,13 +23,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(push('/account/reset-password/email'))
     },
     signInClicked: (data) => {
-      $.post("/api/users/sign_in", {user: data})
+      $.post('/api/users/sign_in', {user: data})
         .done((res) => {
           dispatch(userSignIn(getUserFromSignInResponse(res)))
           updatePageAndAjaxCSRFToken(res.newCSRFToken)
 
           const ref = ownProps.location.query.ref
-          dispatch(push(ref ? ref : '/'))
+          dispatch(push(ref || '/'))
         })
         .fail((res) => {
           if (res.status === 401) {

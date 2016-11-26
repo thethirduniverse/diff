@@ -4,7 +4,7 @@ import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import TopicForm from 'components/topic_form.jsx'
-import { topicFeedReload, topicFormAddCategory, topicFormRemoveCategory, topicFormUpdateCategoryFilter, topicFormUpdateErrors } from 'actions'
+import { topicFormAddCategory, topicFormRemoveCategory, topicFormUpdateCategoryFilter, topicFormUpdateErrors } from 'actions'
 
 const containsFilter = (name, key) => (
   name.toLowerCase().includes(key.toLowerCase())
@@ -26,7 +26,7 @@ const mapStateToProps = (state, ownProps) => {
     ),
     categoryInput: state.topicForm.filter,
     errors: state.topicForm.errors,
-    _allCategories: state.category.categories,
+    _allCategories: state.category.categories
   }
 }
 
@@ -74,7 +74,7 @@ const mergeProps = (s, d, o) => {
     onSubmit: (data) => {
       d._onSubmit({
         ...data,
-        'topic[category_ids]': s.categories.map((c)=>(c.id))
+        'topic[category_ids]': s.categories.map((c) => (c.id))
       })
     }
   }

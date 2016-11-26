@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import EmailConfirmationCard from 'components/email_confirmation_card.jsx'
-import { userShowSignInForm, userSignUp, userShowSignUpError } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {

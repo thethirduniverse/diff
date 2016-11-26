@@ -1,14 +1,14 @@
 import $ from 'jquery'
 
-export const setAjaxCSRFToken = (new_token) => {
+export const setAjaxCSRFToken = (newToken) => {
   $.ajaxSetup({
     headers: {
-      'X-CSRF-Token': new_token
+      'X-CSRF-Token': newToken
     }
-  });
+  })
 }
 
-export const updatePageAndAjaxCSRFToken = (new_token) => {
-  $('meta[name="csrf-token"]').attr('content', new_token)
-  setAjaxCSRFToken(new_token)
+export const updatePageAndAjaxCSRFToken = (newToken) => {
+  $('meta[name="csrf-token"]').attr('content', newToken)
+  setAjaxCSRFToken(newToken)
 }
