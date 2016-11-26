@@ -11,6 +11,7 @@ const ReplyRow = React.createClass({
     leftChevronClicked: React.PropTypes.func.isRequired,
     rightChevronClicked: React.PropTypes.func.isRequired,
     paginationDotClicked: React.PropTypes.func.isRequired,
+    expandMoreClicked: React.PropTypes.func.isRequired,
 
     onReplyClicked: React.PropTypes.func.isRequired,
     onReportClicked: React.PropTypes.func.isRequired
@@ -18,6 +19,10 @@ const ReplyRow = React.createClass({
 
   showPaginationDots: function() {
     return this.props.totalDots > 1
+  },
+
+  expandMoreClicked: function() {
+    this.props.expandMoreClicked(this.props.currentIndex)
   },
 
   render: function() {
@@ -36,6 +41,8 @@ const ReplyRow = React.createClass({
               leftChevronClicked={this.props.leftChevronClicked}
               rightChevronClicked={this.props.rightChevronClicked}
               paginationDotClicked={this.props.paginationDotClicked}
+              expandMoreClicked={this.expandMoreClicked}
+              showExpandMore={!this.props.reply._expanded && this.props.reply.reply_ids.length > 0}
             />
             : null
         }

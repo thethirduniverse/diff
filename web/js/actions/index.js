@@ -16,6 +16,7 @@ const actions = {
   topicShowShowNextReply: 'TOPIC_SHOW_SHOW_NEXT_REPLY',
   topicShowShowReplyAtIndex: 'TOPIC_SHOW_SHOW_REPLY_AT_INDEX',
   topicShowAppendReplies: 'TOPIC_SHOW_APPEND_REPLIES',
+  topicShowExpandReply: 'TOPIC_SHOW_EXPAND_REPLY',
   topicFormAddCategory: 'TOPIC_FORM_ADD_CATEGORY',
   topicFormRemoveCategory: 'TOPIC_FORM_REMOVE_CATEGORY',
   topicFormUpdateCategoryFilter: 'TOPIC_FORM_UPDATE_CATEGORY_FILTER',
@@ -171,6 +172,13 @@ export const topicShowShowReplyAtIndex = (level, index) => {
 export const topicShowAppendReplies = (replies) => {
   return {
     type: actions.topicShowAppendReplies,
+    replies
+  }
+}
+
+export const topicShowExpandReply = (replies) => {
+  return {
+    type: actions.topicShowExpandReply,
     replies
   }
 }

@@ -15,7 +15,8 @@ const PaginationDots = React.createClass({
     rightChevronClicked: React.PropTypes.func.isRequired,
     paginationDotClicked: React.PropTypes.func.isRequired,
 
-    showExpandMore: React.PropTypes.bool
+    showExpandMore: React.PropTypes.bool,
+    expandMoreClicked: React.PropTypes.func.isRequired
   },
 
   _height: 24,
@@ -76,7 +77,7 @@ const PaginationDots = React.createClass({
         {
           this.props.showExpandMore
             ? (<div style={{margin: 'auto'}}>
-              <IconButton>
+              <IconButton onClick={this.props.expandMoreClicked}>
                 <ExpandMore />
               </IconButton>
             </div>)

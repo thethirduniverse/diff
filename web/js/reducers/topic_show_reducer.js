@@ -54,7 +54,12 @@ export const appendReplies = (state, action) => {
   if (action.replies.length > 0) {
     return {
       ...state,
-      replyTree: [...state.replyTree, action.replies],
+      replyTree: [...state.replyTree, action.replies.map((r) => (
+        {
+          ...r,
+          _expanded: false
+        }
+      ))],
       replyIndexes: [...state.replyIndexes, 0]
     }
   } else {
