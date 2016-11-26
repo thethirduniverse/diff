@@ -8,9 +8,17 @@ const ReplyList = React.createClass({
     replyIndexes: React.PropTypes.array.isRequired,
     leftChevronClicked: React.PropTypes.func.isRequired,
     rightChevronClicked: React.PropTypes.func.isRequired,
+    paginationDotClicked: React.PropTypes.func.isRequired,
 
     onReplyClicked: React.PropTypes.func.isRequired,
     onReportClicked: React.PropTypes.func.isRequired
+  },
+
+  paginationDotClicked: function(level) {
+    const that = this
+    return function(idx) {
+      that.props.paginationDotClicked(level, idx)
+    }
   },
 
   render: function() {
@@ -27,6 +35,7 @@ const ReplyList = React.createClass({
             key={reply.id}
             leftChevronClicked={this.props.leftChevronClicked.bind(null, idx)}
             rightChevronClicked={this.props.rightChevronClicked.bind(null, idx)}
+            paginationDotClicked={this.paginationDotClicked(idx)}
             onReplyClicked={this.props.onReplyClicked.bind(null, reply)}
             onReportClicked={this.props.onReportClicked.bind(null, reply)}
           />)

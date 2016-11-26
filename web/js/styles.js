@@ -8,7 +8,7 @@ export default {
   chip: {
     margin: 4
   },
-  title: {
+  clickable: {
     cursor: 'pointer'
   },
   paperCard: {

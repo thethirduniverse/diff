@@ -10,6 +10,7 @@ const ReplyRow = React.createClass({
     currentIndex: React.PropTypes.number.isRequired,
     leftChevronClicked: React.PropTypes.func.isRequired,
     rightChevronClicked: React.PropTypes.func.isRequired,
+    paginationDotClicked: React.PropTypes.func.isRequired,
 
     onReplyClicked: React.PropTypes.func.isRequired,
     onReportClicked: React.PropTypes.func.isRequired
@@ -34,6 +35,7 @@ const ReplyRow = React.createClass({
               currentIndex={this.props.currentIndex}
               leftChevronClicked={this.props.leftChevronClicked}
               rightChevronClicked={this.props.rightChevronClicked}
+              paginationDotClicked={this.props.paginationDotClicked}
             />
             : null
         }

@@ -26,7 +26,7 @@ const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked
   )
 
   return <AppBar
-    title={<span style={styles.title}>Debatable</span>}
+    title={<span style={styles.clickable}>Debatable</span>}
     onTitleTouchTap = {onTitleClicked}
     showMenuIconButton = {false}
     iconElementRight = {iconMenu}

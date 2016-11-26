@@ -75,6 +75,27 @@ export const insertReplyIfNeeded = (state, action) => {
   }
 }
 
+export const showReplyAtIndex = (state, action) => {
+  if (state.replyTree.length !== state.replyIndexes.length) {
+    throw new Error('Internal inconsistency in topic show reducer. Reply tree and reply indexes has differnt depth')
+  }
+
+  const level = action.level
+  if (level < 0 || level >= state.replyIndexes.length) {
+    throw new Error('level outside of range for level ' + level)
+  }
+
+  if (action.index < 0 || action.index >= state.replyTree[level].length) {
+    throw new Error('index outside of range for index ' + action.index)
+  }
+
+  return {
+    ...state,
+    replyTree: state.replyTree.slice(0, level + 1),
+    replyIndexes: [...state.replyIndexes.slice(0, level), action.index]
+  }
+}
+
 const _insertReplyAtRoot = (state, action) => {
   const depth = state.replyTree.length
 
@@ -105,6 +126,8 @@ export default (state = defaultState, action) => {
       return showPreviousReply(state, action)
     case actions.topicShowShowNextReply:
       return showNextReply(state, action)
+    case actions.topicShowShowReplyAtIndex:
+      return showReplyAtIndex(state, action)
     case actions.topicShowAppendReplies:
       return appendReplies(state, action)
     case actions.replyFormPostedReply:

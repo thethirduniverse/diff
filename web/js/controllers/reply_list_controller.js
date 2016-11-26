@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import ReplyList from 'components/reply_list.jsx'
-import { topicShowShowPreviousReply, topicShowShowNextReply, topicAppendReplies } from 'actions'
+import { topicShowShowPreviousReply, topicShowShowNextReply, topicShowShowReplyAtIndex, topicAppendReplies } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     rightChevronClicked: (level) => {
       dispatch(topicShowShowNextReply(level))
+    },
+    paginationDotClicked: (level, index) => {
+      dispatch(topicShowShowReplyAtIndex(level, index))
     },
     _showExpandMore: (replies) => {
       dispatch(topicAppendReplies(replies))
