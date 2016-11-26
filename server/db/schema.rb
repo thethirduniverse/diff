@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126001635) do
+ActiveRecord::Schema.define(version: 20161126005501) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -40,8 +40,10 @@ ActiveRecord::Schema.define(version: 20161126001635) do
     t.integer "topic_id"
     t.integer "reply_id"
     t.integer "target_type"
+    t.integer "root_topic_id"
     t.index ["creator_id"], name: "index_replies_on_creator_id"
     t.index ["reply_id"], name: "index_replies_on_reply_id"
+    t.index ["root_topic_id"], name: "index_replies_on_root_topic_id"
     t.index ["topic_id"], name: "index_replies_on_topic_id"
   end
 

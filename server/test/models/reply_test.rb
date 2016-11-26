@@ -35,7 +35,7 @@ class ReplyTest < ActiveSupport::TestCase
   test 'valid reply is accepted' do
     reply = Reply.new(creator_id: User.first.id,
                       content: 'some content',
-                      topic_id: Topic.first.id,
+                      root_topic_id: Topic.first.id,
                       reply_id: Reply.first.id,
                       target_type: :reply)
     assert_equal true, reply.save

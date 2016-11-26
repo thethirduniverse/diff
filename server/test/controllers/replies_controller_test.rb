@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 require 'test_helper'
+
+# rubocop:disable ClassLength
 class RepliesControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
@@ -126,6 +128,30 @@ class RepliesControllerTest < ActionController::TestCase
     assert_equal 200, @response.status
 
     refute_nil json['reply']
-    assert_equal reply.topic_id, Reply.find(json['reply']['id']).topic_id
+    assert_nil Reply.find(json['reply']['id']).topic_id
+    assert_equal reply.topic_id, Reply.find(json['reply']['id']).root_topic_id
+  end
+
+  test 'derived replies tracks properly' do
+    adam = User.find(1)
+    sign_in adam
+    reply = Reply.first
+    topic = reply.topic
+    reply_count = topic.replies.count
+    assert_equal 0, topic.derived_replies.count
+
+    post :create, xhr: true, params: {
+      'reply[reply_id]': reply.id,
+      'reply[content]': 'reply content'
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+
+    refute_nil json['reply']
+    rid = json['reply']['id']
+    assert_equal reply.topic.id, Reply.find(rid).root_topic_id
+    assert_equal reply_count, topic.replies.count
+    assert_equal 1, topic.derived_replies.count
   end
 end
