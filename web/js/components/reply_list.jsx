@@ -9,6 +9,8 @@ const ReplyList = React.createClass({
     leftChevronClicked: React.PropTypes.func.isRequired,
     rightChevronClicked: React.PropTypes.func.isRequired,
     paginationDotClicked: React.PropTypes.func.isRequired,
+
+    shouldShowExpandMore: React.PropTypes.func.isRequired,
     expandMoreClicked: React.PropTypes.func.isRequired,
 
     onReplyClicked: React.PropTypes.func.isRequired,
@@ -44,6 +46,7 @@ const ReplyList = React.createClass({
             leftChevronClicked={this.props.leftChevronClicked.bind(null, idx)}
             rightChevronClicked={this.props.rightChevronClicked.bind(null, idx)}
             expandMoreClicked={this.expandMoreClicked(idx)}
+            showExpandMore={this.props.shouldShowExpandMore(reply)}
             paginationDotClicked={this.paginationDotClicked(idx)}
             onReplyClicked={this.props.onReplyClicked.bind(null, reply)}
             onReportClicked={this.props.onReportClicked.bind(null, reply)}

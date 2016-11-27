@@ -40,7 +40,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
           // load topic first since it clears previous replies
           dispatch(topicShowLoadTopic(rest))
-          dispatch(topicShowAppendReplies(replies))
+          dispatch(topicShowAppendReplies(null, replies))
         })
         .fail((res) => {
           console.log('load topic with response:')

@@ -1,5 +1,5 @@
 import assert from 'assert'
-import { showPreviousReply, showNextReply, appendReplies, findReply } from 'reducers/topic_show_reducer.js'
+import { showPreviousReply, showNextReply, appendReplies, collapseReplies, expandReplies } from 'reducers/topic_show_reducer.js'
 
 describe('TopicShowReducer', function() {
   describe('showPreviousReply', function() {
@@ -9,7 +9,7 @@ describe('TopicShowReducer', function() {
           topic: {},
           replyTree: [[], [], []],
           replyIndexes: [1, 2]
-        }, {})
+        }, 0)
       }, Error, /Internal.*/)
     })
 
@@ -19,7 +19,7 @@ describe('TopicShowReducer', function() {
           topic: {},
           replyTree: [[], [], []],
           replyIndexes: [1, 2]
-        }, {level: 9})
+        }, 9)
       }, Error, /level.*/)
     })
 
@@ -34,10 +34,7 @@ describe('TopicShowReducer', function() {
             topic: {},
             replyTree: [[0,0], [1], [2,2,2]],
             replyIndexes: [0,0,1]
-          },
-          {
-            level: 2
-          }
+          }, 2
         ))
 
       assert.deepEqual({
@@ -50,53 +47,12 @@ describe('TopicShowReducer', function() {
             topic: {},
             replyTree: [[0,0], [1], [2,2,2]],
             replyIndexes: [0,0,0]
-          },
-          {
-            level: 2
-          }
-        ))
-    })
-
-    it('should trim further levels', function() {
-      assert.deepEqual({
-        topic: {},
-        replyTree: [[0,0], [1], [2,2,2]],
-        replyIndexes: [0,0,0]
-      },
-        showPreviousReply(
-          {
-            topic: {},
-            replyTree: [[0,0], [1], [2,2,2], [3,3,3], [4,4,4]],
-            replyIndexes: [0,0,1,0,0]
-          },
-          {
-            level: 2
-          }
+          }, 2
         ))
     })
   })
 
   describe('showNextReply', function() {
-    it('should throw error when internal inconsistency', function() {
-      assert.throws(function() {
-        showNextReply({
-          topic: {},
-          replyTree: [[], [], []],
-          replyIndexes: [1, 2]
-        }, {})
-      }, Error, /Internal.*/)
-    })
-
-    it('should throw error when level out of rance', function() {
-      assert.throws(function() {
-        showNextReply({
-          topic: {},
-          replyTree: [[], [], []],
-          replyIndexes: [1, 2]
-        }, {level: 9})
-      }, Error, /level.*/)
-    })
-
     it('should properly handle showPreviousReply', function() {
       assert.deepEqual({
         topic: {},
@@ -108,10 +64,7 @@ describe('TopicShowReducer', function() {
             topic: {},
             replyTree: [[0,0], [1], [2,2,2]],
             replyIndexes: [0,0,1]
-          },
-          {
-            level: 2
-          }
+          }, 2
         ))
 
       assert.deepEqual({
@@ -124,89 +77,162 @@ describe('TopicShowReducer', function() {
             topic: {},
             replyTree: [[0,0], [1], [2,2,2]],
             replyIndexes: [0,0,2]
-          },
-          {
-            level: 2
-          }
-        ))
-    })
-
-    it('should trim further levels', function() {
-      assert.deepEqual({
-        topic: {},
-        replyTree: [[0,0], [1], [2,2,2]],
-        replyIndexes: [0,0,2]
-      },
-        showNextReply(
-          {
-            topic: {},
-            replyTree: [[0,0], [1], [2,2,2], [3,3,3], [4,4,4]],
-            replyIndexes: [0,0,1,0,0]
-          },
-          {
-            level: 2
-          }
+          }, 2
         ))
     })
   })
 
   describe('append replies', function() {
-    it('should behave properly', function() {
+    it('should behave properly for root level', function() {
       assert.deepEqual(
         {
-          topic: {},
-          replyTree: [[],[],[],[{id: 1, _expanded: false}, {id: 2, _expanded: false}, {id: 3, _expanded: false}]],
-          replyIndexes: [1,2,3,0]
+          replyTree: [[1, 2, 3]],
+          replyIndexes: [0]
         },
         appendReplies(
           {
-            topic: {},
-            replyTree: [[], [], []],
-            replyIndexes: [1, 2, 3]
+            replyTree: [],
+            replyIndexes: []
           },
+          null,
+          [1, 2, 3]
+        )
+      )
+    })
+
+    it('should behave properly for expanded reply', function() {
+      assert.deepEqual(
+        {
+          replyTree: [
+            [{id: 11}, {id: 12}],
+            [{id: 21}, {id: 22}],
+            [{id: 31}, {id: 32}, {id: 33}]
+          ],
+          replyIndexes: [0, 0, 0]
+        },
+        appendReplies(
           {
-            replies: [{id: 1}, {id: 2}, {id: 3}]
-          }
+            replyTree: [
+              [{id: 11}, {id: 12}],
+              [{id: 21}, {id: 22}]
+            ],
+            replyIndexes: [0, 1]
+          },
+          21,
+          [{id: 31}, {id: 32}, {id: 33}]
         )
       )
     })
   })
 
-  describe('find reply', function() {
-    it('return null if it does not exist', function() {
-      assert.equal(
-        null,
-        findReply(
-          [[{id: 1}, {id: 2}],
-            [{id: 3}, {id: 4}],
-            [{id: 5}, {id: 6}, {id: 7}]],
-          9)
-      )
-    })
-
-    it('return corrent index', function() {
+  describe('collapse replies', function() {
+    it('collaps correctly for level 0', function() {
       assert.deepEqual(
         {
-          level: 0,
-          idx: 0
+          replyTree: [
+            [{
+              id: 11,
+              replies: [
+                {id: 21},
+                {
+                  id: 22,
+                  replies: [
+                    {id: 31},
+                    {id: 32},
+                    {id: 33}
+                  ]
+                },
+              ]
+            }, {id: 12}]
+          ],
+          replyIndexes: [0]
         },
-        findReply(
-          [[{id: 1}, {id: 2}],
-            [{id: 3}, {id: 4}],
-            [{id: 5}, {id: 6}, {id: 7}]],
-          1)
+        collapseReplies(
+          {
+            replyTree: [
+              [ {id: 11}, {id: 12} ],
+              [ {id: 21}, {id: 22} ],
+              [ {id: 31}, {id: 32}, {id: 33} ]
+            ],
+            replyIndexes: [0, 1, 2]
+          }, 0
+        )
       )
+    }),
+    it('collaps correctly for level 1', function() {
       assert.deepEqual(
         {
-          level: 2,
-          idx: 2
+          replyTree: [
+            [{id: 11}, {id: 12}],
+            [
+              {id: 21},
+              {
+                id: 22,
+                replies: [
+                  {id: 31},
+                  {id: 32},
+                  {id: 33}
+                ]
+              },
+            ]
+          ],
+          replyIndexes: [0, 1]
         },
-        findReply(
-          [[{id: 1}, {id: 2}],
-            [{id: 3}, {id: 4}],
-            [{id: 5}, {id: 6}, {id: 7}]],
-          7)
+        collapseReplies(
+          {
+            replyTree: [
+              [ {id: 11}, {id: 12} ],
+              [ {id: 21}, {id: 22} ],
+              [ {id: 31}, {id: 32}, {id: 33} ]
+            ],
+            replyIndexes: [0, 1, 2]
+          }, 1
+        )
       )
     })
   })
+
+  describe('expand replies', function() {
+    it('expand correctly for index 0', function() {
+      assert.deepEqual(
+        {
+          replyTree: [
+            [{id: 11}, {id: 12}],
+            [{id: 21},
+              {id: 22,
+                replies: [
+                  {id: 31},
+                  {id: 32}
+                ]
+              }]
+          ],
+          replyIndexes: [1, 0]
+        },
+        expandReplies(
+          {
+            replyTree: [
+              [
+                {id: 11},
+                {
+                  id: 12,
+                  replies: [
+                    {id: 21},
+                    {
+                      id: 22,
+                      replies: [
+                        {id: 31},
+                        {id: 32}
+                      ]
+                    }
+                  ]
+                }
+              ],
+            ],
+            replyIndexes: [0]
+          }, 1
+        )
+      )
+    })
+  })
+
 })

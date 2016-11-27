@@ -11,6 +11,8 @@ const ReplyRow = React.createClass({
     leftChevronClicked: React.PropTypes.func.isRequired,
     rightChevronClicked: React.PropTypes.func.isRequired,
     paginationDotClicked: React.PropTypes.func.isRequired,
+
+    showExpandMore: React.PropTypes.bool.isRequired,
     expandMoreClicked: React.PropTypes.func.isRequired,
 
     onReplyClicked: React.PropTypes.func.isRequired,
@@ -42,7 +44,7 @@ const ReplyRow = React.createClass({
               rightChevronClicked={this.props.rightChevronClicked}
               paginationDotClicked={this.props.paginationDotClicked}
               expandMoreClicked={this.expandMoreClicked}
-              showExpandMore={!this.props.reply._expanded && this.props.reply.reply_ids.length > 0}
+              showExpandMore={this.props.showExpandMore}
             />
             : null
         }
