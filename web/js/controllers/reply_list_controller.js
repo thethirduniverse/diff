@@ -1,7 +1,8 @@
+import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import ReplyList from 'components/reply_list.jsx'
-import { topicShowShowPreviousReply, topicShowShowNextReply, topicShowShowReplyAtIndex } from 'actions'
+import { topicShowShowPreviousReply, topicShowShowNextReply, topicShowShowReplyAtIndex, topicShowExpandReply } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -21,10 +22,30 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     paginationDotClicked: (level, index) => {
       dispatch(topicShowShowReplyAtIndex(level, index))
     },
-    expandMoreClicked: (level, index) => {
-      console.log('expand more clicked for level: ' + level + ' index: ' + index)
+    _expandMoreClicked: (replyTree, level, index) => {
+      const reply = replyTree[level][index]
+
+      $.get('/api/replies', {'reply[id]': reply.id})
+        .done((res) => {
+          dispatch(topicShowExpandReply(reply, res.replies))
+        })
+        .fail((res) => {
+          console.log('expand more failed with response:')
+          console.log(res)
+        })
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReplyList)
+const merge = (s, d, o) => {
+  return {
+    ...o,
+    ...s,
+    ...d,
+    expandMoreClicked: (level, index) => {
+      d._expandMoreClicked(s.replyTree, level, index)
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps, merge)(ReplyList)

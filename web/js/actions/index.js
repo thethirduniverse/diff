@@ -176,9 +176,10 @@ export const topicShowAppendReplies = (replies) => {
   }
 }
 
-export const topicShowExpandReply = (replies) => {
+export const topicShowExpandReply = (reply, replies) => {
   return {
     type: actions.topicShowExpandReply,
+    reply,
     replies
   }
 }
