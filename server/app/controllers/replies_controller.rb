@@ -41,7 +41,7 @@ class RepliesController < ApplicationController
     # the topic of a reply to another reply is that reply's topic
     if ps[:reply_id]
       parent = Reply.find_by_id(ps[:reply_id])
-      ps[:root_topic_id] = parent ? parent.topic.id : nil
+      ps[:root_topic_id] = effective_topic_id(parent)
       ps[:target_type] = :reply
     else
       ps[:reply_id] = nil
@@ -49,5 +49,15 @@ class RepliesController < ApplicationController
     end
 
     ps
+  end
+
+  def effective_topic_id(reply)
+    return nil unless reply
+
+    if reply.target_topic?
+      reply.topic.id
+    elsif reply.target_reply?
+      reply.root_topic.id
+    end
   end
 end
