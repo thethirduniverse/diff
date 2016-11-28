@@ -1,3 +1,5 @@
+import Dialog from 'material-ui/Dialog'
+import RaisedButton from 'material-ui/RaisedButton'
 import React from 'react'
 
 import NavBar from 'components/nav_bar.jsx'
@@ -11,6 +13,11 @@ const App = React.createClass({
     userSignedIn: React.PropTypes.bool.isRequired,
     onProfileClicked: React.PropTypes.func,
     onNewTopicClicked: React.PropTypes.func.isRequired,
+
+    showError: React.PropTypes.bool.isRequired,
+    errorDescription: React.PropTypes.string.isRequired,
+    onDismissErrorClicked: React.PropTypes.func.isRequired,
+
     children: React.PropTypes.node.isRequired
   },
 
@@ -32,6 +39,21 @@ const App = React.createClass({
           onProfileClicked = {this.props.onProfileClicked}
           onNewTopicClicked = {this.props.onNewTopicClicked}
         />
+        <Dialog
+          title="Sorry, an error occurred."
+          actions={[
+            <RaisedButton
+              label="Dismiss"
+              primary={true}
+              onTouchTap={this.props.onDismissErrorClicked}
+              />
+          ]}
+          modal={false}
+          open={this.props.showError}
+          onRequestClose={this.props.onDismissErrorClicked}
+        >
+          {this.props.errorDescription}
+        </Dialog>
         {this.props.children}
       </div>
     )

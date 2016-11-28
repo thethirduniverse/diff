@@ -4,12 +4,15 @@ import { push } from 'react-router-redux'
 
 import App from 'components/app.jsx'
 import { updatePageAndAjaxCSRFToken } from 'helpers/csrf_token_helpers.js'
-import { userSignOut } from 'actions'
+import { userSignOut, appDismissError } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
     userSignedIn: state.accountReducer.signed_in,
-    user: state.accountReducer.user
+    user: state.accountReducer.user,
+
+    showError: state.app.error.visible,
+    errorDescription: state.app.error.description
   }
 }
 
@@ -42,6 +45,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     _onProfileClicked: (id) => {
       dispatch(push('/profiles/' + id))
+    },
+    onDismissErrorClicked: () => {
+      dispatch(appDismissError())
     }
   }
 }

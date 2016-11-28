@@ -1,4 +1,6 @@
 const actions = {
+  appShowError: 'APP_SHOW_ERROR',
+  appDismissError: 'APP_DISMISS_ERROR',
   accountResetPasswordUpdateErrors: 'ACCOUNT_RESET_PASSWORD_UPDATE_ERRORS',
   accountResetPasswordUpdatePasswordErrors: 'ACCOUNT_RESET_PASSWORD_UPDATE_PASSWORD_ERRORS',
   accountResetPasswordShowBadTokenDialog: 'ACCOUNT_RESET_PASSWORD_SHOW_BAD_TOKEN_DIALOG',
@@ -32,6 +34,20 @@ const actions = {
   categoryLoad: 'CATEGORY_LOAD'
 }
 export default actions
+
+export const appShowError = (description, res) => {
+  return {
+    type: actions.appShowError,
+    description,
+    res
+  }
+}
+
+export const appDismissError = () => {
+  return {
+    type: actions.appDismissError
+  }
+}
 
 export const accountResetPasswordUpdateErrors = (errors) => {
   return {
