@@ -2,13 +2,16 @@ reply1:
   content: Some Content 1
   topic_id: 1
   creator_id: 1
+  target_type: :topic
 
 reply2:
   content: Some Content 2
   topic_id: 1
   creator_id: 1
+  target_type: :topic
 
 reply3:
   content: Some Content 3
   topic_id: 1
   creator_id: 1
+  target_type: :topic
