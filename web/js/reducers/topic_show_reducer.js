@@ -1,4 +1,4 @@
-import actions, { replyTargets } from 'actions'
+import actions from 'actions'
 
 const defaultState = {
   topic: null,
@@ -28,8 +28,8 @@ export const showReplyAtIndex = (state, level, idx) => {
   checkConsistency(state)
   checkLevelIdx(state, level, idx)
 
-  var state = collapseReplies(state, level)
-  return expandReplies(state, idx)
+  var newState = collapseReplies(state, level)
+  return expandReplies(newState, idx)
   /*
   const newState = {
     ...state,
@@ -46,53 +46,65 @@ export const appendReplies = (state, replyId, replies) => {
     return state
   }
   if (replyId === null) {
+    return appendAtRoot(state, replyId, replies)
+  } else {
+    return doAppendReplies(state, replyId, replies)
+  }
+}
+
+const appendAtRoot = (state, replyId, replies) => {
+  const depth = state.replyTree.length
+  const replyTree = state.replyTree
+
+  if (depth === 0) {
     return {
       ...state,
       replyTree: [replies],
       replyIndexes: [0]
     }
   } else {
-    // only support append to last level
-    for (var i = 0; i < state.replyTree[state.replyTree.length - 1].length; i++) {
-      const reply = state.replyTree[state.replyTree.length - 1][i]
-      if (reply.id == replyId) {
-        return {
-          ...state,
-          replyTree: [...state.replyTree, replies],
-          replyIndexes: [...state.replyIndexes.slice(0, state.replyIndexes.length - 1), i , 0]
-        }
-      }
+    return {
+      ...state,
+      replyTree: [[...replyTree[0], ...replies], ...replyTree.slice(1)]
     }
   }
 }
 
-export const insertReplyIfNeeded = (state, action) => {
-  switch (action.target) {
-    case replyTargets.topic:
-      if (state.topic.id === action.reply.topic_id) {
-        return _insertReplyAtRoot(state, action)
-      }
-      return state
-    case replyTargets.reply:
-    default:
-      throw new Error('Unknown target for action')
+const doAppendReplies = (state, replyId, replies) => {
+  // only support append to expanded replies for now
+  for (var level = 0; level < state.replyTree.length - 1; level++) {
+    const idx = state.replyIndexes[level]
+    const reply = state.replyTree[level][idx]
+    if (reply.id === replyId) {
+      return appendRepliesAtLevel(state, replies, level + 1)
+    }
+  }
+
+  const lastLevel = state.replyTree.length - 1
+  const idx = state.replyIndexes[lastLevel]
+  const reply = state.replyTree[lastLevel][idx]
+  if (reply.id === replyId) {
+    return appendRepliesAtNewLevel(state, replies)
+  }
+  throw new Error('append for unexpanded replies are not supported now')
+}
+
+const appendRepliesAtLevel = (state, replies, level) => {
+  return {
+    ...state,
+    replyTree: [
+      ...state.replyTree.slice(0, level),
+      [...state.replyTree[level], ...replies],
+      ...state.replyTree.slice(level + 1)
+    ]
   }
 }
 
-const _insertReplyAtRoot = (state, action) => {
-  const depth = state.replyTree.length
-
-  if (depth === 0) {
-    return {
-      ...state,
-      replyTree: [[action.reply]],
-      replyIndexes: [0]
-    }
-  } else {
-    return {
-      ...state,
-      replyTree: [[...state.replyTree[0], action.reply], ...state.replyTree.slice(1)]
-    }
+const appendRepliesAtNewLevel = (state, replies) => {
+  return {
+    ...state,
+    replyTree: [...state.replyTree, replies],
+    replyIndexes: [...state.replyIndexes, 0]
   }
 }
 
@@ -101,10 +113,10 @@ export const collapseReplies = (state, level) => {
   var replyTree = state.replyTree
 
   if (replyTree.length < level + 1) {
-      throw new Error('invalid level specified for collapse replies')
+    throw new Error('invalid level specified for collapse replies')
   }
 
-  while(replyTree.length > level + 1) {
+  while (replyTree.length > level + 1) {
     const parentLevel = replyTree.length - 2
     const childLevel = replyTree.length - 1
 
@@ -147,7 +159,7 @@ export const expandReplies = (state, index) => {
       [
         ...replyTree[lastLevel].slice(0, newIndex),
         rest,
-        ...replyTree[lastLevel].slice(newIndex + 1, replyTree[lastLevel].length),
+        ...replyTree[lastLevel].slice(newIndex + 1, replyTree[lastLevel].length)
       ],
       replies
     ]
@@ -197,8 +209,6 @@ export default (state = defaultState, action) => {
       return showReplyAtIndex(state, action.level, action.index)
     case actions.topicShowAppendReplies:
       return appendReplies(state, action.replyId, action.replies)
-    case actions.replyFormPostedReply:
-      return insertReplyIfNeeded(state, action)
     default:
       return state
   }
