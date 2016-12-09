@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126005501) do
+ActiveRecord::Schema.define(version: 20161209180403) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 20161126005501) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index %w(priority run_at), name: "delayed_jobs_priority"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "topic_id"
+    t.integer  "reply_id"
+    t.integer  "edit_id"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "replies", force: :cascade do |t|

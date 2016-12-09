@@ -22,6 +22,8 @@ module Debatable
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', 'events')]
+
     config.active_record.raise_in_transactional_callbacks = true
 
     config.active_record.time_zone_aware_types = [:datetime]
