@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161209222415) do
+ActiveRecord::Schema.define(version: 20161209223216) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -31,7 +30,7 @@ ActiveRecord::Schema.define(version: 20161209222415) do
     t.string   "queue"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index %w(priority run_at), name: "delayed_jobs_priority"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
   create_table "events", force: :cascade do |t|
@@ -43,6 +42,18 @@ ActiveRecord::Schema.define(version: 20161209222415) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "type"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "event_id"
+    t.integer  "user_id"
+    t.integer  "count"
+    t.integer  "status"
+    t.datetime "modified_at"
+    t.index ["event_id"], name: "index_notifications_on_event_id"
+    t.index ["modified_at"], name: "index_notifications_on_modified_at"
+    t.index ["status"], name: "index_notifications_on_status"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "replies", force: :cascade do |t|
