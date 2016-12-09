@@ -1,1 +1,0 @@
-rake jobs:work
