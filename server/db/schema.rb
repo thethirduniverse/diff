@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161209223216) do
+ActiveRecord::Schema.define(version: 20161210003946) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -35,14 +35,12 @@ ActiveRecord::Schema.define(version: 20161209223216) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "topic_id"
-    t.integer  "reply_id"
-    t.integer  "edit_id"
     t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "type"
+    t.integer  "report_id"
+    t.index ["report_id"], name: "index_events_on_report_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -68,6 +66,16 @@ ActiveRecord::Schema.define(version: 20161209223216) do
     t.index ["reply_id"], name: "index_replies_on_reply_id"
     t.index ["root_topic_id"], name: "index_replies_on_root_topic_id"
     t.index ["topic_id"], name: "index_replies_on_topic_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "topic_id"
+    t.integer  "reply_id"
+    t.integer  "creator_id"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "topics", force: :cascade do |t|

@@ -1,4 +1,4 @@
 # frozen_string_literal: true
-class ReportUserEvent < Event
+class UserReport < Report
   validates :user, presence: true
 end

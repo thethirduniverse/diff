@@ -1,4 +1,4 @@
 # frozen_string_literal: true
-class UpdateReplyEvent < Event
+class ReplyReport < Report
   validates :reply, presence: true
 end

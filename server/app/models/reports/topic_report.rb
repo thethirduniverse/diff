@@ -1,4 +1,4 @@
 # frozen_string_literal: true
-class UpdateTopicEvent < Event
+class TopicReport < Report
   validates :topic, presence: true
 end

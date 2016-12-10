@@ -21,10 +21,21 @@ module NotificationHelper
   def event_response(e)
     {
       type: e.type,
-      topic_id: e.topic_id,
-      reply_id: e.reply_id,
-      user_id: e.user_id,
+      report: report_response(e.report),
       content: e.content
+    }
+  end
+
+  def report_response(r)
+    return {} if r.nil?
+
+    {
+      type: r.type,
+      user_id: r.user_id,
+      topic_id: r.topic_id,
+      reply_id: r.reply_id,
+      creator_id: r.creator_id,
+      content: r.content
     }
   end
 end
