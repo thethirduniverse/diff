@@ -6,17 +6,17 @@ class ReportsController < ApplicationController
 
   def report_user
     report = UserReport.new(report_user_params)
-    render_response(report)
+    ReportMailer.delay.report_user_email(report) if render_response(report)
   end
 
   def report_topic
     report = TopicReport.new(report_topic_params)
-    render_response(report)
+    ReportMailer.delay.report_topic_email(report) if render_response(report)
   end
 
   def report_reply
     report = ReplyReport.new(report_reply_params)
-    render_response(report)
+    ReportMailer.delay.report_reply_email(report) if render_response(report)
   end
 
   private
@@ -45,10 +45,12 @@ class ReportsController < ApplicationController
     if report.valid?
       report.save!
       render json: {}, status: 200
+      return true
     else
       render json: {
         errors: report.errors.messages
       }, status: 422
+      return false
     end
   end
 end

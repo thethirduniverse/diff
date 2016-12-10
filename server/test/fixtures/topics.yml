@@ -3,6 +3,7 @@ topic1:
   title: Title 1
   content: Content 1
   categories: [category1, category2]
+  user_id: 1
 
 topic_category1_only:
   id: 3
