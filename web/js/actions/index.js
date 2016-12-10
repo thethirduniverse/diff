@@ -31,7 +31,12 @@ const actions = {
   profileShowAvatarForm: 'PROFILE_SHOW_AVATAR_FORM',
   profileHideAvatarForm: 'PROFILE_HIDE_AVATAR_FORM',
   profileUpdateAvatarFormErrors: 'PROFILE_UPDATE_AVATAR_FORM_ERRORS',
-  categoryLoad: 'CATEGORY_LOAD'
+  categoryLoad: 'CATEGORY_LOAD',
+  reportUser: 'REPORT_USER',
+  reportTopic: 'REPORT_TOPIC',
+  reportReply: 'REPORT_REPLY',
+  reportPosted: 'REPORT_POSTED',
+  reportClear: 'REPORT_CLEAR'
 }
 export default actions
 
@@ -287,5 +292,38 @@ export const categoryLoad = (categories) => {
   return {
     type: actions.categoryLoad,
     categories
+  }
+}
+
+export const reportUser = (user) => {
+  return {
+    type: actions.reportUser,
+    user
+  }
+}
+
+export const reportTopic = (topic) => {
+  return {
+    type: actions.reportTopic,
+    topic
+  }
+}
+
+export const reportReply = (reply) => {
+  return {
+    type: actions.reportReply,
+    reply
+  }
+}
+
+export const reportPosted = () => {
+  return {
+    type: actions.reportPosted
+  }
+}
+
+export const reportClear = () => {
+  return {
+    type: actions.reportClear
   }
 }

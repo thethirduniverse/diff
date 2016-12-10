@@ -10,6 +10,7 @@ import replyFormReducer from 'reducers/reply_form_reducer.js'
 import topicFeedReducer from 'reducers/topic_feed_reducer.js'
 import topicFormReducer from 'reducers/topic_form_reducer.js'
 import topicShowReducer from 'reducers/topic_show_reducer.js'
+import reportReducer from 'reducers/report_reducer.js'
 
 export default combineReducers({
   app: appReducer,
@@ -21,5 +22,6 @@ export default combineReducers({
   category: categoryReducer,
   form: formReducer,
   routing: routerReducer,
-  replyForm: replyFormReducer
+  replyForm: replyFormReducer,
+  report: reportReducer
 })

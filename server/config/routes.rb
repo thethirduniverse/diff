@@ -16,9 +16,11 @@ Rails.application.routes.draw do
     get '/profiles/:id' => 'profiles#show'
     post '/update-avatar' => 'users#update_avatar'
 
-    post '/report-user' => 'reports#report_user'
-    post '/report-topic' => 'reports#report_topic'
-    post '/report-reply' => 'reports#report_reply'
+    scope :report do
+      post '/user' => 'reports#report_user'
+      post '/topic' => 'reports#report_topic'
+      post '/reply' => 'reports#report_reply'
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -3,6 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import React from 'react'
 
 import NavBar from 'components/nav_bar.jsx'
+import ReportController from 'controllers/report_controller.js'
 
 const App = React.createClass({
   propTypes: {
@@ -17,6 +18,8 @@ const App = React.createClass({
     showError: React.PropTypes.bool.isRequired,
     errorDescription: React.PropTypes.string.isRequired,
     onDismissErrorClicked: React.PropTypes.func.isRequired,
+
+    user: React.PropTypes.object,
 
     children: React.PropTypes.node.isRequired
   },
@@ -54,6 +57,7 @@ const App = React.createClass({
         >
           {this.props.errorDescription}
         </Dialog>
+        <ReportController currentUser={this.props.user}/>
         {this.props.children}
       </div>
     )
