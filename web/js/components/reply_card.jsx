@@ -8,8 +8,9 @@ const ReplyCard = React.createClass({
   propTypes: {
     reply: React.PropTypes.object.isRequired,
 
-    onReplyClicked: React.PropTypes.func.isRequired,
-    onReportClicked: React.PropTypes.func.isRequired
+    hideActions: React.PropTypes.bool.isRequired,
+    onReplyClicked: React.PropTypes.func,
+    onReportClicked: React.PropTypes.func
   },
 
   render: function() {
@@ -19,8 +20,14 @@ const ReplyCard = React.createClass({
           {this.props.reply.content}
         </CardText>
         <CardActions>
-          <RaisedButton label="Reply" primary={true} onClick={this.props.onReplyClicked}/>
-          <RaisedButton label="Report" onClick={this.props.onReportClicked}/>
+          {
+            this.props.hideActions
+              ? null
+              : <div>
+                <RaisedButton label="Reply" primary={true} onClick={this.props.onReplyClicked}/>
+                <RaisedButton label="Report" onClick={this.props.onReportClicked}/>
+              </div>
+          }
         </CardActions>
       </Card>
     )

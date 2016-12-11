@@ -20,6 +20,7 @@ const TopicShow = React.createClass({
 
     onReplyClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
+
     onReplyReplyClicked: React.PropTypes.func,
     onReportReplyClicked: React.PropTypes.func,
 
@@ -51,6 +52,7 @@ const TopicShow = React.createClass({
       : (<CircularProgress />)
     const repliesContent = this.props.topic
       ? (<ReplyListController
+          hideActions={!this.props.userSignedIn}
           onReplyClicked={this.props.onReplyReplyClicked}
           onReportClicked={this.props.onReportReplyClicked}
         />)

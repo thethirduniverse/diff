@@ -15,8 +15,9 @@ const ReplyRow = React.createClass({
     showExpandMore: React.PropTypes.bool.isRequired,
     expandMoreClicked: React.PropTypes.func.isRequired,
 
-    onReplyClicked: React.PropTypes.func.isRequired,
-    onReportClicked: React.PropTypes.func.isRequired
+    hideActions: React.PropTypes.bool.isRequired,
+    onReplyClicked: React.PropTypes.func,
+    onReportClicked: React.PropTypes.func
   },
 
   showPaginationDots: function() {
@@ -34,6 +35,7 @@ const ReplyRow = React.createClass({
           reply={this.props.reply}
           onReplyClicked={this.props.onReplyClicked}
           onReportClicked={this.props.onReportClicked}
+          hideActions={this.props.hideActions}
         />
         {
           this.showPaginationDots()

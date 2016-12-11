@@ -13,8 +13,9 @@ const ReplyList = React.createClass({
     shouldShowExpandMore: React.PropTypes.func.isRequired,
     expandMoreClicked: React.PropTypes.func.isRequired,
 
-    onReplyClicked: React.PropTypes.func.isRequired,
-    onReportClicked: React.PropTypes.func.isRequired
+    hideActions: React.PropTypes.bool.isRequired,
+    onReplyClicked: React.PropTypes.func,
+    onReportClicked: React.PropTypes.func
   },
 
   paginationDotClicked: function(level) {
@@ -48,6 +49,7 @@ const ReplyList = React.createClass({
             expandMoreClicked={this.expandMoreClicked(idx)}
             showExpandMore={this.props.shouldShowExpandMore(reply)}
             paginationDotClicked={this.paginationDotClicked(idx)}
+            hideActions={this.props.hideActions}
             onReplyClicked={this.props.onReplyClicked.bind(null, reply)}
             onReportClicked={this.props.onReportClicked.bind(null, reply)}
           />)
