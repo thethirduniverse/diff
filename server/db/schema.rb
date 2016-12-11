@@ -34,6 +34,18 @@ ActiveRecord::Schema.define(version: 20161211215750) do
     t.index %w(priority run_at), name: "delayed_jobs_priority"
   end
 
+  create_table "edits", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "topic_id"
+    t.integer  "reply_id"
+    t.integer  "user_id"
+    t.integer  "version"
+    t.text     "message"
+    t.text     "patch"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.string   "content"
     t.datetime "created_at", null: false

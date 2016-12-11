@@ -22,6 +22,7 @@ module Debatable
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', 'edits')]
     config.autoload_paths += Dir[Rails.root.join('app', 'models', 'events')]
     config.autoload_paths += Dir[Rails.root.join('app', 'models', 'reports')]
     config.autoload_paths += Dir[Rails.root.join('app', 'jobs')]
