@@ -12,8 +12,8 @@ const mapStateToProps = (state, ownProps) => {
       const replyTree = state.topicShow.replyTree
       const inLastLevel = replyTree[replyTree.length - 1].some((r) => (r.id === reply.id))
       return (
-        reply.replies === undefined && inLastLevel
-      ) && reply.reply_ids.length > 0
+        reply.posts === undefined && inLastLevel
+      ) && reply.post_ids.length > 0
     }
   }
 }

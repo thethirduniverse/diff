@@ -28,8 +28,8 @@ export default (
         <IndexRoute component={ResetPasswordEmailController} />
       </Route>
     </Route>
-    <Route path="topics/:id" component={PostShowController} />
-    <Route path="topics" component={PostFormCard} />
+    <Route path="posts/:id" component={PostShowController} />
+    <Route path="posts" component={PostFormCard} />
     <Route path="profiles/:id" component={ProfileController} />
   </Route>
 )

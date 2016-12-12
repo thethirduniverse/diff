@@ -33,11 +33,11 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     _onSubmit: (data) => {
-      $.post('/api/topics', data)
+      $.post('/api/posts', data)
         .done((res) => {
           dispatch(topicFormUpdateErrors({}))
-          dispatch(push('/topics/' + res.topic.id))
-          dispatch(reset('topic-form'))
+          dispatch(push('/posts/' + res.post.id))
+          dispatch(reset('post-form'))
         })
         .fail((res) => {
           dispatch(topicFormUpdateErrors(res.responseJSON.errors))
@@ -74,7 +74,7 @@ const mergeProps = (s, d, o) => {
     onSubmit: (data) => {
       d._onSubmit({
         ...data,
-        'topic[category_ids]': s.categories.map((c) => (c.id))
+        'post[category_ids]': s.categories.map((c) => (c.id))
       })
     }
   }

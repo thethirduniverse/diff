@@ -17,10 +17,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onCardClick: (id) => {
-      dispatch(push('/topics/' + id))
+      dispatch(push('/posts/' + id))
     },
     _loadMore: (params) => {
-      $.get('/api/profiles/load_posted_topics', params)
+      $.get('/api/profiles/load_posts', params)
         .done((res) => {
           dispatch(profileLoadMorePostedTopics(res.posted_topics.topics, res.posted_topics.has_more, res.posted_topics.next_offset))
         })

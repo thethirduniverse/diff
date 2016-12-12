@@ -8,7 +8,7 @@ import { topicFeedLoadMore, topicFeedReload } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    topics: state.topics.topics,
+    posts: state.topics.topics,
     has_more: state.topics.content.has_more,
     _content: state.topics.content,
     _categories: state.category.categories
@@ -18,12 +18,12 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onCardClick: (id) => {
-      dispatch(push('/topics/' + id))
+      dispatch(push('/posts/' + id))
     },
     _loadMore: (params) => {
-      $.get('/api/topics', params)
+      $.get('/api/posts', params)
         .done((res) => {
-          dispatch(topicFeedLoadMore(res.topics, res.has_more, res.next_offset))
+          dispatch(topicFeedLoadMore(res.posts, res.has_more, res.next_offset))
         })
         .fail((res) => {
           console.log('load more topics from server failed with response:')
@@ -31,9 +31,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         })
     },
     _requestInitialLoad: (params) => {
-      $.get('/api/topics', params)
+      $.get('/api/posts', params)
         .done((res) => {
-          dispatch(topicFeedReload(res.topics, res.has_more, res.next_offset))
+          dispatch(topicFeedReload(res.posts, res.has_more, res.next_offset))
         })
         .fail((res) => {
           console.log('load topics from server failed with response:')

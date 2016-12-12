@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(push('/'))
     },
     onNewTopicClicked: () => {
-      dispatch(push('/topics'))
+      dispatch(push('/posts'))
     },
     _onProfileClicked: (id) => {
       dispatch(push('/profiles/' + id))

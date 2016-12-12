@@ -6,8 +6,8 @@ import { topicShowLoadTopic, topicShowAppendReplies, replyFormSetTargetTopic, re
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    topicID: ownProps.params.id,
-    topic: state.topicShow.topic,
+    postId: ownProps.params.id,
+    post: state.topicShow.topic,
 
     userSignedIn: state.accountReducer.signed_in,
     user: state.accountReducer.user,
@@ -34,13 +34,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(reportReply(reply))
     },
     onComponentWillMount: () => {
-      $.get('/api/topics/' + ownProps.params.id)
+      $.get('/api/posts/' + ownProps.params.id)
         .done((res) => {
-          const {replies, ...rest} = res.topic
+          const {posts, ...rest} = res.post
 
           // load topic first since it clears previous replies
           dispatch(topicShowLoadTopic(rest))
-          dispatch(topicShowAppendReplies(null, replies))
+          dispatch(topicShowAppendReplies(null, posts))
         })
         .fail((res) => {
           console.log('load topic with response:')
