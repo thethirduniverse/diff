@@ -31,6 +31,17 @@ class PostsController < ApplicationController
     head 404, content_type: 'application/json'
   end
 
+  def replies
+    id = params[:id]
+
+    render json: {
+      id: id,
+      posts: Post.find(id).map do |p|
+        post_reply_response post
+      end
+    }
+  end
+
   def create
     post = if params[:post][:parent_post_id].blank?
              create_root_post
