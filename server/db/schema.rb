@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212183600) do
+ActiveRecord::Schema.define(version: 20161212190847) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20161212183600) do
 
   create_table "edits", force: :cascade do |t|
     t.string   "type"
-    t.integer  "topic_id"
     t.integer  "user_id"
     t.integer  "version"
     t.text     "message"
@@ -92,36 +91,22 @@ ActiveRecord::Schema.define(version: 20161212183600) do
   create_table "replies", force: :cascade do |t|
     t.text    "content"
     t.integer "creator_id"
-    t.integer "topic_id"
     t.integer "reply_id"
     t.integer "target_type"
-    t.integer "root_topic_id"
     t.integer "parent_post_id"
     t.integer "root_post_id"
     t.index ["creator_id"], name: "index_replies_on_creator_id"
     t.index ["reply_id"], name: "index_replies_on_reply_id"
-    t.index ["root_topic_id"], name: "index_replies_on_root_topic_id"
-    t.index ["topic_id"], name: "index_replies_on_topic_id"
   end
 
   create_table "reports", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "topic_id"
     t.integer  "creator_id"
     t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "reply_id"
     t.integer  "post_id"
-  end
-
-  create_table "topics", force: :cascade do |t|
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "title"
-    t.text     "content"
-    t.integer  "user_id"
-    t.integer  "view",       default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|
