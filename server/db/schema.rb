@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212190847) do
+ActiveRecord::Schema.define(version: 20161212192946) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20161212190847) do
     t.text     "patch"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "reply_id"
     t.integer  "post_id"
   end
 
@@ -88,24 +87,12 @@ ActiveRecord::Schema.define(version: 20161212190847) do
     t.index ["post_id"], name: "index_posts_categories_on_post_id"
   end
 
-  create_table "replies", force: :cascade do |t|
-    t.text    "content"
-    t.integer "creator_id"
-    t.integer "reply_id"
-    t.integer "target_type"
-    t.integer "parent_post_id"
-    t.integer "root_post_id"
-    t.index ["creator_id"], name: "index_replies_on_creator_id"
-    t.index ["reply_id"], name: "index_replies_on_reply_id"
-  end
-
   create_table "reports", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "creator_id"
     t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "reply_id"
     t.integer  "post_id"
   end
 

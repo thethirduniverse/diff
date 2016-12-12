@@ -4,8 +4,6 @@ Rails.application.routes.draw do
     devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations', confirmations: 'confirmations', passwords: 'passwords' }
 
     resources :posts, only: [:index, :show, :create]
-    resources :replies, only: [:create]
-    get 'replies' => 'replies#replies'
 
     devise_scope :user do
       post '/request-reset-password' => 'registrations#request_reset_password'

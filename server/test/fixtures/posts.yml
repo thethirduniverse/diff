@@ -18,6 +18,21 @@ posted_by_one:
   categories: []
   creator_id: 1
 
+reply1:
+  content: Some Content 1
+  creator_id: 1
+  parent_post_id: 1
+
+reply2:
+  content: Some Content 2
+  creator_id: 1
+  parent_post_id: 1
+
+reply3:
+  content: Some Content 3
+  creator_id: 1
+  parent_post_id: 1
+
 <% for i in 1..20 %>
 dummy_<%=i%>:
   title: Dummy Title <%= i %>

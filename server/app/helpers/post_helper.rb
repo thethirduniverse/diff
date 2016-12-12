@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 module PostHelper
   include CategoryHelper
-  include ReplyHelper
 
   BATCH_SIZE = 10
 
@@ -61,7 +60,7 @@ module PostHelper
         category_response c
       end,
       posts: t.posts.map do |r|
-        reply_response r
+        post_reply_response r
       end
     }
   end
@@ -74,6 +73,16 @@ module PostHelper
       categories: t.categories.map do |c|
         category_response c
       end
+    }
+  end
+
+  def post_reply_response(r)
+    {
+      'id': r.id,
+      'content': r.content,
+      'parent_post_id': r.parent_post_id,
+      'root_post_id': r.root_post_id,
+      'post_ids': r.posts.pluck(:id)
     }
   end
 end
