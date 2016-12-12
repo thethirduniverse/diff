@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
-import TopicForm from 'components/topic_form.jsx'
+import PostForm from 'components/post_form.jsx'
 import { topicFormAddCategory, topicFormRemoveCategory, topicFormUpdateCategoryFilter, topicFormUpdateErrors } from 'actions'
 
 const containsFilter = (name, key) => (
@@ -80,4 +80,4 @@ const mergeProps = (s, d, o) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(TopicForm)
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(PostForm)

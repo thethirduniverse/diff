@@ -1,9 +1,9 @@
 import React from 'react'
 import { Card, CardTitle, CardText } from 'material-ui/Card'
 
-import TopicFormController from 'controllers/topic_form_controller.js'
+import PostFormController from 'controllers/post_form_controller.js'
 
-const TopicFormCard = React.createClass({
+const PostFormCard = React.createClass({
   propTypes: {
   },
 
@@ -15,7 +15,7 @@ const TopicFormCard = React.createClass({
             title = "Write a new topic"
           />
           <CardText>
-            <TopicFormController />
+            <PostFormController />
           </CardText>
         </Card>
       </div>
@@ -23,4 +23,4 @@ const TopicFormCard = React.createClass({
   }
 })
 
-export default TopicFormCard
+export default PostFormCard

@@ -4,14 +4,14 @@ import React from 'react'
 import ComposeReplyCard from 'components/compose_reply_card.jsx'
 import ReplyListController from 'controllers/reply_list_controller.js'
 import SignInFirstCardController from 'controllers/sign_in_first_card_controller.js'
-import TopicCard from 'components/topic_card.jsx'
+import PostCard from 'components/post_card.jsx'
 
-const TopicShow = React.createClass({
+const PostShow = React.createClass({
   propTypes: {
     onComponentWillMount: React.PropTypes.func.isRequired,
     onComponentWillUnmount: React.PropTypes.func.isRequired,
-    topicID: React.PropTypes.string.isRequired,
-    topic: React.PropTypes.object,
+    postId: React.PropTypes.string.isRequired,
+    post: React.PropTypes.object,
 
     userSignedIn: React.PropTypes.bool.isRequired,
     user: React.PropTypes.object.isRequired,
@@ -42,15 +42,15 @@ const TopicShow = React.createClass({
   },
 
   render: function() {
-    const topicCardContent = this.props.topic
-      ? (<TopicCard
-        topic={this.props.topic}
+    const topicCardContent = this.props.post
+      ? (<PostCard
+        post={this.props.post}
         hideActions={!this.props.userSignedIn}
         onReplyClicked={this.props.onReplyClicked}
         onReportClicked={this.props.onReportClicked}
           />)
       : (<CircularProgress />)
-    const repliesContent = this.props.topic
+    const repliesContent = this.props.post
       ? (<ReplyListController
           hideActions={!this.props.userSignedIn}
           onReplyClicked={this.props.onReplyReplyClicked}
@@ -78,4 +78,4 @@ const TopicShow = React.createClass({
   }
 })
 
-export default TopicShow
+export default PostShow

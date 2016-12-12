@@ -7,9 +7,9 @@ import CategoryChip from 'components/category_chip.jsx'
 import ChipList from 'components/chip_list.jsx'
 import styles from '~/styles.js'
 
-const TopicCard = React.createClass({
+const PostCard = React.createClass({
   propTypes: {
-    topic: React.PropTypes.object.isRequired,
+    post: React.PropTypes.object.isRequired,
 
     /* If true, the onCardClick callback will be called when user
      * tap on card header and text
@@ -29,7 +29,7 @@ const TopicCard = React.createClass({
 
   render: function() {
     const clickHandler = this.props.cardClickEnabled
-      ? this.handleCardClick.bind(this, this.props.topic.id)
+      ? this.handleCardClick.bind(this, this.props.post.id)
       : null
     const actions = this.props.hideActions
       ? null
@@ -39,7 +39,7 @@ const TopicCard = React.createClass({
           <FlatButton label="Report" onClick={this.props.onReportClicked} />
         </div>
       )
-    const categoryChips = this.props.topic.categories.map((c) => (
+    const categoryChips = this.props.post.categories.map((c) => (
       <CategoryChip key={c.id} category={c} />
     ))
 
@@ -48,16 +48,16 @@ const TopicCard = React.createClass({
         <CardTitle onClick={clickHandler}>
           <h2>
             <a href="javascript:void(0)">
-              {this.props.topic.title}
+              {this.props.post.title}
             </a>
           </h2>
         </CardTitle>
         <CardText style={styles.textBlock}>
-          {this.props.topic.content}
+          {this.props.post.content}
         </CardText>
         <CardActions>
           <ChipList>
-            <Chip style={styles.chip}>{this.props.topic.view} views</Chip>
+            <Chip style={styles.chip}>{this.props.post.view} views</Chip>
             {categoryChips}
           </ChipList>
           {actions}
@@ -67,4 +67,4 @@ const TopicCard = React.createClass({
   }
 })
 
-export default TopicCard
+export default PostCard

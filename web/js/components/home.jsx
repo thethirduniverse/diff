@@ -1,7 +1,7 @@
 import React from 'react'
 
 import NavigationListController from 'controllers/navigation_list_controller.js'
-import TopicFeedController from 'controllers/topic_feed_controller.js'
+import PostFeedController from 'controllers/post_feed_controller.js'
 
 const Home = React.createClass({
   propTypes: {
@@ -15,7 +15,7 @@ const Home = React.createClass({
             <NavigationListController />
           </div>
           <div className="col-md-6 col-md-offset-1 col-sm-9 col-sm-offset-1">
-            <TopicFeedController />
+            <PostFeedController />
           </div>
         </div>
       </div>

@@ -11,8 +11,8 @@ import EmailConfirmationController from 'controllers/email_confirmation_controll
 import ResetPasswordEmailController from 'controllers/reset_password_email_controller.js'
 import ResetPasswordCheckEmailController from 'controllers/reset_password_check_email_controller.js'
 import ResetPasswordPasswordController from 'controllers/reset_password_password_controller.js'
-import TopicFormCard from 'components/topic_form_card.jsx'
-import TopicShowController from 'controllers/topic_show_controller.js'
+import PostFormCard from 'components/post_form_card.jsx'
+import PostShowController from 'controllers/post_show_controller.js'
 
 export default (
   <Route path="/" component={AppController}>
@@ -28,8 +28,8 @@ export default (
         <IndexRoute component={ResetPasswordEmailController} />
       </Route>
     </Route>
-    <Route path="topics/:id" component={TopicShowController} />
-    <Route path="topics" component={TopicFormCard} />
+    <Route path="topics/:id" component={PostShowController} />
+    <Route path="topics" component={PostFormCard} />
     <Route path="profiles/:id" component={ProfileController} />
   </Route>
 )

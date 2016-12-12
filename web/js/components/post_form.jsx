@@ -8,7 +8,7 @@ import CategoryChip from 'components/category_chip.jsx'
 import ChipList from 'components/chip_list.jsx'
 import { renderTextField } from 'helpers/redux_form_helpers.jsx'
 
-var TopicForm = React.createClass({
+var PostForm = React.createClass({
   propTypes: {
     title: React.PropTypes.string,
 
@@ -42,8 +42,8 @@ var TopicForm = React.createClass({
 
     return (
       <form>
-        <Field name="topic[title]" label="Title" type="text" fullWidth={true} errorText={this.props.errors.title} component={renderTextField} />
-        <Field name="topic[content]" label="Content" type="text" fullWidth={true} multiLine={true} errorText={this.props.errors.content} component={renderTextField} />
+        <Field name="post[title]" label="Title" type="text" fullWidth={true} errorText={this.props.errors.title} component={renderTextField} />
+        <Field name="post[content]" label="Content" type="text" fullWidth={true} multiLine={true} errorText={this.props.errors.content} component={renderTextField} />
         <ChipList>
           {categoryChips}
           {/* Suppose user entered 'a', and there is a category called 'AAA'.
@@ -69,5 +69,5 @@ var TopicForm = React.createClass({
 })
 
 export default reduxForm({
-  form: 'topic-form'
-})(TopicForm)
+  form: 'post-form'
+})(PostForm)

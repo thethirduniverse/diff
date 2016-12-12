@@ -4,7 +4,7 @@ import Paper from 'material-ui/Paper'
 import React from 'react'
 
 import AvatarForm from 'components/profile_avatar_form.jsx'
-import TopicListController from 'controllers/topic_list_controller.js'
+import PostListController from 'controllers/post_list_controller.js'
 
 const Profile = React.createClass({
   propTypes: {
@@ -49,7 +49,7 @@ const Profile = React.createClass({
           {this.avatarContent()}
           <h1>{user.email}</h1>
           <h1>Posted Topics</h1>
-          <TopicListController />
+          <PostListController />
         </div>
       )
       : (<CircularProgress />)

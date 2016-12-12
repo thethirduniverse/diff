@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
-import TopicFeed from 'components/topic_feed.jsx'
+import PostFeed from 'components/post_feed.jsx'
 import { profileLoadMorePostedTopics } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
@@ -46,4 +46,4 @@ const merge = (stateProps, dispatchProps, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, merge)(TopicFeed)
+export default connect(mapStateToProps, mapDispatchToProps, merge)(PostFeed)

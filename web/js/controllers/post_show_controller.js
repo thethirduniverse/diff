@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import { connect } from 'react-redux'
 
-import TopicShow from 'components/topic_show.jsx'
+import PostShow from 'components/post_show.jsx'
 import { topicShowLoadTopic, topicShowAppendReplies, replyFormSetTargetTopic, replyFormSetTargetReply, replyFormClearTarget, reportTopic, reportReply } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
@@ -67,4 +67,4 @@ const merge = (s, d, o) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, merge)(TopicShow)
+export default connect(mapStateToProps, mapDispatchToProps, merge)(PostShow)
