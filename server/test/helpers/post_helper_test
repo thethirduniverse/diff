@@ -72,11 +72,10 @@ class PostHelperTest < ActionView::TestCase
   end
 
   test 'it respects response type' do
-    skip
     res = posts_feed
     res2 = posts_feed(response_type: PostHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED)
 
-    refute_nil res[:posts][0][:replies]
-    assert_nil res2[:posts][0][:replies]
+    refute_nil res[:posts][0][:posts]
+    assert_nil res2[:posts][0][:posts]
   end
 end

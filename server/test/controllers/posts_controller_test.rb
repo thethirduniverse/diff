@@ -67,13 +67,12 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test 'show returns a topic with replies' do
-    skip
     get :show, xhr: true, params: { id: 1 }
 
     json = JSON.parse(@response.body)
     assert_equal 200, @response.status
     assert_equal 'application/json', @response.content_type
-    assert_equal 3, json['post']['replies'].length
+    assert_equal 3, json['post']['posts'].length
   end
 
   # Create
@@ -180,6 +179,72 @@ class PostsControllerTest < ActionController::TestCase
     assert_includes category_ids, categories(:category1).id
     assert_includes category_ids, categories(:category2).id
   end
+
+  # reply functions
+  test 'it can have a valid parent post' do
+    assert_nil Post.find_by_content('New Content')
+    adam = User.find(1)
+    sign_in adam
+    post :create, xhr: true, params: {
+      'post[content]': 'New Content',
+      'post[parent_post_id]': Post.find(1).id
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+
+    post = Post.find(json['post']['id'])
+    refute_nil post
+    assert_equal 1, post.parent_post.id
+  end
+
+  test 'parent post id need to be valid' do
+    assert_nil Post.find_by_content('New Content')
+    adam = User.find(1)
+    sign_in adam
+    assert_nil Post.find_by_id(999)
+    post :create, xhr: true, params: {
+      'post[content]': 'New Content',
+      'post[parent_post_id]': 999
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 400, @response.status
+    refute_nil json['errors']['parent_post']
+  end
+
+  test 'the root parent is properly set' do
+    assert_nil Post.find_by_content('New Content')
+    adam = User.find(1)
+    sign_in adam
+    post :create, xhr: true, params: {
+      'post[content]': 'New Content',
+      'post[parent_post_id]': Post.find(1).id
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+
+    p = Post.find(json['post']['id'])
+    refute_nil p
+    assert_equal 1, p.parent_post.id
+    assert_equal 1, p.root_post.id
+
+    post :create, xhr: true, params: {
+      'post[content]': 'New Content',
+      'post[parent_post_id]': p.id
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+
+    p2 = Post.find(json['post']['id'])
+    refute_nil p2
+    assert_equal p.id, p2.parent_post.id
+    assert_equal 1, p2.root_post.id
+  end
+
+  # edit handling
 
   test 'it creates inital edit' do
     skip

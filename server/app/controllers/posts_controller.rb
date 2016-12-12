@@ -32,9 +32,11 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(post_params)
-    post[:creator_id] = current_user.id
-    add_categories post
+    post = if params[:post][:parent_post_id].blank?
+             create_root_post
+           else
+             create_reply_post
+           end
 
     unless post.save
       render_validation_error post
@@ -50,6 +52,33 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def create_root_post
+    ps = params.require(:post).permit(:title, :content)
+    ps[:creator_id] = current_user.id
+
+    post = Post.new(ps)
+    add_categories post
+
+    post
+  end
+
+  def create_reply_post
+    ps = params.require(:post).permit(:content, :parent_post_id)
+    ps[:creator_id] = current_user.id
+
+    parent = Post.find_by_id(ps[:parent_post_id])
+
+    unless parent.nil?
+      ps[:root_post_id] = if parent.root_post_id.nil?
+                            parent.id
+                          else
+                            parent.root_post_id
+                          end
+    end
+
+    Post.new(ps)
+  end
 
   def render_success(post)
     render json: {
@@ -85,9 +114,5 @@ class PostsController < ApplicationController
 
   def add_categories(post)
     post.categories << params[:post][:category_ids].map { |id| Category.find_by_id(id) }.compact if params[:post][:category_ids]
-  end
-
-  def post_params
-    params.require(:post).permit(:title, :content)
   end
 end
