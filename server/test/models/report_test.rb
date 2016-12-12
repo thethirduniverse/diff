@@ -2,21 +2,11 @@
 require 'test_helper'
 
 class ReportTest < ActiveSupport::TestCase
-  test 'topic id is required when appropraite' do
-    skip
-    r = TopicReport.new(creator: User.first)
+  test 'post id is required when appropraite' do
+    r = PostReport.new(creator: User.first)
     assert_equal false, r.save
-    refute_nil r.errors[:topic]
-    r.topic = Topic.first
-    assert_equal true, r.save
-  end
-
-  test 'reply id is required when appropraite' do
-    skip
-    r = ReplyReport.new(creator: User.first)
-    assert_equal false, r.save
-    refute_nil r.errors[:reply]
-    r.reply = Reply.first
+    refute_nil r.errors[:post]
+    r.post = Post.first
     assert_equal true, r.save
   end
 

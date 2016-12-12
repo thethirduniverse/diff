@@ -9,14 +9,9 @@ class ReportsController < ApplicationController
     ReportMailer.delay.report_user_email(report) if render_response(report)
   end
 
-  def report_topic
-    report = TopicReport.new(report_topic_params)
-    ReportMailer.delay.report_topic_email(report) if render_response(report)
-  end
-
-  def report_reply
-    report = ReplyReport.new(report_reply_params)
-    ReportMailer.delay.report_reply_email(report) if render_response(report)
+  def report_post
+    report = PostReport.new(report_post_params)
+    ReportMailer.delay.report_post_email(report) if render_response(report)
   end
 
   private
@@ -26,13 +21,8 @@ class ReportsController < ApplicationController
     params_with_current_user(ps)
   end
 
-  def report_topic_params
-    ps = params.require(:report).permit(:topic_id, :content)
-    params_with_current_user(ps)
-  end
-
-  def report_reply_params
-    ps = params.require(:report).permit(:reply_id, :content)
+  def report_post_params
+    ps = params.require(:report).permit(:post_id, :content)
     params_with_current_user(ps)
   end
 

@@ -9,17 +9,12 @@ class ReportMailer < ApplicationMailer
     mail(subject: 'New User Report Created')
   end
 
-  def report_topic_email(report)
+  def report_post_email(report)
     @creator = report.creator
-    @topic = report.topic
+    @post = report.post
+    @parent = report.post.parent_post
+    @root = report.post.root_post
     @content = report.content
-    mail(subject: 'New Topic Report Created')
-  end
-
-  def report_reply_email(report)
-    @creator = report.creator
-    @reply = report.reply
-    @content = report.content
-    mail(subject: 'New Reply Report Created')
+    mail(subject: 'New Post Report Created')
   end
 end

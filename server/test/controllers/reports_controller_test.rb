@@ -49,16 +49,15 @@ class ReportsControllerTest < ActionController::TestCase
     assert_equal 'New User Report Created', email.subject
   end
 
-  test 'user can post topic report' do
-    skip
+  test 'user can create post report' do
     creator = User.first
     sign_in creator
     assert_nil Report.find_by_creator_id(creator.id)
 
-    topic = Topic.first
-    post :report_topic, xhr: true, params: {
+    p = Post.first
+    post :report_post, xhr: true, params: {
       report: {
-        topic_id: topic.id,
+        post_id: p.id,
         content: 'test content'
       }
     }
@@ -68,38 +67,11 @@ class ReportsControllerTest < ActionController::TestCase
     refute_nil report
     assert_equal 'test content', report.content
     assert_equal report.creator.id, creator.id
-    assert_equal report.topic.id, topic.id
+    assert_equal report.post.id, p.id
 
     email = ActionMailer::Base.deliveries.last
     refute_nil email
     assert_equal ENV['admin_email'], email.to.first
-    assert_equal 'New Topic Report Created', email.subject
-  end
-
-  test 'user can post reply report' do
-    skip
-    creator = User.first
-    sign_in creator
-    assert_nil Report.find_by_creator_id(creator.id)
-
-    reply = Reply.first
-    post :report_reply, xhr: true, params: {
-      report: {
-        reply_id: reply,
-        content: 'test content'
-      }
-    }
-    assert_equal 200, @response.status
-
-    report = Report.find_by_creator_id(creator.id)
-    refute_nil report
-    assert_equal 'test content', report.content
-    assert_equal report.creator.id, creator.id
-    assert_equal report.reply.id, reply.id
-
-    email = ActionMailer::Base.deliveries.last
-    refute_nil email
-    assert_equal ENV['admin_email'], email.to.first
-    assert_equal 'New Reply Report Created', email.subject
+    assert_equal 'New Post Report Created', email.subject
   end
 end

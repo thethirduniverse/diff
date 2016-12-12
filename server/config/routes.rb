@@ -16,8 +16,7 @@ Rails.application.routes.draw do
 
     scope :report do
       post '/user' => 'reports#report_user'
-      post '/topic' => 'reports#report_topic'
-      post '/reply' => 'reports#report_reply'
+      post '/post' => 'reports#report_post'
     end
   end
   # The priority is based upon order of creation: first created -> highest priority.
