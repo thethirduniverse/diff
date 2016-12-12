@@ -180,4 +180,28 @@ class TopicsControllerTest < ActionController::TestCase
     assert_includes category_ids, categories(:category1).id
     assert_includes category_ids, categories(:category2).id
   end
+
+  test 'it creates inital edit' do
+    adam = User.find(1)
+    sign_in adam
+
+    assert_nil TopicEdit.find_by_user_id(1)
+    post :create, xhr: true, params: { 'topic[title]': 'New Topic',
+                                       'topic[content]': 'New Content',
+                                       'topic[category_ids]': [
+                                         categories(:category1).id
+                                       ] }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+    refute_nil json['topic']
+
+    edit = TopicEdit.find_by_user_id(1)
+    refute_nil edit
+    assert_equal json['topic']['id'], edit.topic.id
+    assert_equal 0, edit.version
+    assert_equal 1, edit.user.id
+    refute_empty edit.message
+    refute_empty edit.patch
+  end
 end

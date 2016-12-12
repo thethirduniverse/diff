@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class TopicsController < ApplicationController
   include TopicHelper
+  include DiffHelper
 
   clear_respond_to
   respond_to :json
@@ -34,19 +35,52 @@ class TopicsController < ApplicationController
     topic = Topic.new(topic_params)
     topic[:user_id] = current_user.id
     add_categories topic
-    if topic.valid?
-      topic.save!
-      render json: {
-        topic: topic_response(topic)
-      }
-    else
-      render json: {
-        errors: topic.errors.messages
-      }, status: 400
+
+    unless topic.save
+      render_validation_error topic
+      return
     end
+
+    unless create_initial_edit topic
+      render_create_edit_error
+      return
+    end
+
+    render_success(topic)
   end
 
   private
+
+  def render_success(topic)
+    render json: {
+      topic: topic_response(topic)
+    }
+  end
+
+  def render_create_edit_error
+    render json: {
+      errors: {
+        edit: 'Unable to create initial edit.'
+      }
+    }, status: 500
+  end
+
+  def render_validation_error(topic)
+    render json: {
+      errors: topic.errors.messages
+    }, status: 400
+  end
+
+  def create_initial_edit(topic)
+    e = TopicEdit.new(user: current_user,
+                      topic: topic,
+                      version: 0,
+                      message: 'Initial Version.',
+                      patch: create_patch('', topic.content))
+    return e.save
+  rescue
+    return false
+  end
 
   def add_categories(topic)
     topic.categories << params[:topic][:category_ids].map { |id| Category.find_by_id(id) }.compact if params[:topic][:category_ids]
