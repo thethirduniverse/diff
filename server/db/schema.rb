@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212192946) do
+ActiveRecord::Schema.define(version: 20161212221313) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -35,7 +35,6 @@ ActiveRecord::Schema.define(version: 20161212192946) do
   end
 
   create_table "edits", force: :cascade do |t|
-    t.string   "type"
     t.integer  "user_id"
     t.integer  "version"
     t.text     "message"

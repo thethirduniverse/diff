@@ -100,16 +100,13 @@ class PostsController < ApplicationController
     }, status: 400
   end
 
-  def create_initial_edit(_post)
-    return true
-    # e = TopicEdit.new(user: current_user,
-    #                  post: post,
-    #                  version: 0,
-    #                  message: 'Initial Version.',
-    #                  patch: create_patch('', post.content))
-    # return e.save
-  rescue
-    return false
+  def create_initial_edit(post)
+    e = Edit.new(user: current_user,
+                 post: post,
+                 version: 0,
+                 message: 'Initial Version.',
+                 patch: create_patch('', post.content))
+    e.save
   end
 
   def add_categories(post)

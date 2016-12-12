@@ -247,11 +247,10 @@ class PostsControllerTest < ActionController::TestCase
   # edit handling
 
   test 'it creates inital edit' do
-    skip
     adam = User.find(1)
     sign_in adam
 
-    assert_nil PostEdit.find_by_user_id(1)
+    assert_nil Edit.find_by_user_id(1)
     post :create, xhr: true, params: { 'post[title]': 'New Post',
                                        'post[content]': 'New Content',
                                        'post[category_ids]': [
@@ -260,11 +259,11 @@ class PostsControllerTest < ActionController::TestCase
 
     json = JSON.parse(@response.body)
     assert_equal 200, @response.status
-    refute_nil json['topic']
+    refute_nil json['post']
 
-    edit = PostEdit.find_by_user_id(1)
+    edit = Edit.find_by_user_id(1)
     refute_nil edit
-    assert_equal json['topic']['id'], edit.topic.id
+    assert_equal json['post']['id'], edit.post.id
     assert_equal 0, edit.version
     assert_equal 1, edit.user.id
     refute_empty edit.message

@@ -2,10 +2,6 @@
 require 'test_helper'
 
 class EditTest < ActiveSupport::TestCase
-  setup do
-    skip
-  end
-
   test 'it requires user' do
     e = Edit.new(version: 0, message: 'message', patch: 'patch')
     assert_equal false, e.save
@@ -36,19 +32,11 @@ class EditTest < ActiveSupport::TestCase
     refute_nil e.errors[:message]
   end
 
-  test 'topic edit requires topic' do
-    e = TopicEdit.new(user: User.first, version: 1, message: 'message', patch: 'patch')
+  test 'it requires a post' do
+    e = Edit.new(user: User.first, version: 1, message: 'message', patch: 'patch')
     assert_equal false, e.save
-    refute_nil e.errors[:topic]
-    e.topic = Topic.first
-    assert_equal true, e.save
-  end
-
-  test 'reply edit requires topic' do
-    e = ReplyEdit.new(user: User.first, version: 1, message: 'message', patch: 'patch')
-    assert_equal false, e.save
-    refute_nil e.errors[:reply]
-    e.reply = Reply.first
+    refute_nil e.errors[:post]
+    e.post = Post.first
     assert_equal true, e.save
   end
 end
