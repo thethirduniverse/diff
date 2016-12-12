@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class ProfilesController < ApplicationController
-  include TopicHelper
+  include PostHelper
 
   clear_respond_to
   respond_to :json
@@ -23,7 +23,7 @@ class ProfilesController < ApplicationController
     offset = params[:offset] ? Integer(params[:offset]) : nil
 
     render json: {
-      posted_topics: topics_feed(offset: offset, user_id: id, response_type: TopicHelper::TOPIC_FEED_RESPONSE_TYPE_SIMPLIFIED)
+      posted_posts: posts_feed(offset: offset, user_id: id, response_type: PostHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED)
     }
   end
 
@@ -38,7 +38,7 @@ class ProfilesController < ApplicationController
     {
       id: u.id,
       email: u.email,
-      posted_topics: topics_feed(user_id: u.id, response_type: TopicHelper::TOPIC_FEED_RESPONSE_TYPE_SIMPLIFIED),
+      posted_posts: posts_feed(user_id: u.id, response_type: PostHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED),
       avatar: u.avatar.url(:large)
     }
   end

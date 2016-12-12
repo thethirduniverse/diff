@@ -12,11 +12,11 @@ class ProfilesControllerTest < ActionController::TestCase
 
     json = JSON.parse(@response.body)
 
-    topics = json['user']['posted_topics']
+    posts = json['user']['posted_posts']
 
-    assert_kind_of Hash, topics
-    refute_nil topics['has_more']
-    refute_nil topics['next_offset']
-    refute_nil topics['topics']
+    assert_kind_of Hash, posts
+    refute_nil posts['has_more']
+    refute_nil posts['next_offset']
+    refute_nil posts['posts']
   end
 end

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   scope :api do
     devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations', confirmations: 'confirmations', passwords: 'passwords' }
 
-    resources :topics, only: [:index, :show, :create]
+    resources :posts, only: [:index, :show, :create]
     resources :replies, only: [:create]
     get 'replies' => 'replies#replies'
 
@@ -25,8 +25,8 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  get '/topics/*ignored' => 'main#index'
-  get '/topics' => 'main#index'
+  get '/posts/*ignored' => 'main#index'
+  get '/posts' => 'main#index'
   get '/profiles/*ignored' => 'main#index'
 
   get '/account/reset-password/password' => 'main#index', as: 'custom_reset_password'
