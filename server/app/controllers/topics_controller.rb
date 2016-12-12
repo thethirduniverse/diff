@@ -46,7 +46,7 @@ class TopicsController < ApplicationController
       return
     end
 
-    render_success(topic)
+    render_success topic
   end
 
   private
@@ -60,7 +60,7 @@ class TopicsController < ApplicationController
   def render_create_edit_error
     render json: {
       errors: {
-        edit: 'Unable to create initial edit.'
+        edit: 'Unable to create initial edit for topic.'
       }
     }, status: 500
   end

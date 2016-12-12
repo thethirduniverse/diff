@@ -154,4 +154,28 @@ class RepliesControllerTest < ActionController::TestCase
     assert_equal reply_count, topic.replies.count
     assert_equal 1, topic.derived_replies.count
   end
+
+  test 'reply creates initial edit' do
+    adam = User.find(1)
+    sign_in adam
+    topic = Topic.find(1)
+    refute_nil topic
+    assert_nil ReplyEdit.find_by_user_id(1)
+
+    post :create, xhr: true, params: {
+      'reply[topic_id]': topic.id,
+      'reply[content]': 'reply content'
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+
+    edit = ReplyEdit.find_by_user_id(1)
+    refute_nil edit
+    assert_equal edit.reply.id, json['reply']['id']
+    assert_equal 0, edit.version
+    assert_equal 1, edit.user.id
+    refute_empty edit.message
+    refute_empty edit.patch
+  end
 end

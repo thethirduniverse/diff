@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class RepliesController < ApplicationController
   include ReplyHelper
+  include DiffHelper
 
   clear_respond_to
   respond_to :json
@@ -10,16 +11,18 @@ class RepliesController < ApplicationController
   def create
     reply = Reply.new(reply_params)
     reply.creator = current_user
-    if reply.valid?
-      reply.save!
-      render json: {
-        reply: reply_response(reply)
-      }, status: 200
-    else
-      render json: {
-        errors: reply.errors.messages
-      }, status: 400
+
+    unless reply.save
+      render_create_validation_error reply
+      return
     end
+
+    unless create_initial_edit reply
+      render_create_edit_error
+      return
+    end
+
+    render_create_success reply
   end
 
   def replies
@@ -34,6 +37,35 @@ class RepliesController < ApplicationController
   end
 
   private
+
+  def render_create_success(reply)
+    render json: {
+      reply: reply_response(reply)
+    }, status: 200
+  end
+
+  def render_create_edit_error
+    render json: {
+      errors: {
+        edit: 'Unable to create initial edit for reply.'
+      }
+    }, status: 500
+  end
+
+  def render_create_validation_error(reply)
+    render json: {
+      errors: reply.errors.messages
+    }, status: 400
+  end
+
+  def create_initial_edit(reply)
+    e = ReplyEdit.new(user: current_user,
+                      reply: reply,
+                      version: 0,
+                      message: 'Initial Version.',
+                      patch: create_patch('', reply.content))
+    e.save
+  end
 
   def reply_params
     ps = params.require(:reply).permit(:content, :topic_id, :reply_id)
