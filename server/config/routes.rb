@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       post '/users/fetch' => 'sessions#fetch', as: 'fetch_session'
     end
 
-    get '/profiles/load_posted_topics' => 'profiles#load_posted_topics'
+    get '/profiles/load_posts' => 'profiles#load_posts'
     get '/profiles/:id' => 'profiles#show'
     post '/update-avatar' => 'users#update_avatar'
 

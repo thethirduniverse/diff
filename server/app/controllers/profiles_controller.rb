@@ -18,7 +18,7 @@ class ProfilesController < ApplicationController
     head 404, content_type: 'application/json'
   end
 
-  def load_posted_topics
+  def load_posts
     id = params[:id]
     offset = params[:offset] ? Integer(params[:offset]) : nil
 
