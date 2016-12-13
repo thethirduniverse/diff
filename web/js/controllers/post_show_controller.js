@@ -7,7 +7,7 @@ import { topicShowLoadTopic, topicShowAppendReplies, replyFormSetTargetTopic, re
 const mapStateToProps = (state, ownProps) => {
   return {
     postId: ownProps.params.id,
-    post: state.topicShow.topic,
+    loaded: state.topicShow.replyTree.length > 0,
 
     userSignedIn: state.accountReducer.signed_in,
     user: state.accountReducer.user,
@@ -34,13 +34,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(reportReply(reply))
     },
     onComponentWillMount: () => {
-      $.get('/api/posts/' + ownProps.params.id)
+      const { id } = ownProps.params
+      $.get('/api/posts/' + id)
         .done((res) => {
           const {posts, ...rest} = res.post
 
           // load topic first since it clears previous replies
           dispatch(topicShowLoadTopic(rest))
-          dispatch(topicShowAppendReplies(null, posts))
+          dispatch(topicShowAppendReplies(parseInt(id), posts))
         })
         .fail((res) => {
           console.log('load topic with response:')
@@ -59,10 +60,10 @@ const merge = (s, d, o) => {
     ...s,
     ...d,
     onReplyClicked: () => {
-      d._onReplyClicked(s.topic)
+      d._onReplyClicked(s.post)
     },
     onReportClicked: () => {
-      d._onReportClicked(s.topic)
+      d._onReportClicked(s.post)
     }
   }
 }

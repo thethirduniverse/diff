@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
       const inLastLevel = replyTree[replyTree.length - 1].some((r) => (r.id === reply.id))
       return (
         reply.posts === undefined && inLastLevel
-      ) && reply.post_ids.length > 0
+      ) && reply.post_ids && reply.post_ids.length > 0
     }
   }
 }
@@ -32,9 +32,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     _expandMoreClicked: (replyTree, level, index) => {
       const reply = replyTree[level][index]
 
-      $.get('/api/replies', {'reply[id]': reply.id})
+      $.get('/api/replies', {'id': reply.id})
         .done((res) => {
-          dispatch(topicShowAppendReplies(reply.id, res.replies))
+          dispatch(topicShowAppendReplies(reply.id, res.posts))
         })
         .fail((res) => {
           console.log('expand more failed with response:')

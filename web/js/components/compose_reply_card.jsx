@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
-import ReplyFormController from 'controllers/reply_form_controller.js'
+import PostFormController, { ActionTypes } from 'controllers/post_form_controller.js'
 
 const ComposeReplyCard = React.createClass({
   propTypes: {
@@ -29,7 +29,10 @@ const ComposeReplyCard = React.createClass({
         />
         <CardText>
           Be the first to write a reply.
-          <ReplyFormController topicID={topicID} replyID={replyID}/>
+          <PostFormController
+            parentPostId={topicID || replyID}
+            action={ActionTypes.insert}
+          />
         </CardText>
       </Card>
     )

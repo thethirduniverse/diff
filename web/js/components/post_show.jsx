@@ -4,14 +4,14 @@ import React from 'react'
 import ComposeReplyCard from 'components/compose_reply_card.jsx'
 import ReplyListController from 'controllers/reply_list_controller.js'
 import SignInFirstCardController from 'controllers/sign_in_first_card_controller.js'
-import PostCard from 'components/post_card.jsx'
 
 const PostShow = React.createClass({
   propTypes: {
     onComponentWillMount: React.PropTypes.func.isRequired,
     onComponentWillUnmount: React.PropTypes.func.isRequired,
+
     postId: React.PropTypes.string.isRequired,
-    post: React.PropTypes.object,
+    loaded: React.PropTypes.bool.isRequired,
 
     userSignedIn: React.PropTypes.bool.isRequired,
     user: React.PropTypes.object.isRequired,
@@ -42,21 +42,13 @@ const PostShow = React.createClass({
   },
 
   render: function() {
-    const topicCardContent = this.props.post
-      ? (<PostCard
-        post={this.props.post}
-        hideActions={!this.props.userSignedIn}
-        onReplyClicked={this.props.onReplyClicked}
-        onReportClicked={this.props.onReportClicked}
-          />)
-      : (<CircularProgress />)
-    const repliesContent = this.props.post
+    const posts = this.props.loaded
       ? (<ReplyListController
-          hideActions={!this.props.userSignedIn}
-          onReplyClicked={this.props.onReplyReplyClicked}
-          onReportClicked={this.props.onReportReplyClicked}
-        />)
-      : null
+        hideActions={!this.props.userSignedIn}
+        onReplyClicked={this.props.onReplyReplyClicked}
+        onReportClicked={this.props.onReportReplyClicked}
+      />)
+      : (<CircularProgress />)
     const composeReplyContent = this.displayComposeReplyCard()
       ? (<ComposeReplyCard
         topic={this.props.reply_target_topic}
@@ -66,8 +58,7 @@ const PostShow = React.createClass({
 
     return (
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        {topicCardContent}
-        {repliesContent}
+        {posts}
         {
           this.props.userSignedIn
             ? composeReplyContent

@@ -1,7 +1,6 @@
 import actions from 'actions'
 
 const defaultState = {
-  topic: null,
   replyTree: [],
   replyIndexes: []
 }
@@ -45,33 +44,7 @@ export const appendReplies = (state, replyId, replies) => {
   if (replies.length === 0) {
     return state
   }
-  if (replyId === null) {
-    return appendAtRoot(state, replyId, replies)
-  } else {
-    return doAppendReplies(state, replyId, replies)
-  }
-}
 
-const appendAtRoot = (state, replyId, replies) => {
-  const depth = state.replyTree.length
-  const replyTree = state.replyTree
-
-  if (depth === 0) {
-    return {
-      ...state,
-      replyTree: [replies],
-      replyIndexes: [0]
-    }
-  } else {
-    return {
-      ...state,
-      replyTree: [[...replyTree[0], ...replies], ...replyTree.slice(1)]
-    }
-  }
-}
-
-const doAppendReplies = (state, replyId, replies) => {
-  // only support append to expanded replies for now
   for (var level = 0; level < state.replyTree.length - 1; level++) {
     const idx = state.replyIndexes[level]
     const reply = state.replyTree[level][idx]
@@ -197,9 +170,8 @@ export default (state = defaultState, action) => {
     case actions.topicShowLoadTopic:
       return {
         ...state,
-        topic: action.topic,
-        replyTree: [],
-        replyIndexes: []
+        replyTree: [[action.topic]],
+        replyIndexes: [0]
       }
     case actions.topicShowShowPreviousReply:
       return showPreviousReply(state, action.level)

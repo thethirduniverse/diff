@@ -4,7 +4,12 @@ import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import PostForm from 'components/post_form.jsx'
-import { topicFormAddCategory, topicFormRemoveCategory, topicFormUpdateCategoryFilter, topicFormUpdateErrors } from 'actions'
+import { topicFormAddCategory, topicFormRemoveCategory, topicFormUpdateCategoryFilter, topicFormUpdateErrors, topicShowAppendReplies } from 'actions'
+
+export const ActionTypes = {
+  insert: 'insert',
+  redirect: 'redirect'
+}
 
 const containsFilter = (name, key) => (
   name.toLowerCase().includes(key.toLowerCase())
@@ -13,6 +18,19 @@ const containsFilter = (name, key) => (
 const notSelectedFilter = (currentCategories, name) => (
   !currentCategories.find((c) => (c.name === name))
 )
+
+const formData = (data, ownProps) => {
+  if (ownProps.parentPostId) {
+    return {
+      ...data,
+      post: {
+        ...data.post,
+        parent_post_id: ownProps.parentPostId
+      }
+    }
+  }
+  return data
+}
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -33,10 +51,14 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     _onSubmit: (data) => {
-      $.post('/api/posts', data)
+      $.post('/api/posts', formData(data, ownProps))
         .done((res) => {
+          if (ownProps.action === ActionTypes.insert) {
+            dispatch(topicShowAppendReplies(ownProps.parentPostId, [res.post]))
+          } else {
+            dispatch(push('/posts/' + res.post.id))
+          }
           dispatch(topicFormUpdateErrors({}))
-          dispatch(push('/posts/' + res.post.id))
           dispatch(reset('post-form'))
         })
         .fail((res) => {
