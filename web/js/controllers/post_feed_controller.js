@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import PostFeed from 'components/post_feed.jsx'
-import { contentTypes } from 'reducers/topic_feed_reducer.js'
+import { contentTypes } from 'reducers/post_feed_reducer.js'
 import { topicFeedLoadMore, topicFeedReload } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    posts: state.topics.topics,
-    has_more: state.topics.content.has_more,
-    _content: state.topics.content,
+    posts: state.posts.topics,
+    has_more: state.posts.content.has_more,
+    _content: state.posts.content,
     _categories: state.category.categories
   }
 }

@@ -24,8 +24,7 @@ const PostShow = React.createClass({
     onReplyReplyClicked: React.PropTypes.func,
     onReportReplyClicked: React.PropTypes.func,
 
-    reply_target_topic: React.PropTypes.object,
-    reply_target_reply: React.PropTypes.object
+    target: React.PropTypes.object
   },
 
   componentWillMount: function() {
@@ -36,11 +35,6 @@ const PostShow = React.createClass({
     this.props.onComponentWillUnmount()
   },
 
-  displayComposeReplyCard: function() {
-    return this.props.reply_target_topic != null ||
-      this.props.reply_target_reply != null
-  },
-
   render: function() {
     const posts = this.props.loaded
       ? (<PostShowListController
@@ -49,12 +43,11 @@ const PostShow = React.createClass({
         onReportClicked={this.props.onReportReplyClicked}
       />)
       : (<CircularProgress />)
-    const composeReplyContent = this.displayComposeReplyCard()
+    const composeReplyContent = this.props.target
       ? (<ComposeReplyCard
-        topic={this.props.reply_target_topic}
-        reply={this.props.reply_target_reply}
-          />)
-        : null
+        target={this.props.target}
+      />)
+      : null
 
     return (
       <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">

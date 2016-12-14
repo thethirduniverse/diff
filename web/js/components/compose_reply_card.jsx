@@ -4,24 +4,15 @@ import PostFormController, { ActionTypes } from 'controllers/post_form_controlle
 
 const ComposeReplyCard = React.createClass({
   propTypes: {
-    topic: React.PropTypes.object,
-    reply: React.PropTypes.object
+    target: React.PropTypes.object
   },
 
   getTitle: function() {
-    const topic = this.props.topic
-    const reply = this.props.reply
-    if (topic) {
-      return 'Replying to topic: ' + topic.title
-    } else if (reply) {
-      return 'Replying to reply: ' + reply.content
-    }
-    return 'Replying to unknown entity'
+    const target = this.props.target
+    return 'Replying to post' + target.content
   },
 
   render: function() {
-    const topicID = this.props.topic ? this.props.topic.id : null
-    const replyID = this.props.reply ? this.props.reply.id : null
     return (
       <Card>
         <CardHeader
@@ -30,7 +21,7 @@ const ComposeReplyCard = React.createClass({
         <CardText>
           Be the first to write a reply.
           <PostFormController
-            parentPostId={topicID || replyID}
+            parentPostId={this.props.target.id}
             action={ActionTypes.insert}
           />
         </CardText>

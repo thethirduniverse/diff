@@ -3,7 +3,8 @@ import actions from 'actions'
 const defaultState = {
   categories: [],
   filter: '',
-  errors: {}
+  errors: {},
+  target: null
 }
 
 const sortByName = (c1, c2) => {
@@ -37,6 +38,16 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         errors: action.errors
+      }
+    case actions.replyFormSetTargetTopic:
+      return {
+        ...state,
+        target: action.topic
+      }
+    case actions.replyFormSetTargetReply:
+      return {
+        ...state,
+        target: action.reply
       }
     default:
       return state

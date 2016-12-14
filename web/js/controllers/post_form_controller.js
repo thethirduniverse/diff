@@ -36,16 +36,16 @@ const formData = (data, ownProps) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    categories: state.topicForm.categories,
+    categories: state.postForm.categories,
     categoryAutoCompletions: state.category.categories.filter(
-      (c) => (containsFilter(c.name, state.topicForm.filter))
+      (c) => (containsFilter(c.name, state.postForm.filter))
     ).filter(
-      (c) => (notSelectedFilter(state.topicForm.categories, c.name))
+      (c) => (notSelectedFilter(state.postForm.categories, c.name))
     ).map(
       (c) => (c.name)
     ),
-    categoryInput: state.topicForm.filter,
-    errors: state.topicForm.errors,
+    categoryInput: state.postForm.filter,
+    errors: state.postForm.errors,
     creatingRoot: ownProps.parentPostId === undefined,
     _allCategories: state.category.categories
   }

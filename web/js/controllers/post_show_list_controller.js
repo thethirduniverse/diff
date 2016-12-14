@@ -6,10 +6,10 @@ import { topicShowShowPreviousReply, topicShowShowNextReply, topicShowShowReplyA
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    replyTree: state.topicShow.replyTree,
-    replyIndexes: state.topicShow.replyIndexes,
+    replyTree: state.postShow.replyTree,
+    replyIndexes: state.postShow.replyIndexes,
     shouldShowExpandMore: (reply) => {
-      const replyTree = state.topicShow.replyTree
+      const replyTree = state.postShow.replyTree
       const inLastLevel = replyTree[replyTree.length - 1].some((r) => (r.id === reply.id))
       return (
         reply.posts === undefined && inLastLevel

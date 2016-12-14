@@ -7,15 +7,14 @@ import { topicShowLoadTopic, topicShowAppendReplies, replyFormSetTargetTopic, re
 const mapStateToProps = (state, ownProps) => {
   return {
     postId: ownProps.params.id,
-    loaded: state.topicShow.replyTree.length > 0,
+    loaded: state.postShow.replyTree.length > 0,
 
     userSignedIn: state.accountReducer.signed_in,
     user: state.accountReducer.user,
 
-    location: ownProps.location.pathname,
+    target: state.postForm.target,
 
-    reply_target_topic: state.replyForm.target_topic,
-    reply_target_reply: state.replyForm.target_reply
+    location: ownProps.location.pathname,
   }
 }
 
