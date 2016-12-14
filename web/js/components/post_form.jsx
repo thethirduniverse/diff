@@ -25,6 +25,8 @@ var PostForm = React.createClass({
     onNewCategoryRequest: React.PropTypes.func.isRequired,
     categoryInput: React.PropTypes.string.isRequired,
 
+    creatingRoot: React.PropTypes.bool.isRequired,
+
     errors: React.PropTypes.object
   },
 
@@ -36,17 +38,25 @@ var PostForm = React.createClass({
   },
 
   render: function() {
+    const {creatingRoot} = this.props
+
     const categoryChips = this.props.categories.map((c) => (
       <CategoryChip key={c.id} category={c} onRequestDelete={this.props.onRequestDelete} />
     ))
 
     return (
       <form>
-        <Field name="post[title]" label="Title" type="text" fullWidth={true} errorText={this.props.errors.title} component={renderTextField} />
+        {
+          creatingRoot
+            ? (<Field name="post[title]" label="Title" type="text" fullWidth={true} errorText={this.props.errors.title} component={renderTextField} />)
+            : null
+        }
         <Field name="post[content]" label="Content" type="text" fullWidth={true} multiLine={true} errorText={this.props.errors.content} component={renderTextField} />
-        <ChipList>
-          {categoryChips}
-          {/* Suppose user entered 'a', and there is a category called 'AAA'.
+        {
+          creatingRoot
+            ? (<ChipList>
+              {categoryChips}
+              {/* Suppose user entered 'a', and there is a category called 'AAA'.
          It is the controller that figures out 'AAA' should be in the dateSource
          array. The existence of the filter field on AutoComplete is simply to
          let AutoComplete recognize the option 'AAA'. */}
@@ -58,12 +68,14 @@ var PostForm = React.createClass({
            onNewRequest={this.props.onNewCategoryRequest}
            searchText={this.props.categoryInput}
          />
-       </ChipList>
-       {/* eslint-disable react/prop-types */}
-       <RaisedButton label={this.props.submitButtonLabel} primary={true} style={{margin: 12}} onClick={this.props.handleSubmit(this.props.onSubmit)}/>
-       {/* eslint-enable react/prop-types */}
-       <FlatButton label={this.props.secondaryButtonLabel} secondary={true} onClick={this.props.onSecondaryButtonClick} />
-     </form>
+       </ChipList>)
+            : null
+        }
+        {/* eslint-disable react/prop-types */}
+        <RaisedButton label={this.props.submitButtonLabel} primary={true} style={{margin: 12}} onClick={this.props.handleSubmit(this.props.onSubmit)}/>
+        {/* eslint-enable react/prop-types */}
+        <FlatButton label={this.props.secondaryButtonLabel} secondary={true} onClick={this.props.onSecondaryButtonClick} />
+      </form>
     )
   }
 })

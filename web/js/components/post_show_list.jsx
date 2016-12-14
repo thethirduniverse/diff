@@ -1,8 +1,8 @@
 import React from 'react'
 
-import ReplyRow from 'components/reply_row.jsx'
+import PostShowListRow from 'components/post_show_list_row.jsx'
 
-const ReplyList = React.createClass({
+const PostShowList = React.createClass({
   propTypes: {
     replyTree: React.PropTypes.array.isRequired,
     replyIndexes: React.PropTypes.array.isRequired,
@@ -38,7 +38,7 @@ const ReplyList = React.createClass({
         this.props.replyTree.map((replies, idx) => {
           const reply = replies[this.props.replyIndexes[idx]]
 
-          return (<ReplyRow
+          return (<PostShowListRow
             reply={reply}
             totalDots={replies.length}
             currentIndex={this.props.replyIndexes[idx]}
@@ -52,6 +52,7 @@ const ReplyList = React.createClass({
             hideActions={this.props.hideActions}
             onReplyClicked={this.props.onReplyClicked.bind(null, reply)}
             onReportClicked={this.props.onReportClicked.bind(null, reply)}
+            presentAsReply={idx !== 0}
           />)
         }
         )
@@ -60,4 +61,4 @@ const ReplyList = React.createClass({
   }
 })
 
-export default ReplyList
+export default PostShowList

@@ -20,15 +20,17 @@ const notSelectedFilter = (currentCategories, name) => (
 )
 
 const formData = (data, ownProps) => {
+  // posting as reply
   if (ownProps.parentPostId) {
     return {
       ...data,
       post: {
-        ...data.post,
+        content: data.post.content,
         parent_post_id: ownProps.parentPostId
       }
     }
   }
+
   return data
 }
 
@@ -44,6 +46,7 @@ const mapStateToProps = (state, ownProps) => {
     ),
     categoryInput: state.topicForm.filter,
     errors: state.topicForm.errors,
+    creatingRoot: ownProps.parentPostId === undefined,
     _allCategories: state.category.categories
   }
 }

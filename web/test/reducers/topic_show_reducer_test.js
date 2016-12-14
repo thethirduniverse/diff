@@ -83,23 +83,6 @@ describe('TopicShowReducer', function() {
   })
 
   describe('append replies', function() {
-    it('should behave properly for root level', function() {
-      assert.deepEqual(
-        {
-          replyTree: [[1, 2, 3]],
-          replyIndexes: [0]
-        },
-        appendReplies(
-          {
-            replyTree: [],
-            replyIndexes: []
-          },
-          null,
-          [1, 2, 3]
-        )
-      )
-    })
-
     it('should behave properly for expanded reply', function() {
       assert.deepEqual(
         {
@@ -116,7 +99,7 @@ describe('TopicShowReducer', function() {
               [{id: 11}, {id: 12}],
               [{id: 21}, {id: 22}]
             ],
-            replyIndexes: [0, 1]
+            replyIndexes: [0, 0]
           },
           21,
           [{id: 31}, {id: 32}, {id: 33}]

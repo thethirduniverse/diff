@@ -20,7 +20,9 @@ const PostCard = React.createClass({
     hideActions: React.PropTypes.bool,
 
     onReplyClicked: React.PropTypes.func,
-    onReportClicked: React.PropTypes.func
+    onReportClicked: React.PropTypes.func,
+
+    presentAsReply: React.PropTypes.bool
   },
 
   handleCardClick: function(id) {
@@ -28,9 +30,20 @@ const PostCard = React.createClass({
   },
 
   render: function() {
+    const { post, presentAsReply } = this.props
     const clickHandler = this.props.cardClickEnabled
       ? this.handleCardClick.bind(this, this.props.post.id)
       : null
+    const headerContent = presentAsReply
+      ? null
+      : (
+        <h2>
+          <a href="javascript:void(0)">
+            {this.props.post.title}
+          </a>
+        </h2>
+      )
+
     const actions = this.props.hideActions
       ? null
       : (
@@ -39,27 +52,32 @@ const PostCard = React.createClass({
           <FlatButton label="Report" onClick={this.props.onReportClicked} />
         </div>
       )
-    const categoryChips = this.props.post.categories.map((c) => (
-      <CategoryChip key={c.id} category={c} />
-    ))
+
+    const chipsContent = presentAsReply
+      ? null
+      : (
+        <ChipList>
+          <Chip style={styles.chip}>{this.props.post.view} views</Chip>
+          {
+            post.categories
+              ? post.categories.map((c) => (
+                <CategoryChip key={c.id} category={c} />
+              ))
+              : null
+          }
+        </ChipList>
+      )
 
     return (
       <Card>
         <CardTitle onClick={clickHandler}>
-          <h2>
-            <a href="javascript:void(0)">
-              {this.props.post.title}
-            </a>
-          </h2>
+          {headerContent}
         </CardTitle>
         <CardText style={styles.textBlock}>
           {this.props.post.content}
         </CardText>
         <CardActions>
-          <ChipList>
-            <Chip style={styles.chip}>{this.props.post.view} views</Chip>
-            {categoryChips}
-          </ChipList>
+          {chipsContent}
           {actions}
         </CardActions>
       </Card>

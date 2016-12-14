@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import { connect } from 'react-redux'
 
-import ReplyList from 'components/reply_list.jsx'
+import PostShowList from 'components/post_show_list.jsx'
 import { topicShowShowPreviousReply, topicShowShowNextReply, topicShowShowReplyAtIndex, topicShowAppendReplies } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
       const inLastLevel = replyTree[replyTree.length - 1].some((r) => (r.id === reply.id))
       return (
         reply.posts === undefined && inLastLevel
-      ) && reply.post_ids && reply.post_ids.length > 0
+      ) && reply.post_ids !== undefined && reply.post_ids.length > 0
     }
   }
 }
@@ -55,4 +55,4 @@ const merge = (s, d, o) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, merge)(ReplyList)
+export default connect(mapStateToProps, mapDispatchToProps, merge)(PostShowList)

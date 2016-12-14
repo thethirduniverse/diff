@@ -1,9 +1,9 @@
 import React from 'react'
 
 import PaginationDots from 'components/pagination_dots.jsx'
-import ReplyCard from 'components/reply_card.jsx'
+import PostCard from 'components/post_card.jsx'
 
-const ReplyRow = React.createClass({
+const PostShowListRow = React.createClass({
   propTypes: {
     reply: React.PropTypes.object.isRequired,
     totalDots: React.PropTypes.number.isRequired,
@@ -17,7 +17,9 @@ const ReplyRow = React.createClass({
 
     hideActions: React.PropTypes.bool.isRequired,
     onReplyClicked: React.PropTypes.func,
-    onReportClicked: React.PropTypes.func
+    onReportClicked: React.PropTypes.func,
+
+    presentAsReply: React.PropTypes.bool.isRequired
   },
 
   showPaginationDots: function() {
@@ -31,11 +33,12 @@ const ReplyRow = React.createClass({
   render: function() {
     return (
       <div>
-        <ReplyCard
-          reply={this.props.reply}
+        <PostCard
+          post={this.props.reply}
           onReplyClicked={this.props.onReplyClicked}
           onReportClicked={this.props.onReportClicked}
           hideActions={this.props.hideActions}
+          presentAsReply={this.props.presentAsReply}
         />
         {
           this.showPaginationDots()
@@ -55,4 +58,4 @@ const ReplyRow = React.createClass({
   }
 })
 
-export default ReplyRow
+export default PostShowListRow

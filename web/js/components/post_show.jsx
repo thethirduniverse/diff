@@ -2,7 +2,7 @@ import CircularProgress from 'material-ui/CircularProgress'
 import React from 'react'
 
 import ComposeReplyCard from 'components/compose_reply_card.jsx'
-import ReplyListController from 'controllers/reply_list_controller.js'
+import PostShowListController from 'controllers/post_show_list_controller.js'
 import SignInFirstCardController from 'controllers/sign_in_first_card_controller.js'
 
 const PostShow = React.createClass({
@@ -43,7 +43,7 @@ const PostShow = React.createClass({
 
   render: function() {
     const posts = this.props.loaded
-      ? (<ReplyListController
+      ? (<PostShowListController
         hideActions={!this.props.userSignedIn}
         onReplyClicked={this.props.onReplyReplyClicked}
         onReportClicked={this.props.onReportReplyClicked}
