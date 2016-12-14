@@ -1,12 +1,12 @@
 import actions from 'actions'
 
 export const contentTypes = {
-  newest: 'TOPIC_FEED_SHOW_NEWEST',
-  category: 'TOPIC_FEED_SHOW_CATEGORY'
+  newest: 'POST_FEED_SHOW_NEWEST',
+  category: 'POST_FEED_SHOW_CATEGORY'
 }
 
 const defaultState = {
-  topics: [],
+  posts: [],
   content: {
     type: contentTypes.newest,
     currentCategoryIndex: 0,
@@ -19,17 +19,17 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case actions.topicFeedLoadMore:
+    case actions.postFeedLoadMore:
       return {
         ...state,
-        topics: [...state.topics, ...action.topics],
+        posts: [...state.posts, ...action.posts],
         content: {
           ...state.content,
           has_more: action.has_more,
           next_offset: action.next_offset
         }
       }
-    case actions.topicFeedReload:
+    case actions.postFeedReload:
       return {
         ...state,
         content: {
@@ -38,28 +38,28 @@ export default (state = defaultState, action) => {
           has_more: action.has_more,
           next_offset: action.next_offset
         },
-        topics: action.topics
+        posts: action.posts
       }
-    case actions.topicFeedShowNewest:
+    case actions.postFeedShowNewest:
       const contentTypeWasNotNewest = state.content.type !== contentTypes.newest
 
       return {
         ...state,
-        topics: contentTypeWasNotNewest ? [] : state.topics,
+        posts: contentTypeWasNotNewest ? [] : state.posts,
         content: {
           ...state.content,
           type: contentTypes.newest,
           loaded: !contentTypeWasNotNewest
         }
       }
-    case actions.topicFeedShowCategory:
+    case actions.postFeedShowCategory:
       const contentTypeWasNotCategory = state.content.type !== contentTypes.category
       const contentIndexChanged = state.content.currentCategoryIndex !== action.index
       const changed = contentTypeWasNotCategory || contentIndexChanged
 
       return {
         ...state,
-        topics: changed ? [] : state.topics,
+        posts: changed ? [] : state.posts,
         content: {
           ...state.content,
           type: contentTypes.category,

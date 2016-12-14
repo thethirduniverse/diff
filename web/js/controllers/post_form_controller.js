@@ -4,7 +4,7 @@ import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import PostForm from 'components/post_form.jsx'
-import { topicFormAddCategory, topicFormRemoveCategory, topicFormUpdateCategoryFilter, topicFormUpdateErrors, topicShowAppendReplies } from 'actions'
+import { postFormAddCategory, postFormRemoveCategory, postFormUpdateCategoryFilter, postFormUpdateErrors, postShowAppendReplies } from 'actions'
 
 export const ActionTypes = {
   insert: 'insert',
@@ -57,22 +57,22 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       $.post('/api/posts', formData(data, ownProps))
         .done((res) => {
           if (ownProps.action === ActionTypes.insert) {
-            dispatch(topicShowAppendReplies(ownProps.parentPostId, [res.post]))
+            dispatch(postShowAppendReplies(ownProps.parentPostId, [res.post]))
           } else {
             dispatch(push('/posts/' + res.post.id))
           }
-          dispatch(topicFormUpdateErrors({}))
+          dispatch(postFormUpdateErrors({}))
           dispatch(reset('post-form'))
         })
         .fail((res) => {
-          dispatch(topicFormUpdateErrors(res.responseJSON.errors))
+          dispatch(postFormUpdateErrors(res.responseJSON.errors))
         })
     },
     onRequestDelete: (id) => {
-      dispatch(topicFormRemoveCategory(id))
+      dispatch(postFormRemoveCategory(id))
     },
     onUpdateCategoryInput: (text) => {
-      dispatch(topicFormUpdateCategoryFilter(text))
+      dispatch(postFormUpdateCategoryFilter(text))
     },
     _onNewCategoryRequest: (allCategories, currentCategories, text, idx) => {
       let cat
@@ -82,7 +82,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         cat = allCategories.find((c) => (c.name === text))
       }
       if (cat) {
-        dispatch(topicFormAddCategory(cat))
+        dispatch(postFormAddCategory(cat))
       }
     }
   }

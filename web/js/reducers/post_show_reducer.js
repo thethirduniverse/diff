@@ -148,7 +148,7 @@ export const expandReplies = (state, index) => {
 
 const checkConsistency = (state) => {
   if (state.replyTree.length !== state.replyIndexes.length) {
-    throw new Error('Internal inconsistency in topic show reducer. Reply tree and reply indexes has differnt depth')
+    throw new Error('Internal inconsistency in post show reducer. Reply tree and reply indexes has differnt depth')
   }
 }
 
@@ -167,19 +167,19 @@ const checkLevelIdx = (state, level, idx) => {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case actions.topicShowLoadTopic:
+    case actions.postShowLoadTopic:
       return {
         ...state,
-        replyTree: [[action.topic]],
+        replyTree: [[action.post]],
         replyIndexes: [0]
       }
-    case actions.topicShowShowPreviousReply:
+    case actions.postShowShowPreviousReply:
       return showPreviousReply(state, action.level)
-    case actions.topicShowShowNextReply:
+    case actions.postShowShowNextReply:
       return showNextReply(state, action.level)
-    case actions.topicShowShowReplyAtIndex:
+    case actions.postShowShowReplyAtIndex:
       return showReplyAtIndex(state, action.level, action.index)
-    case actions.topicShowAppendReplies:
+    case actions.postShowAppendReplies:
       return appendReplies(state, action.replyId, action.replies)
     default:
       return state

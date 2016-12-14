@@ -18,36 +18,36 @@ const sortByName = (c1, c2) => {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case actions.topicFormAddCategory:
+    case actions.postFormAddCategory:
       return {
         ...state,
         categories: [...state.categories, action.category].sort(sortByName),
         filter: ''
       }
-    case actions.topicFormRemoveCategory:
+    case actions.postFormRemoveCategory:
       return {
         ...state,
         categories: state.categories.filter((c) => (c.id !== action.categoryId)).sort(sortByName)
       }
-    case actions.topicFormUpdateCategoryFilter:
+    case actions.postFormUpdateCategoryFilter:
       return {
         ...state,
         filter: action.filter
       }
-    case actions.topicFormUpdateErrors:
+    case actions.postFormUpdateErrors:
       return {
         ...state,
         errors: action.errors
       }
-    case actions.replyFormSetTargetTopic:
+    case actions.postFormUpdateTarget:
       return {
         ...state,
-        target: action.topic
+        target: action.post
       }
-    case actions.replyFormSetTargetReply:
+    case actions.postFormClearTarget:
       return {
         ...state,
-        target: action.reply
+        target: null
       }
     default:
       return state

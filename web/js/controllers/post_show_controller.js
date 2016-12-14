@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import PostShow from 'components/post_show.jsx'
-import { topicShowLoadTopic, topicShowAppendReplies, replyFormSetTargetTopic, replyFormSetTargetReply, replyFormClearTarget, reportTopic, reportReply } from 'actions'
+import { postShowLoadTopic, postShowAppendReplies, postFormUpdateTarget, postFormClearTarget, reportReply } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -14,23 +14,17 @@ const mapStateToProps = (state, ownProps) => {
 
     target: state.postForm.target,
 
-    location: ownProps.location.pathname,
+    location: ownProps.location.pathname
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    _onReplyClicked: (topic) => {
-      dispatch(replyFormSetTargetTopic(topic))
+    onReplyClicked: (post) => {
+      dispatch(postFormUpdateTarget(post))
     },
-    _onReportClicked: (topic) => {
-      dispatch(reportTopic(topic))
-    },
-    onReplyReplyClicked: (reply) => {
-      dispatch(replyFormSetTargetReply(reply))
-    },
-    onReportReplyClicked: (reply) => {
-      dispatch(reportReply(reply))
+    onReportClicked: (post) => {
+      dispatch(reportReply(post))
     },
     onComponentWillMount: () => {
       const { id } = ownProps.params
@@ -38,33 +32,19 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         .done((res) => {
           const {posts, ...rest} = res.post
 
-          // load topic first since it clears previous replies
-          dispatch(topicShowLoadTopic(rest))
-          dispatch(topicShowAppendReplies(parseInt(id), posts))
+          // load post first since it clears previous replies
+          dispatch(postShowLoadTopic(rest))
+          dispatch(postShowAppendReplies(parseInt(id), posts))
         })
         .fail((res) => {
-          console.log('load topic with response:')
+          console.log('load post with response:')
           console.log(res)
         })
     },
     onComponentWillUnmount: () => {
-      dispatch(replyFormClearTarget())
+      dispatch(postFormClearTarget())
     }
   }
 }
 
-const merge = (s, d, o) => {
-  return {
-    ...o,
-    ...s,
-    ...d,
-    onReplyClicked: () => {
-      d._onReplyClicked(s.post)
-    },
-    onReportClicked: () => {
-      d._onReportClicked(s.post)
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps, merge)(PostShow)
+export default connect(mapStateToProps, mapDispatchToProps)(PostShow)

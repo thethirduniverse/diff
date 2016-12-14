@@ -4,11 +4,11 @@ import { push } from 'react-router-redux'
 
 import PostFeed from 'components/post_feed.jsx'
 import { contentTypes } from 'reducers/post_feed_reducer.js'
-import { topicFeedLoadMore, topicFeedReload } from 'actions'
+import { postFeedLoadMore, postFeedReload } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    posts: state.posts.topics,
+    posts: state.posts.posts,
     has_more: state.posts.content.has_more,
     _content: state.posts.content,
     _categories: state.category.categories
@@ -23,20 +23,20 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     _loadMore: (params) => {
       $.get('/api/posts', params)
         .done((res) => {
-          dispatch(topicFeedLoadMore(res.posts, res.has_more, res.next_offset))
+          dispatch(postFeedLoadMore(res.posts, res.has_more, res.next_offset))
         })
         .fail((res) => {
-          console.log('load more topics from server failed with response:')
+          console.log('load more posts from server failed with response:')
           console.log(res)
         })
     },
     _requestInitialLoad: (params) => {
       $.get('/api/posts', params)
         .done((res) => {
-          dispatch(topicFeedReload(res.posts, res.has_more, res.next_offset))
+          dispatch(postFeedReload(res.posts, res.has_more, res.next_offset))
         })
         .fail((res) => {
-          console.log('load topics from server failed with response:')
+          console.log('load posts from server failed with response:')
           console.log(res)
         })
     }

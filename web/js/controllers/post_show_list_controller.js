@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import PostShowList from 'components/post_show_list.jsx'
-import { topicShowShowPreviousReply, topicShowShowNextReply, topicShowShowReplyAtIndex, topicShowAppendReplies } from 'actions'
+import { postShowShowPreviousReply, postShowShowNextReply, postShowShowReplyAtIndex, postShowAppendReplies } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -21,20 +21,20 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     leftChevronClicked: (level) => {
-      dispatch(topicShowShowPreviousReply(level))
+      dispatch(postShowShowPreviousReply(level))
     },
     rightChevronClicked: (level) => {
-      dispatch(topicShowShowNextReply(level))
+      dispatch(postShowShowNextReply(level))
     },
     paginationDotClicked: (level, index) => {
-      dispatch(topicShowShowReplyAtIndex(level, index))
+      dispatch(postShowShowReplyAtIndex(level, index))
     },
     _expandMoreClicked: (replyTree, level, index) => {
       const reply = replyTree[level][index]
 
       $.get('/api/replies', {'id': reply.id})
         .done((res) => {
-          dispatch(topicShowAppendReplies(reply.id, res.posts))
+          dispatch(postShowAppendReplies(reply.id, res.posts))
         })
         .fail((res) => {
           console.log('expand more failed with response:')

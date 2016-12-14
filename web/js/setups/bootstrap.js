@@ -1,4 +1,4 @@
-import { userSignIn, topicFeedReload, categoryLoad } from 'actions'
+import { userSignIn, postFeedReload, categoryLoad } from 'actions'
 
 export default function(store) {
   const data = JSON.parse(document.getElementById('bootstrap').innerHTML)
@@ -9,8 +9,8 @@ export default function(store) {
   }
 
   // Inital feed content
-  store.dispatch(topicFeedReload(data.post_feed.posts, data.post_feed.has_more, data.post_feed.next_offset))
+  store.dispatch(postFeedReload(data.post_feed.posts, data.post_feed.has_more, data.post_feed.next_offset))
 
-  // Load topic categories
+  // Load post categories
   store.dispatch(categoryLoad(data.categories))
 }

@@ -7,9 +7,9 @@ import { profileLoadMorePostedTopics } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    topics: state.profile.user.posted_topics.topics,
-    has_more: state.profile.user.posted_topics.has_more,
-    _next_offset: state.profile.user.posted_topics.next_offset,
+    posts: state.profile.user.posted_posts.posts,
+    has_more: state.profile.user.posted_posts.has_more,
+    _next_offset: state.profile.user.posted_posts.next_offset,
     _user_id: state.profile.user.id
   }
 }
@@ -22,10 +22,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     _loadMore: (params) => {
       $.get('/api/profiles/load_posts', params)
         .done((res) => {
-          dispatch(profileLoadMorePostedTopics(res.posted_topics.topics, res.posted_topics.has_more, res.posted_topics.next_offset))
+          dispatch(profileLoadMorePostedTopics(res.posted_posts.posts, res.posted_posts.has_more, res.posted_posts.next_offset))
         })
         .fail((res) => {
-          console.log('load more topics from server failed with response:')
+          console.log('load more posts from server failed with response:')
           console.log(res)
         })
     }

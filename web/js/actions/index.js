@@ -9,31 +9,29 @@ const actions = {
   userSignOut: 'USER_SIGN_OUT',
   userShowSignInError: 'USER_SHOW_SIGN_IN_ERROR',
   userShowSignUpError: 'USER_SHOW_SIGN_UP_ERROR',
-  topicFeedLoadMore: 'TOPIC_FEED_LOAD_MORE',
-  topicFeedReload: 'TOPIC_FEED_RELOAD',
-  topicFeedShowNewest: 'TOPIC_FEED_SHOW_NEWEST',
-  topicFeedShowCategory: 'TOPIC_FEED_SHOW_CATEGORY',
-  topicShowLoadTopic: 'TOPIC_SHOW_LOAD_TOPIC',
-  topicShowShowPreviousReply: 'TOPIC_SHOW_SHOW_PREVIOUS_REPLY',
-  topicShowShowNextReply: 'TOPIC_SHOW_SHOW_NEXT_REPLY',
-  topicShowShowReplyAtIndex: 'TOPIC_SHOW_SHOW_REPLY_AT_INDEX',
-  topicShowAppendReplies: 'TOPIC_SHOW_APPEND_REPLIES',
-  topicFormAddCategory: 'TOPIC_FORM_ADD_CATEGORY',
-  topicFormRemoveCategory: 'TOPIC_FORM_REMOVE_CATEGORY',
-  topicFormUpdateCategoryFilter: 'TOPIC_FORM_UPDATE_CATEGORY_FILTER',
-  topicFormUpdateErrors: 'TOPIC_FORM_UPDATE_ERRORS',
-  replyFormClearTarget: 'REPLY_FORM_CLEAR_TARGET',
-  replyFormSetTargetTopic: 'REPLY_FORM_SET_TARGET_TOPIC',
-  replyFormSetTargetReply: 'REPLY_FORM_SET_TARGET_REPLY',
-  replyFormUpdateErrors: 'REPLY_FORM_UPDATE_ERRORS',
+  postFeedLoadMore: 'POST_FEED_LOAD_MORE',
+  postFeedReload: 'POST_FEED_RELOAD',
+  postFeedShowNewest: 'POST_FEED_SHOW_NEWEST',
+  postFeedShowCategory: 'POST_FEED_SHOW_CATEGORY',
+  postShowLoadTopic: 'POST_SHOW_LOAD_POST',
+  postShowShowPreviousReply: 'POST_SHOW_SHOW_PREVIOUS_REPLY',
+  postShowShowNextReply: 'POST_SHOW_SHOW_NEXT_REPLY',
+  postShowShowReplyAtIndex: 'POST_SHOW_SHOW_REPLY_AT_INDEX',
+  postShowAppendReplies: 'POST_SHOW_APPEND_REPLIES',
+  postFormAddCategory: 'POST_FORM_ADD_CATEGORY',
+  postFormRemoveCategory: 'POST_FORM_REMOVE_CATEGORY',
+  postFormUpdateCategoryFilter: 'POST_FORM_UPDATE_CATEGORY_FILTER',
+  postFormUpdateErrors: 'POST_FORM_UPDATE_ERRORS',
+  postFormUpdateTarget: 'POST_FORM_UPDATE_TARGET',
+  postFormClearTarget: 'POST_FORM_CLEAR_TARGET',
   profileLoadUser: 'PROFILE_LOAD_USER',
-  profileLoadMorePostedTopics: 'PROFILE_LOAD_MORE_POSTED_TOPICS',
+  profileLoadMorePostedTopics: 'PROFILE_LOAD_MORE_POSTED_POSTS',
   profileShowAvatarForm: 'PROFILE_SHOW_AVATAR_FORM',
   profileHideAvatarForm: 'PROFILE_HIDE_AVATAR_FORM',
   profileUpdateAvatarFormErrors: 'PROFILE_UPDATE_AVATAR_FORM_ERRORS',
   categoryLoad: 'CATEGORY_LOAD',
   reportUser: 'REPORT_USER',
-  reportTopic: 'REPORT_TOPIC',
+  reportTopic: 'REPORT_POST',
   reportReply: 'REPORT_REPLY',
   reportPosted: 'REPORT_POSTED',
   reportClear: 'REPORT_CLEAR'
@@ -127,127 +125,113 @@ export const userShowSignUpError = (e) => {
 }
 
 /* eslint-disable camelcase */
-export const topicFeedLoadMore = (topics, has_more, next_offset) => {
+export const postFeedLoadMore = (posts, has_more, next_offset) => {
   return {
-    type: actions.topicFeedLoadMore,
-    topics,
+    type: actions.postFeedLoadMore,
+    posts,
     has_more,
     next_offset
   }
 }
 
-export const topicFeedReload = (topics, has_more, next_offset) => {
+export const postFeedReload = (posts, has_more, next_offset) => {
   return {
-    type: actions.topicFeedReload,
-    topics,
+    type: actions.postFeedReload,
+    posts,
     has_more,
     next_offset
   }
 }
 /* eslint-enable camelcase */
 
-export const topicFeedShowNewest = () => {
+export const postFeedShowNewest = () => {
   return {
-    type: actions.topicFeedShowNewest
+    type: actions.postFeedShowNewest
   }
 }
 
-export const topicFeedShowCategory = (idx) => {
+export const postFeedShowCategory = (idx) => {
   return {
-    type: actions.topicFeedShowCategory,
+    type: actions.postFeedShowCategory,
     index: idx
   }
 }
 
-export const topicShowLoadTopic = (topic) => {
+export const postShowLoadTopic = (post) => {
   return {
-    type: actions.topicShowLoadTopic,
-    topic
+    type: actions.postShowLoadTopic,
+    post
   }
 }
 
-export const topicShowShowPreviousReply = (level) => {
+export const postShowShowPreviousReply = (level) => {
   return {
-    type: actions.topicShowShowPreviousReply,
+    type: actions.postShowShowPreviousReply,
     level
   }
 }
 
-export const topicShowShowNextReply = (level) => {
+export const postShowShowNextReply = (level) => {
   return {
-    type: actions.topicShowShowNextReply,
+    type: actions.postShowShowNextReply,
     level
   }
 }
 
-export const topicShowShowReplyAtIndex = (level, index) => {
+export const postShowShowReplyAtIndex = (level, index) => {
   return {
-    type: actions.topicShowShowReplyAtIndex,
+    type: actions.postShowShowReplyAtIndex,
     level,
     index
   }
 }
 
-export const topicShowAppendReplies = (replyId, replies) => {
+export const postShowAppendReplies = (replyId, replies) => {
   return {
-    type: actions.topicShowAppendReplies,
+    type: actions.postShowAppendReplies,
     replyId,
     replies
   }
 }
 
-export const topicFormAddCategory = (category) => {
+export const postFormAddCategory = (category) => {
   return {
-    type: actions.topicFormAddCategory,
+    type: actions.postFormAddCategory,
     category
   }
 }
 
-export const topicFormRemoveCategory = (categoryId) => {
+export const postFormRemoveCategory = (categoryId) => {
   return {
-    type: actions.topicFormRemoveCategory,
+    type: actions.postFormRemoveCategory,
     categoryId
   }
 }
 
-export const topicFormUpdateCategoryFilter = (filter) => {
+export const postFormUpdateCategoryFilter = (filter) => {
   return {
-    type: actions.topicFormUpdateCategoryFilter,
+    type: actions.postFormUpdateCategoryFilter,
     filter
   }
 }
 
-export const topicFormUpdateErrors = (errors) => {
+export const postFormUpdateErrors = (errors) => {
   return {
-    type: actions.topicFormUpdateErrors,
+    type: actions.postFormUpdateErrors,
     errors
   }
 }
 
-export const replyFormUpdateErrors = (errors) => {
+export const postFormUpdateTarget = (post) => {
   return {
-    type: actions.replyFormUpdateErrors,
-    errors
+    type: actions.postFormUpdateTarget,
+    post
   }
 }
 
-export const replyFormSetTargetTopic = (topic) => {
+export const postFormClearTarget = () => {
   return {
-    type: actions.replyFormSetTargetTopic,
-    topic
-  }
-}
-
-export const replyFormClearTarget = () => {
-  return {
-    type: actions.replyFormClearTarget
-  }
-}
-
-export const replyFormSetTargetReply = (reply) => {
-  return {
-    type: actions.replyFormSetTargetReply,
-    reply
+    type: actions.postFormClearTarget
   }
 }
 
@@ -259,10 +243,10 @@ export const profileLoadUser = (user) => {
 }
 
 /* eslint-disable camelcase */
-export const profileLoadMorePostedTopics = (topics, has_more, next_offset) => {
+export const profileLoadMorePostedTopics = (posts, has_more, next_offset) => {
   return {
     type: actions.profileLoadMorePostedTopics,
-    topics,
+    posts,
     has_more,
     next_offset
   }
@@ -302,10 +286,10 @@ export const reportUser = (user) => {
   }
 }
 
-export const reportTopic = (topic) => {
+export const reportTopic = (post) => {
   return {
     type: actions.reportTopic,
-    topic
+    post
   }
 }
 
