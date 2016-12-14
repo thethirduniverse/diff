@@ -19,7 +19,7 @@ User.create email: 'unconfirmed@example.com', password: psw, password_confirmati
 end
 
 t1 = Post.create creator_id: user.id, title: 'This is a sample question', content: 'This is a sample content'
-Post.create content: 'I agree', creator: user, parent_post: t1
-Post.create content: 'I don\'t agree', creator: user, parent_post: t1
+Post.create content: 'I agree', creator: user, parent_post: t1, root_post: t1
+Post.create content: 'I don\'t agree', creator: user, parent_post: t1, root_post: t1
 
 Post.create creator_id: user.id, title: 'A complicated question', content: 'What is this question about?', categories: [Category.find(1)]
