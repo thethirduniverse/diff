@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import PostShow from 'components/post_show.jsx'
-import { postShowLoadTopic, postShowAppendReplies, postFormUpdateTarget, postFormClearTarget, reportReply } from 'actions'
+import { postShowLoadTopic, postShowAppendReplies, postFormUpdateTarget, postFormClearTarget, reportPost } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(postFormUpdateTarget(post))
     },
     onReportClicked: (post) => {
-      dispatch(reportReply(post))
+      dispatch(reportPost(post))
     },
     onComponentWillMount: () => {
       const { id } = ownProps.params

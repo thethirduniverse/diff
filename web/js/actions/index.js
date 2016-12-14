@@ -31,8 +31,7 @@ const actions = {
   profileUpdateAvatarFormErrors: 'PROFILE_UPDATE_AVATAR_FORM_ERRORS',
   categoryLoad: 'CATEGORY_LOAD',
   reportUser: 'REPORT_USER',
-  reportTopic: 'REPORT_POST',
-  reportReply: 'REPORT_REPLY',
+  reportPost: 'REPORT_POST',
   reportPosted: 'REPORT_POSTED',
   reportClear: 'REPORT_CLEAR'
 }
@@ -286,17 +285,10 @@ export const reportUser = (user) => {
   }
 }
 
-export const reportTopic = (post) => {
+export const reportPost = (post) => {
   return {
-    type: actions.reportTopic,
+    type: actions.reportPost,
     post
-  }
-}
-
-export const reportReply = (reply) => {
-  return {
-    type: actions.reportReply,
-    reply
   }
 }
 

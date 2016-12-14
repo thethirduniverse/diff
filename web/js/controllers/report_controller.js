@@ -7,7 +7,8 @@ import { reportClear, reportPosted } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    report: state.report.report
+    report: state.report.report,
+    posted: state.report.posted
   }
 }
 
@@ -15,10 +16,8 @@ const _endpointForType = (type) => {
   switch (type) {
     case ReportTypes.user:
       return '/api/report/user'
-    case ReportTypes.topic:
-      return '/api/report/topic'
-    case ReportTypes.reply:
-      return '/api/report/reply'
+    case ReportTypes.post:
+      return '/api/report/post'
     default:
       return ''
   }
@@ -30,24 +29,14 @@ const _paramsForPosting = (report, formData, currentUser) => {
       return {
         report: {
           ...formData.report,
-          creator_id: currentUser.id,
           user_id: report.user.id
         }
       }
-    case ReportTypes.topic:
+    case ReportTypes.post:
       return {
         report: {
           ...formData.report,
-          creator_id: currentUser.id,
-          topic_id: report.topic.id
-        }
-      }
-    case ReportTypes.reply:
-      return {
-        report: {
-          ...formData.report,
-          creator_id: currentUser.id,
-          reply_id: report.reply.id
+          post_id: report.post.id
         }
       }
     default:

@@ -7,46 +7,46 @@ import ReportForm from 'components/report_form.jsx'
 
 const ReportDialog = React.createClass({
   propTypes: {
+    posted: React.PropTypes.bool.isRequired,
     report: React.PropTypes.object.isRequired,
     onSubmit: React.PropTypes.func.isRequired,
     dismiss: React.PropTypes.func.isRequired
   },
 
   _getTitle: function() {
-    const report = this.props.report
+    const {posted, report} = this.props
+
+    if (posted) {
+      return 'Report Posted'
+    }
     switch (report.type) {
       case ReportTypes.user:
         return 'Report User'
-      case ReportTypes.topic:
-        return 'Report Topic'
-      case ReportTypes.reply:
-        return 'Report Reply'
-      case ReportTypes.posted:
-        return 'Report Posted'
+      case ReportTypes.post:
+        return 'Report Post'
       default:
         return ''
     }
   },
 
   _getContent: function() {
-    const report = this.props.report
+    const {posted, report} = this.props
+
+    if (posted) {
+      return 'Your report is succesfully posted and will be reviewed by the administrator. We will contact you when review is finished.'
+    }
     switch (report.type) {
       case ReportTypes.user:
         return 'Reporting: ' + report.user.email
-      case ReportTypes.topic:
-        return 'Reporting: ' + report.topic.content
-      case ReportTypes.reply:
-        return 'Reporting: ' + report.reply.content
-      case ReportTypes.posted:
-        return 'Your report is succesfully posted and will be reviewed by the administrator. We will contact you when review is finished.'
+      case ReportTypes.post:
+        return 'Reporting: ' + report.post.content
       default:
         return ''
     }
   },
 
   render: function() {
-    const report = this.props.report
-    const posted = report.type === ReportTypes.posted
+    const {posted, report} = this.props
 
     return (
       <Dialog

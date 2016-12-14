@@ -2,19 +2,17 @@ import actions from 'actions'
 
 export const ReportTypes = {
   user: 'USER',
-  topic: 'TOPIC',
-  reply: 'REPLY',
-  none: 'NONE',
-  posted: 'POSTED'
+  post: 'POST',
+  none: 'NONE'
 }
 
 const defaultState = {
   report: {
     type: ReportTypes.none,
     user: null,
-    topic: null,
-    reply: null
-  }
+    post: null
+  },
+  posted: false
 }
 
 export default (state = defaultState, action) => {
@@ -25,49 +23,39 @@ export default (state = defaultState, action) => {
         report: {
           type: ReportTypes.user,
           user: action.user,
-          topic: null,
-          reply: null
-        }
+          post: null
+        },
+        posted: false
       }
-    case actions.reportTopic:
+    case actions.reportPost:
       return {
         ...state,
         report: {
-          type: ReportTypes.topic,
-          topic: action.topic,
-          user: null,
-          reply: null
-        }
-      }
-    case actions.reportReply:
-      return {
-        ...state,
-        report: {
-          type: ReportTypes.reply,
-          reply: action.reply,
-          topic: null,
+          type: ReportTypes.post,
+          post: action.post,
           user: null
-        }
+        },
+        posted: false
       }
     case actions.reportPosted:
       return {
         ...state,
         report: {
           type: ReportTypes.posted,
-          reply: null,
-          topic: null,
-          user: null
-        }
+          user: null,
+          post: null
+        },
+        posted: true
       }
     case actions.reportClear:
       return {
         ...state,
         report: {
           type: ReportTypes.none,
-          reply: null,
-          topic: null,
-          user: null
-        }
+          user: null,
+          post: null
+        },
+        posted: true
       }
     default:
       return state
