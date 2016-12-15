@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   scope :api do
     devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations', confirmations: 'confirmations', passwords: 'passwords' }
 
-    resources :posts, only: [:index, :show, :create]
+    resources :posts, only: [:index, :show, :create, :update]
     get 'replies' => 'posts#replies'
 
     devise_scope :user do

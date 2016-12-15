@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class PostsController < ApplicationController
   include PostHelper
+  include PostResponseHelper
   include DiffHelper
 
   clear_respond_to
@@ -49,17 +50,33 @@ class PostsController < ApplicationController
              create_reply_post
            end
 
-    unless post.save
+    unless post.valid?
       render_validation_error post
       return
     end
 
-    unless create_initial_edit post
-      render_create_edit_error
+    return unless create_edit_and_render_errors('Initial Edit.', post, '', post.content)
+
+    post.save!
+    render_success post
+  end
+
+  def update
+    post = Post.find(params[:id])
+
+    old_content = post.content
+    new_content = params[:post][:content]
+    post.content = new_content
+
+    unless post.valid?
+      render_validation_error post
       return
     end
 
-    render_success post
+    return unless create_edit_and_render_errors(params[:message], post, old_content, new_content)
+
+    post.save!
+    render json: {}, status: 200
   end
 
   private
@@ -89,35 +106,6 @@ class PostsController < ApplicationController
     end
 
     Post.new(ps)
-  end
-
-  def render_success(post)
-    render json: {
-      post: post_response(post)
-    }
-  end
-
-  def render_create_edit_error
-    render json: {
-      errors: {
-        edit: 'Unable to create initial edit for post.'
-      }
-    }, status: 500
-  end
-
-  def render_validation_error(post)
-    render json: {
-      errors: post.errors.messages
-    }, status: 400
-  end
-
-  def create_initial_edit(post)
-    e = Edit.new(user: current_user,
-                 post: post,
-                 version: 0,
-                 message: 'Initial Version.',
-                 patch: create_patch('', post.content))
-    e.save
   end
 
   def add_categories(post)

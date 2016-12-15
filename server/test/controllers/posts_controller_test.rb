@@ -244,6 +244,118 @@ class PostsControllerTest < ActionController::TestCase
     assert_equal 1, p2.root_post.id
   end
 
+  # update
+  test 'user can make update' do
+    adam = User.find(1)
+    sign_in adam
+
+    post :create, xhr: true, params: { 'post[title]': 'New Post',
+                                       'post[content]': 'New Content',
+                                       'post[category_ids]': [
+                                         categories(:category1).id
+                                       ] }
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+
+    p = Post.find(json['post']['id'])
+    refute_nil p
+    assert_equal 1, Edit.where(post_id: p.id).count
+
+    patch :update, xhr: true, params: {
+      'id': p.id,
+      'message': 'random edit',
+      'post[content]': 'Some New Content'
+    }
+
+    assert_equal 200, @response.status
+
+    p.reload
+    assert_equal p.content, 'Some New Content'
+    assert_equal 2, Edit.where(post_id: p.id).count
+    refute_nil Edit.find_by_message('random edit')
+  end
+
+  test 'update must have a different content' do
+    adam = User.find(1)
+    sign_in adam
+
+    post :create, xhr: true, params: { 'post[title]': 'New Post',
+                                       'post[content]': 'New Content',
+                                       'post[category_ids]': [
+                                         categories(:category1).id
+                                       ] }
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+
+    p = Post.find(json['post']['id'])
+    refute_nil p
+    assert_equal 1, Edit.where(post_id: p.id).count
+
+    patch :update, xhr: true, params: {
+      'id': p.id,
+      'message': 'random edit',
+      'post[content]': 'New Content'
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 400, @response.status
+    refute_nil json['errors']['content']
+  end
+
+  test 'new content must not be blank' do
+    adam = User.find(1)
+    sign_in adam
+
+    post :create, xhr: true, params: { 'post[title]': 'New Post',
+                                       'post[content]': 'New Content',
+                                       'post[category_ids]': [
+                                         categories(:category1).id
+                                       ] }
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+
+    p = Post.find(json['post']['id'])
+    refute_nil p
+    assert_equal 1, Edit.where(post_id: p.id).count
+
+    patch :update, xhr: true, params: {
+      'id': p.id,
+      'message': 'random edit',
+      'post[content]': ''
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 400, @response.status
+    refute_nil json['errors']['content']
+  end
+
+  test 'commit message must be set' do
+    adam = User.find(1)
+    sign_in adam
+
+    post :create, xhr: true, params: { 'post[title]': 'New Post',
+                                       'post[content]': 'New Content',
+                                       'post[category_ids]': [
+                                         categories(:category1).id
+                                       ] }
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+
+    p = Post.find(json['post']['id'])
+    refute_nil p
+    assert_equal 1, Edit.where(post_id: p.id).count
+
+    patch :update, xhr: true, params: {
+      'id': p.id,
+      'message': '',
+      'post[content]': 'Content Changed'
+    }
+
+    json = JSON.parse(@response.body)
+    assert_equal 400, @response.status
+    refute_nil json['errors']['message']
+  end
+
   # edit handling
 
   test 'it creates inital edit' do

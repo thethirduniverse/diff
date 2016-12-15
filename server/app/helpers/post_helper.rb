@@ -29,7 +29,7 @@ module PostHelper
         Post
       end
 
-    base.where("posts.root_post_id IS NULL").order(created_at: :desc).offset(offset).first(BATCH_SIZE + 1)
+    base.where('posts.root_post_id IS NULL').order(created_at: :desc).offset(offset).first(BATCH_SIZE + 1)
   end
 
   def posts_feed_response(posts, response_type, offset)
