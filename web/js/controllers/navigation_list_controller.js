@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import NavigationList from 'components/navigation_list.jsx'
-import { topicFeedShowNewest, topicFeedShowCategory } from 'actions'
+import { postFeedShowNewest, postFeedShowCategory } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -13,10 +13,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     clickedNewest: () => {
-      dispatch(topicFeedShowNewest())
+      dispatch(postFeedShowNewest())
     },
     clickedCategoryAtIndex: (idx) => {
-      dispatch(topicFeedShowCategory(idx))
+      dispatch(postFeedShowCategory(idx))
     }
   }
 }
