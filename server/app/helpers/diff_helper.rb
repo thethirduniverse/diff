@@ -19,7 +19,7 @@ module DiffHelper
       f2.print(dst)
       f2.flush
 
-      patch = `git diff --no-index --word-diff --unified=0 #{f1.path} #{f2.path}`
+      patch = `git diff --no-index --word-diff --unified=2 #{f1.path} #{f2.path}`
     ensure
       f1.close
       f1.unlink
