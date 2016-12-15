@@ -4,6 +4,7 @@ import React from 'react'
 
 import NavBar from 'components/nav_bar.jsx'
 import ReportController from 'controllers/report_controller.js'
+import Footer from 'components/footer.jsx'
 
 const App = React.createClass({
   propTypes: {
@@ -59,6 +60,7 @@ const App = React.createClass({
         </Dialog>
         <ReportController currentUser={this.props.user}/>
         {this.props.children}
+        <Footer />
       </div>
     )
   }

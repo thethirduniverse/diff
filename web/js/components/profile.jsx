@@ -55,8 +55,12 @@ const Profile = React.createClass({
       : (<CircularProgress />)
 
     return (
-      <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        {content}
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            {content}
+          </div>
+        </div>
       </div>
     )
   }

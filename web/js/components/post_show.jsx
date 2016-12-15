@@ -47,13 +47,17 @@ const PostShow = React.createClass({
       : null
 
     return (
-      <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        {posts}
-        {
-          this.props.userSignedIn
-            ? composeReplyContent
-            : <SignInFirstCardController location={this.props.location} promptText="You have to log in first to write a reply." />
-        }
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            {posts}
+            {
+              this.props.userSignedIn
+                ? composeReplyContent
+                : <SignInFirstCardController location={this.props.location} promptText="You have to log in first to write a reply." />
+            }
+          </div>
+        </div>
       </div>
     )
   }
