@@ -2,6 +2,7 @@ import Chip from 'material-ui/Chip'
 import FlatButton from 'material-ui/FlatButton'
 import React from 'react'
 import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
+import muiThemeable from 'material-ui/styles/muiThemeable'
 
 import CategoryChip from 'components/category_chip.jsx'
 import ChipList from 'components/chip_list.jsx'
@@ -38,7 +39,9 @@ const PostCard = React.createClass({
       ? null
       : (
         <h2>
-          <a href="javascript:void(0)" style={styles.title}>
+        {/* eslint-disable react/prop-types */}
+          <a href="javascript:void(0)" style={{...styles.title, color: this.props.muiTheme.palette.primary2Color}}>
+        {/* eslint-enable react/prop-types */}
             {this.props.post.title}
           </a>
         </h2>
@@ -48,8 +51,8 @@ const PostCard = React.createClass({
       ? null
       : (
         <div>
-          <FlatButton label="Reply" onClick={this.props.onReplyClicked} />
-          <FlatButton label="Report" onClick={this.props.onReportClicked} />
+          <FlatButton label="Reply" primary={true} onClick={this.props.onReplyClicked} />
+          <FlatButton label="Report" secondary={true} onClick={this.props.onReportClicked} />
         </div>
       )
 
@@ -85,4 +88,4 @@ const PostCard = React.createClass({
   }
 })
 
-export default PostCard
+export default muiThemeable()(PostCard)
