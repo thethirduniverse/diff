@@ -19,5 +19,8 @@ export default {
   textBlock: {
     wordWrap: 'break-word',
     whiteSpace: 'pre-wrap'
+  },
+  title: {
+    fontFamily: 'Libre Baskerville, serif'
   }
 }

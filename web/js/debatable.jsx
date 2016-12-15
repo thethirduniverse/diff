@@ -8,6 +8,7 @@ import { Router, browserHistory } from 'react-router'
 import { applyMiddleware, createStore } from 'redux'
 import { routerMiddleware, syncHistoryWithStore } from 'react-router-redux'
 
+import theme from '~/theme.js'
 import appReducer from 'reducers'
 import createLogger from 'helpers/redux_logger_helpers.js'
 import routes from '~/routes.jsx'
@@ -23,7 +24,7 @@ const history = syncHistoryWithStore(browserHistory, store)
 setups(store)
 
 ReactDOM.render(
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={theme}>
     <Provider store={store}>
       <Router history={history}>
         {routes}

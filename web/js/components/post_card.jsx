@@ -38,7 +38,7 @@ const PostCard = React.createClass({
       ? null
       : (
         <h2>
-          <a href="javascript:void(0)">
+          <a href="javascript:void(0)" style={styles.title}>
             {this.props.post.title}
           </a>
         </h2>
