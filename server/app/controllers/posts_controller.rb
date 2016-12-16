@@ -24,9 +24,7 @@ class PostsController < ApplicationController
 
     post = Post.find(id)
     post.update(view: post.view + 1)
-    render json: {
-      post: post_response(post)
-    }
+    render_to_root post
 
   rescue ActiveRecord::RecordNotFound
     head 404, content_type: 'application/json'
@@ -58,7 +56,7 @@ class PostsController < ApplicationController
     return unless create_edit_and_render_errors('Initial Edit.', post, '', post.content)
 
     post.save!
-    render_success post
+    render_post post
   end
 
   def update

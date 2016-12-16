@@ -65,6 +65,23 @@ module PostHelper
     }
   end
 
+  def post_recursive_response(posts, idx)
+    p = posts[idx]
+    base = if idx.zero?
+             post_recursive_root_base p
+           else
+             post_reply_response(p)
+           end
+    base[:posts] = idx == posts.length - 1 ? [] : [post_recursive_response(posts, idx + 1)]
+    base
+  end
+
+  def post_recursive_root_base(p)
+    res = post_response_simplified(p)
+    res[:post_ids] = p.posts.pluck(:id)
+    res
+  end
+
   def post_response_simplified(t)
     {
       id: t.id,

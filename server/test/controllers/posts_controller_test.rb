@@ -75,6 +75,31 @@ class PostsControllerTest < ActionController::TestCase
     assert_equal 3, json['post']['posts'].length
   end
 
+  test 'show returns recursive result to root' do
+    adam = User.find(1)
+    sign_in adam
+
+    post :create, xhr: true, params: { 'post[title]': 'Child',
+                                       'post[content]': 'Child Content',
+                                       'post[parent_post_id]': 1 }
+    assert_equal 200, @response.status
+    child_id = JSON.parse(@response.body)['post']['id']
+
+    post :create, xhr: true, params: { 'post[title]': 'Grandchild',
+                                       'post[content]': 'Grandchild Content',
+                                       'post[parent_post_id]': child_id }
+    assert_equal 200, @response.status
+    grandchild_id = JSON.parse(@response.body)['post']['id']
+
+    get :show, xhr: true, params: { id: grandchild_id }
+
+    assert_equal 200, @response.status
+    json = JSON.parse(@response.body)
+    assert_equal 1, json['post']['id']
+    assert_equal child_id, json['post']['posts'][0]['id']
+    assert_equal grandchild_id, json['post']['posts'][0]['posts'][0]['id']
+  end
+
   # Create
   test 'logged in user can post new topic' do
     assert_nil Post.find_by_title('New Post')

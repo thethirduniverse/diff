@@ -25,9 +25,32 @@ module PostResponseHelper
              patch: create_patch(old_content, new_content))
   end
 
-  def render_success(post)
+  def render_to_root(post)
+    if post.parent_post_id.nil?
+      render_post post
+      return
+    end
+
+    p = post
+    posts = []
+
+    until p.nil?
+      posts.unshift(p)
+      p = p.parent_post
+    end
+
+    render_post_list posts
+  end
+
+  def render_post(post)
     render json: {
       post: post_response(post)
+    }
+  end
+
+  def render_post_list(posts)
+    render json: {
+      post: post_recursive_response(posts, 0)
     }
   end
 
