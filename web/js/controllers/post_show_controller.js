@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
           // load post first since it clears previous replies
           dispatch(postShowLoadTopic(rest))
-          dispatch(postShowAppendReplies(parseInt(id), posts))
+          appendReplies(dispatch, rest.id, posts)
         })
         .fail((res) => {
           console.log('load post with response:')
@@ -45,6 +45,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(postFormClearTarget())
     }
   }
+}
+
+const appendReplies = (dispatch, parent_id, posts) => {
+  if (!posts || posts.length == 0) {
+    return
+  }
+  posts.forEach((post) => {
+    const {posts:child_posts, ...rest} = post
+    dispatch(postShowAppendReplies(parent_id, [rest]))
+    appendReplies(dispatch, rest.id, child_posts)
+  })
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostShow)
