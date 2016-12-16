@@ -24,7 +24,11 @@ class PostsController < ApplicationController
 
     post = Post.find(id)
     post.update(view: post.view + 1)
-    render_to_root post
+    if params[:single_post]
+      render_post post
+    else
+      render_to_root post
+    end
 
   rescue ActiveRecord::RecordNotFound
     head 404, content_type: 'application/json'
