@@ -1,6 +1,7 @@
 import actions from 'actions'
 
 const defaultState = {
+  loading_post_id: null,
   replyTree: [],
   replyIndexes: []
 }
@@ -216,7 +217,7 @@ export default (state = defaultState, action) => {
     case actions.postShowLoadTopic:
       return {
         ...state,
-        replyTree: [[action.post]],
+        replyTree: [[loadedPost(action.post)]],
         replyIndexes: [0]
       }
     case actions.postShowShowPreviousReply:
@@ -229,6 +230,27 @@ export default (state = defaultState, action) => {
       return mergePostPlaceholders(state, action.parentId, action.postIds)
     case actions.postShowMergeLoadedPosts:
       return mergeLoadedPosts(state, action.parentId, action.posts)
+    case actions.postShowStartLoadPost:
+      return {
+        ...state,
+        loading_post_id: action.postId
+      }
+    case actions.postShowCancelLoadPost:
+      if (action.postId !== state.loading_post_id) {
+        return state
+      }
+      return {
+        ...state,
+        loading_post_id: null
+      }
+    case actions.postShowFinishedLoadPost:
+      if (action.post.id !== state.loading_post_id) {
+        return state
+      }
+      return mergeLoadedPosts({
+        ...state,
+        loading_post_id: null
+      }, action.post.parent_post_id, [action.post])
     default:
       return state
   }

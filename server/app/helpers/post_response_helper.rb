@@ -29,6 +29,8 @@ module PostResponseHelper
       title: t.title,
       content: t.content,
       view: t.view,
+      parent_post_id: t.parent_post_id,
+      root_post_id: t.root_post_id,
       categories: t.categories.map do |c|
         category_response c
       end,

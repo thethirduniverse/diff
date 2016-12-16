@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   clear_respond_to
   respond_to :json
 
-  before_action :authenticate_user!, except: [:show, :index]
+  before_action :authenticate_user!, except: [:show, :index, :replies]
 
   def index
     offset = params[:offset]

@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import PostShowList from 'components/post_show_list.jsx'
-import { postShowShowPreviousReply, postShowShowNextReply, postShowShowReplyAtIndex, postShowMergeLoadedPosts } from 'actions'
+import { postShowShowPreviousReply, postShowShowNextReply, postShowShowReplyAtIndex, postShowMergeLoadedPosts, postShowStartLoadPost, postShowCancelLoadPost, postShowFinishedLoadPost } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -28,6 +28,21 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     paginationDotClicked: (level, index) => {
       dispatch(postShowShowReplyAtIndex(level, index))
+    },
+    requestPostLoad: (postId) => {
+      $.get('/api/posts/' + postId, {'single_post': true})
+        .done((res) => {
+          dispatch(postShowFinishedLoadPost(res.post))
+        })
+        .fail((res) => {
+          console.log('request load failed with response:')
+          console.log(res)
+        })
+      dispatch(postShowStartLoadPost(postId))
+    },
+    cancelPostLoad: (postId) => {
+      console.log('cancel post invoked')
+      dispatch(postShowCancelLoadPost(postId))
     },
     _expandMoreClicked: (replyTree, level, index) => {
       const reply = replyTree[level][index]

@@ -19,6 +19,9 @@ const actions = {
   postShowShowReplyAtIndex: 'POST_SHOW_SHOW_REPLY_AT_INDEX',
   postShowMergePostPlaceholders: 'POST_SHOW_MERGE_POST_PLACEHOLDERS',
   postShowMergeLoadedPosts: 'POST_SHOW_MERGE_LOADED_POSTS',
+  postShowStartLoadPost: 'POST_SHOW_START_LOAD_POST',
+  postShowCancelLoadPost: 'POST_SHOW_CANCEL_LOAD_POST',
+  postShowFinishedLoadPost: 'POST_SHOW_FINISHED_LOAD_POST',
   postFormAddCategory: 'POST_FORM_ADD_CATEGORY',
   postFormRemoveCategory: 'POST_FORM_REMOVE_CATEGORY',
   postFormUpdateCategoryFilter: 'POST_FORM_UPDATE_CATEGORY_FILTER',
@@ -199,6 +202,26 @@ export const postShowMergeLoadedPosts = (parentId, posts) => {
     type: actions.postShowMergeLoadedPosts,
     parentId,
     posts
+  }
+}
+
+export const postShowStartLoadPost = (postId) => {
+  return {
+    type: actions.postShowStartLoadPost,
+    postId
+  }
+}
+
+export const postShowCancelLoadPost = () => {
+  return {
+    type: actions.postShowCancelLoadPost
+  }
+}
+
+export const postShowFinishedLoadPost = (post) => {
+  return {
+    type: actions.postShowFinishedLoadPost,
+    post
   }
 }
 

@@ -2,6 +2,7 @@ import React from 'react'
 
 import PaginationDots from 'components/pagination_dots.jsx'
 import PostCard from 'components/post_card.jsx'
+import PostLoadingCard from 'components/post_loading_card.jsx'
 
 const PostShowListRow = React.createClass({
   propTypes: {
@@ -19,7 +20,10 @@ const PostShowListRow = React.createClass({
     onReplyClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
 
-    presentAsReply: React.PropTypes.bool.isRequired
+    presentAsReply: React.PropTypes.bool.isRequired,
+
+    requestPostLoad: React.PropTypes.func.isRequired,
+    cancelPostLoad: React.PropTypes.func.isRequired
   },
 
   showPaginationDots: function() {
@@ -30,16 +34,36 @@ const PostShowListRow = React.createClass({
     this.props.expandMoreClicked(this.props.currentIndex)
   },
 
+  postLoaded: function() {
+    return this.props.reply._loaded
+  },
+
+  getReplyContent: function() {
+    return this.postLoaded()
+      ? (<PostCard
+      post={this.props.reply}
+      onReplyClicked={this.props.onReplyClicked}
+      onReportClicked={this.props.onReportClicked}
+      hideActions={this.props.hideActions}
+      presentAsReply={this.props.presentAsReply}
+    />)
+      : <PostLoadingCard />
+  },
+
+  componentWillMount: function() {
+    if (!this.postLoaded()) {
+      this.props.requestPostLoad(this.props.reply.id)
+    }
+  },
+
+  componentWillUnmount: function() {
+    this.props.cancelPostLoad(this.props.reply.id)
+  },
+
   render: function() {
     return (
       <div>
-        <PostCard
-          post={this.props.reply}
-          onReplyClicked={this.props.onReplyClicked}
-          onReportClicked={this.props.onReportClicked}
-          hideActions={this.props.hideActions}
-          presentAsReply={this.props.presentAsReply}
-        />
+        { this.getReplyContent() }
         {
           this.showPaginationDots()
             ? <PaginationDots

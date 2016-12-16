@@ -15,7 +15,10 @@ const PostShowList = React.createClass({
 
     hideActions: React.PropTypes.bool.isRequired,
     onReplyClicked: React.PropTypes.func,
-    onReportClicked: React.PropTypes.func
+    onReportClicked: React.PropTypes.func,
+
+    requestPostLoad: React.PropTypes.func.isRequired,
+    cancelPostLoad: React.PropTypes.func.isRequired
   },
 
   paginationDotClicked: function(level) {
@@ -53,6 +56,8 @@ const PostShowList = React.createClass({
             onReplyClicked={this.props.onReplyClicked.bind(null, reply)}
             onReportClicked={this.props.onReportClicked.bind(null, reply)}
             presentAsReply={idx !== 0}
+            requestPostLoad={this.props.requestPostLoad}
+            cancelPostLoad={this.props.cancelPostLoad}
           />)
         }
         )
