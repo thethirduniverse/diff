@@ -23,7 +23,9 @@ const PostShowListRow = React.createClass({
     presentAsReply: React.PropTypes.bool.isRequired,
 
     requestPostLoad: React.PropTypes.func.isRequired,
-    cancelPostLoad: React.PropTypes.func.isRequired
+    cancelPostLoad: React.PropTypes.func.isRequired,
+
+    highlighted: React.PropTypes.bool.isRequired
   },
 
   showPaginationDots: function() {
@@ -46,6 +48,7 @@ const PostShowListRow = React.createClass({
       onReportClicked={this.props.onReportClicked}
       hideActions={this.props.hideActions}
       presentAsReply={this.props.presentAsReply}
+      highlighted={this.props.highlighted}
     />)
       : <PostLoadingCard />
   },

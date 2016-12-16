@@ -23,7 +23,8 @@ const PostCard = React.createClass({
     onReplyClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
 
-    presentAsReply: React.PropTypes.bool
+    presentAsReply: React.PropTypes.bool,
+    highlighted: React.PropTypes.bool
   },
 
   handleCardClick: function(id) {
@@ -31,7 +32,7 @@ const PostCard = React.createClass({
   },
 
   render: function() {
-    const { post, presentAsReply } = this.props
+    const { post, presentAsReply, highlighted } = this.props
     const clickHandler = this.props.cardClickEnabled
       ? this.handleCardClick.bind(this, this.props.post.id)
       : null
@@ -76,7 +77,15 @@ const PostCard = React.createClass({
         <CardTitle onClick={clickHandler}>
           {headerContent}
         </CardTitle>
-        <CardText style={styles.textBlock}>
+        <CardText
+          style={styles.textBlock}
+          color={
+            /* eslint-disable react/prop-types */
+            highlighted
+              ? this.props.muiTheme.palette.accent1Color
+              : null
+            /* eslint-enable react/prop-types */
+          }>
           {this.props.post.content}
         </CardText>
         <CardActions>

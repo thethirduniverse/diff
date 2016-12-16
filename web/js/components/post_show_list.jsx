@@ -18,7 +18,9 @@ const PostShowList = React.createClass({
     onReportClicked: React.PropTypes.func,
 
     requestPostLoad: React.PropTypes.func.isRequired,
-    cancelPostLoad: React.PropTypes.func.isRequired
+    cancelPostLoad: React.PropTypes.func.isRequired,
+
+    urlPostId: React.PropTypes.number.isRequired
   },
 
   paginationDotClicked: function(level) {
@@ -58,6 +60,7 @@ const PostShowList = React.createClass({
             presentAsReply={idx !== 0}
             requestPostLoad={this.props.requestPostLoad}
             cancelPostLoad={this.props.cancelPostLoad}
+            highlighted={this.props.urlPostId === reply.id && idx !== 0}
           />)
         }
         )

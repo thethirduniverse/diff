@@ -35,6 +35,7 @@ const PostShow = React.createClass({
   render: function() {
     const posts = this.props.loaded
       ? (<PostShowListController
+        urlPostId={parseInt(this.props.postId)}
         hideActions={!this.props.userSignedIn}
         onReplyClicked={this.props.onReplyClicked}
         onReportClicked={this.props.onReportClicked}
