@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class PostsController < ApplicationController
   include PostHelper
-  include PostResponseHelper
+  include PostRenderHelper
   include DiffHelper
 
   clear_respond_to

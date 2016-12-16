@@ -1,70 +1,78 @@
 # frozen_string_literal: true
 module PostResponseHelper
-  include DiffHelper
+  BATCH_SIZE = 10
 
-  def create_edit_and_render_errors(message, post, old_content, new_content)
-    e = new_edit(message, post, old_content, new_content)
-    e.save!
-    return true
-  rescue ActiveRecord::RecordInvalid
-    render_validation_error e
-    return false
-  rescue ContentNotChangedError
-    render_error(:content, 'New content must be different from the old content.')
-    return false
-  rescue CommandFailedError
-    render_error(:edit, 'Unable to create the edit for post update. Diff failed.')
-    return false
-  end
+  POST_FEED_RESPONSE_TYPE_DEFAULT = :default
+  POST_FEED_RESPONSE_TYPE_SIMPLIFIED = :simplified
 
-  def new_edit(message, post, old_content, new_content)
-    Edit.new(user: current_user,
-             post: post,
-             version: Edit.where(post_id: post.id).count,
-             message: message,
-             patch: create_patch(old_content, new_content))
-  end
+  def posts_feed_response(posts, response_type, offset)
+    has_more = posts.length > BATCH_SIZE
+    posts = posts[0..BATCH_SIZE - 1] # slice indexes are inclusive
 
-  def render_to_root(post)
-    if post.parent_post_id.nil?
-      render_post post
-      return
-    end
-
-    p = post
-    posts = []
-
-    until p.nil?
-      posts.unshift(p)
-      p = p.parent_post
-    end
-
-    render_post_list posts
-  end
-
-  def render_post(post)
-    render json: {
-      post: post_response(post)
+    {
+      posts: posts.map do |post|
+        case response_type
+        when POST_FEED_RESPONSE_TYPE_SIMPLIFIED
+          post_response_simplified post
+        else
+          post_response post
+        end
+      end,
+      has_more: has_more,
+      next_offset: offset + posts.length
     }
   end
 
-  def render_post_list(posts)
-    render json: {
-      post: post_recursive_response(posts, 0)
+  def post_response(t)
+    {
+      id: t.id,
+      title: t.title,
+      content: t.content,
+      view: t.view,
+      categories: t.categories.map do |c|
+        category_response c
+      end,
+      posts: t.posts.map do |r|
+        post_reply_response r
+      end
     }
   end
 
-  def render_validation_error(model)
-    render json: {
-      errors: model.errors.messages
-    }, status: 400
+  def post_recursive_response(posts, idx)
+    p = posts[idx]
+    base = if idx.zero?
+             post_recursive_root_base p
+           else
+             post_reply_response(p)
+           end
+    base[:posts] = idx == posts.length - 1 ? [] : [post_recursive_response(posts, idx + 1)]
+    base
   end
 
-  def render_error(sym, message)
-    obj = {}
-    obj[sym] = message
-    render json: {
-      errors: obj
-    }, status: 400
+  def post_recursive_root_base(p)
+    res = post_response_simplified(p)
+    res[:post_ids] = p.posts.pluck(:id)
+    res
+  end
+
+  def post_response_simplified(t)
+    {
+      id: t.id,
+      title: t.title,
+      view: t.view,
+      categories: t.categories.map do |c|
+        category_response c
+      end
+    }
+  end
+
+  def post_reply_response(r)
+    {
+      'id': r.id,
+      'content': r.content,
+      'parent_post_id': r.parent_post_id,
+      'root_post_id': r.root_post_id,
+      'post_ids': r.posts.pluck(:id)
+    }
   end
 end
