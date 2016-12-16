@@ -43,6 +43,10 @@ const PaginationDots = React.createClass({
     this.props.paginationDotClicked(idx)
   },
 
+  showDots: function() {
+    return this.props.totalDots > 1
+  },
+
   render: function() {
     /* eslint-disable react/prop-types */
     const disabled = this.props.muiTheme.palette.disabledColor
@@ -51,29 +55,35 @@ const PaginationDots = React.createClass({
 
     return (
       <div style={{textAlign: 'center'}}>
-        <div style={{display: 'inline-block', margin: 'auto'}}>
-          <IconButton onClick={this.props.leftChevronClicked}>
-            <ChevronLeft />
-          </IconButton>
-          <svg width={this._getWidth()} height={this._height} >
-            {
-              this._dotPositions().map((pos, idx) => (
-                <circle
-                  key={idx}
-                  cx={pos.x}
-                  cy={pos.y}
-                  r={this._radius}
-                  fill={idx === this.props.currentIndex ? highlight : disabled}
-                  onClick={this.dotClicked.bind(null, idx)}
-                  style={styles.clickable}
-                  />
-              ))
-            }
-          </svg>
-          <IconButton onClick={this.props.rightChevronClicked}>
-            <ChevronRight />
-          </IconButton>
-        </div>
+        {
+          this.showDots()
+            ? (
+              <div style={{display: 'inline-block', margin: 'auto'}}>
+                <IconButton onClick={this.props.leftChevronClicked}>
+                  <ChevronLeft />
+                </IconButton>
+                <svg width={this._getWidth()} height={this._height} >
+                  {
+                    this._dotPositions().map((pos, idx) => (
+                      <circle
+                        key={idx}
+                        cx={pos.x}
+                        cy={pos.y}
+                        r={this._radius}
+                        fill={idx === this.props.currentIndex ? highlight : disabled}
+                        onClick={this.dotClicked.bind(null, idx)}
+                        style={styles.clickable}
+                      />
+                    ))
+                  }
+                </svg>
+                <IconButton onClick={this.props.rightChevronClicked}>
+                  <ChevronRight />
+                </IconButton>
+              </div>
+            )
+            : null
+        }
         {
           this.props.showExpandMore
             ? (<div style={{margin: 'auto'}}>
