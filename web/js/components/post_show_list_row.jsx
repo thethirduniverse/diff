@@ -23,7 +23,7 @@ const PostShowListRow = React.createClass({
   },
 
   showPaginationDots: function() {
-    return this.props.totalDots > 1
+    return this.props.totalDots > 1 || this.props.showExpandMore
   },
 
   expandMoreClicked: function() {

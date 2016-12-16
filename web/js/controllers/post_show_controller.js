@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import PostShow from 'components/post_show.jsx'
-import { postShowLoadTopic, postShowAppendReplies, postFormUpdateTarget, postFormClearTarget, reportPost } from 'actions'
+import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormUpdateTarget, postFormClearTarget, reportPost } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
           // load post first since it clears previous replies
           dispatch(postShowLoadTopic(rest))
-          appendReplies(dispatch, rest.id, posts)
+          appendReplies(dispatch, rest.id, posts, rest.post_ids)
         })
         .fail((res) => {
           console.log('load post with response:')
@@ -47,14 +47,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-const appendReplies = (dispatch, parent_id, posts) => {
-  if (!posts || posts.length == 0) {
+const appendReplies = (dispatch, parentId, posts, postIds) => {
+  if (!posts || posts.length === 0) {
     return
   }
   posts.forEach((post) => {
-    const {posts:child_posts, ...rest} = post
-    dispatch(postShowAppendReplies(parent_id, [rest]))
-    appendReplies(dispatch, rest.id, child_posts)
+    const {posts: child_posts, ...rest} = post
+    dispatch(postShowMergeLoadedPosts(parentId, [rest]))
+    if (postIds !== undefined && postIds.length > 0) {
+      dispatch(postShowMergePostPlaceholders(parentId, postIds))
+    }
+    appendReplies(dispatch, rest.id, child_posts, rest.postIds)
   })
 }
 

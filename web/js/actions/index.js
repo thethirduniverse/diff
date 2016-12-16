@@ -17,7 +17,8 @@ const actions = {
   postShowShowPreviousReply: 'POST_SHOW_SHOW_PREVIOUS_REPLY',
   postShowShowNextReply: 'POST_SHOW_SHOW_NEXT_REPLY',
   postShowShowReplyAtIndex: 'POST_SHOW_SHOW_REPLY_AT_INDEX',
-  postShowAppendReplies: 'POST_SHOW_APPEND_REPLIES',
+  postShowMergePostPlaceholders: 'POST_SHOW_MERGE_POST_PLACEHOLDERS',
+  postShowMergeLoadedPosts: 'POST_SHOW_MERGE_LOADED_POSTS',
   postFormAddCategory: 'POST_FORM_ADD_CATEGORY',
   postFormRemoveCategory: 'POST_FORM_REMOVE_CATEGORY',
   postFormUpdateCategoryFilter: 'POST_FORM_UPDATE_CATEGORY_FILTER',
@@ -185,11 +186,19 @@ export const postShowShowReplyAtIndex = (level, index) => {
   }
 }
 
-export const postShowAppendReplies = (replyId, replies) => {
+export const postShowMergePostPlaceholders = (parentId, postIds) => {
   return {
-    type: actions.postShowAppendReplies,
-    replyId,
-    replies
+    type: actions.postShowMergePostPlaceholders,
+    parentId,
+    postIds
+  }
+}
+
+export const postShowMergeLoadedPosts = (parentId, posts) => {
+  return {
+    type: actions.postShowMergeLoadedPosts,
+    parentId,
+    posts
   }
 }
 

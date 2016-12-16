@@ -4,7 +4,7 @@ import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import PostForm from 'components/post_form.jsx'
-import { postFormAddCategory, postFormRemoveCategory, postFormUpdateCategoryFilter, postFormUpdateErrors, postShowAppendReplies } from 'actions'
+import { postFormAddCategory, postFormRemoveCategory, postFormUpdateCategoryFilter, postFormUpdateErrors, postShowMergeLoadedPosts } from 'actions'
 
 export const ActionTypes = {
   insert: 'insert',
@@ -57,7 +57,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       $.post('/api/posts', formData(data, ownProps))
         .done((res) => {
           if (ownProps.action === ActionTypes.insert) {
-            dispatch(postShowAppendReplies(ownProps.parentPostId, [res.post]))
+            dispatch(postShowMergeLoadedPosts(ownProps.parentPostId, [res.post]))
           } else {
             dispatch(push('/posts/' + res.post.id))
           }

@@ -2,7 +2,7 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import PostShowList from 'components/post_show_list.jsx'
-import { postShowShowPreviousReply, postShowShowNextReply, postShowShowReplyAtIndex, postShowAppendReplies } from 'actions'
+import { postShowShowPreviousReply, postShowShowNextReply, postShowShowReplyAtIndex, postShowMergeLoadedPosts } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -34,7 +34,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
       $.get('/api/replies', {'id': reply.id})
         .done((res) => {
-          dispatch(postShowAppendReplies(reply.id, res.posts))
+          dispatch(postShowMergeLoadedPosts(reply.id, res.posts))
         })
         .fail((res) => {
           console.log('expand more failed with response:')

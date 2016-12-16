@@ -1,7 +1,7 @@
 import assert from 'assert'
-import { showPreviousReply, showNextReply, appendReplies, collapseReplies, expandReplies } from 'reducers/topic_show_reducer.js'
+import { showPreviousReply, showNextReply, collapseReplies, expandReplies, mergePostPlaceholders, mergeLoadedPosts, mergeRawPosts } from 'reducers/post_show_reducer.js'
 
-describe('TopicShowReducer', function() {
+describe('PostShowReducer', function() {
   describe('showPreviousReply', function() {
     it('should throw error when internal inconsistency', function() {
       assert.throws(function() {
@@ -82,18 +82,18 @@ describe('TopicShowReducer', function() {
     })
   })
 
-  describe('append replies', function() {
+  describe('append reply ids', function() {
     it('should behave properly for expanded reply', function() {
       assert.deepEqual(
         {
           replyTree: [
             [{id: 11}, {id: 12}],
             [{id: 21}, {id: 22}],
-            [{id: 31}, {id: 32}, {id: 33}]
+            [{id: 31, _loaded: false}, {id: 32, _loaded: false}, {id: 33, _loaded: false}]
           ],
           replyIndexes: [0, 0, 0]
         },
-        appendReplies(
+        mergePostPlaceholders(
           {
             replyTree: [
               [{id: 11}, {id: 12}],
@@ -102,7 +102,125 @@ describe('TopicShowReducer', function() {
             replyIndexes: [0, 0]
           },
           21,
-          [{id: 31}, {id: 32}, {id: 33}]
+          [31, 32, 33]
+        )
+      )
+    })
+  })
+
+  describe('append loaded post', function() {
+    it('should be able to find the post and update it', function() {
+      assert.deepEqual(
+        {
+          replyTree: [
+            [{id: 11}, {id: 12}],
+            [{id: 21}, {id: 22}],
+            [{id: 31, _loaded: false}, {id: 32, content: 'some content', _loaded: true}, {id: 33, _loaded: false}]
+          ],
+          replyIndexes: [0, 0, 0]
+        },
+        mergeLoadedPosts(
+          {
+            replyTree: [
+              [{id: 11}, {id: 12}],
+              [{id: 21}, {id: 22}],
+              [{id: 31, _loaded: false}, {id: 32, _loaded: false}, {id: 33, _loaded: false}]
+            ],
+            replyIndexes: [0, 0, 0]
+          },
+          21,
+          [{
+            id: 32,
+            content: 'some content'
+          }]
+        )
+      )
+    })
+  })
+
+  describe('merge raw posts', function() {
+    it('should not allow a loaded post to become not loaded', function() {
+      assert.deepEqual(
+        {
+          replyTree: [
+            [{id: 11}, {id: 12}],
+            [{id: 21}, {id: 22}],
+            [{id: 31, _loaded: false}, {id: 32, content: 'some content', _loaded: true}, {id: 33, _loaded: false}]
+          ],
+          replyIndexes: [0, 0, 0]
+        },
+        mergeRawPosts(
+          {
+            replyTree: [
+              [{id: 11}, {id: 12}],
+              [{id: 21}, {id: 22}],
+              [{id: 31, _loaded: false}, {id: 32, content: 'some content', _loaded: true}, {id: 33, _loaded: false}]
+            ],
+            replyIndexes: [0, 0, 0]
+          },
+          21,
+          [{
+            id: 32,
+            _loaded: false
+          }]
+        )
+      )
+    })
+
+    it('allows update to a loaded post', function() {
+      assert.deepEqual(
+        {
+          replyTree: [
+            [{id: 11}, {id: 12}],
+            [{id: 21}, {id: 22}],
+            [{id: 31, _loaded: false}, {id: 32, content: 'some other content', _loaded: true}, {id: 33, _loaded: false}]
+          ],
+          replyIndexes: [0, 0, 0]
+        },
+        mergeRawPosts(
+          {
+            replyTree: [
+              [{id: 11}, {id: 12}],
+              [{id: 21}, {id: 22}],
+              [{id: 31, _loaded: false}, {id: 32, content: 'some content', _loaded: true}, {id: 33, _loaded: false}]
+            ],
+            replyIndexes: [0, 0, 0]
+          },
+          21,
+          [{
+            id: 32,
+            content: 'some other content',
+            _loaded: true
+          }]
+        )
+      )
+    })
+
+    it('allows update to an unloaded post', function() {
+      assert.deepEqual(
+        {
+          replyTree: [
+            [{id: 11}, {id: 12}],
+            [{id: 21}, {id: 22}],
+            [{id: 31, _loaded: false}, {id: 32, _attr: 2, _loaded: false}, {id: 33, _loaded: false}]
+          ],
+          replyIndexes: [0, 0, 0]
+        },
+        mergeRawPosts(
+          {
+            replyTree: [
+              [{id: 11}, {id: 12}],
+              [{id: 21}, {id: 22}],
+              [{id: 31, _loaded: false}, {id: 32, _attr: 1, _loaded: false}, {id: 33, _loaded: false}]
+            ],
+            replyIndexes: [0, 0, 0]
+          },
+          21,
+          [{
+            id: 32,
+            _attr: 2,
+            _loaded: false
+          }]
         )
       )
     })
