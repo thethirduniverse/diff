@@ -58,7 +58,6 @@ const PostCard = React.createClass({
       ? null
       : (
         <div>
-          <FlatButton label="Reply" primary={true} onClick={this.props.onReplyClicked} />
           <FlatButton label="Report" secondary={true} onClick={this.props.onReportClicked} />
         </div>
       )
@@ -85,6 +84,7 @@ const PostCard = React.createClass({
           iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
           style={{position: 'absolute', top: '12px', right: '12px'}}
         >
+          <MenuItem primaryText="Write Refutation" onClick={this.props.onReplyClicked}/>
           <MenuItem primaryText="Share" onClick={this.props.onShareClicked}/>
         </IconMenu>
       )
