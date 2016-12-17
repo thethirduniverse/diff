@@ -35,35 +35,18 @@ module PostResponseHelper
   end
 
   def post_recursive_root_base(p)
-    {
-      id: p.id,
-      title: p.title,
-      content: p.content,
-      view: p.view,
-      upvote_count: p.upvote_count,
-      categories: p.categories.map do |c|
-        category_response c
-      end,
-      post_ids: p.posts.pluck(:id)
-    }
+    base = post_response_simplified p
+    base.merge!(post_ids: p.posts.pluck(:id))
   end
 
   def post_response(t)
-    {
-      id: t.id,
-      title: t.title,
-      content: t.content,
-      view: t.view,
-      upvote_count: t.upvote_count,
-      parent_post_id: t.parent_post_id,
-      root_post_id: t.root_post_id,
-      categories: t.categories.map do |c|
-        category_response c
-      end,
-      posts: t.posts.map do |r|
-        post_reply_response r
-      end
-    }
+    base = post_response_simplified t
+    base.merge!(content: t.content,
+                parent_post_id: t.parent_post_id,
+                root_post_id: t.root_post_id,
+                posts: t.posts.map do |r|
+                         post_reply_response r
+                       end)
   end
 
   def post_response_simplified(t)
@@ -72,6 +55,7 @@ module PostResponseHelper
       title: t.title,
       view: t.view,
       upvote_count: t.upvote_count,
+      user_upvoted: t.upvoted_by?(current_user),
       categories: t.categories.map do |c|
         category_response c
       end
@@ -82,6 +66,7 @@ module PostResponseHelper
     {
       'id': r.id,
       'upvote_count': r.upvote_count,
+      'user_upvoted': r.upvoted_by?(current_user),
       'content': r.content,
       'parent_post_id': r.parent_post_id,
       'root_post_id': r.root_post_id,

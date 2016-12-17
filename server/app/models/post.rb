@@ -15,6 +15,7 @@ class Post < ActiveRecord::Base
   validates :root_post, presence: true, unless: 'root_post_id.blank?'
 
   def upvoted_by?(user)
+    return false if user.nil?
     upvote = Upvote.where(user: user, post: self).take
     !upvote.nil?
   end

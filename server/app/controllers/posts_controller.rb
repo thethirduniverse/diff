@@ -39,8 +39,8 @@ class PostsController < ApplicationController
 
     render json: {
       id: id,
-      posts: Post.find(id).posts.map do |p|
-        post_reply_response p
+      posts: Post.find(id).posts.map do |post|
+        post_reply_response post
       end
     }
   end

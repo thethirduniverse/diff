@@ -21,6 +21,8 @@ const PostShow = React.createClass({
     onReplyClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
     onShareClicked: React.PropTypes.func,
+    onUpvoteClicked: React.PropTypes.func.isRequired,
+    onCancelUpvoteClicked: React.PropTypes.func.isRequired,
 
     target: React.PropTypes.object
   },
@@ -41,6 +43,8 @@ const PostShow = React.createClass({
         onReplyClicked={this.props.onReplyClicked}
         onReportClicked={this.props.onReportClicked}
         onShareClicked={this.props.onShareClicked}
+        onUpvoteClicked={this.props.onUpvoteClicked}
+        onCancelUpvoteClicked={this.props.onCancelUpvoteClicked}
       />)
       : (<CircularProgress />)
     const composeReplyContent = this.props.target

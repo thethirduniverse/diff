@@ -20,6 +20,8 @@ const PostShowListRow = React.createClass({
     onReplyClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
     onShareClicked: React.PropTypes.func,
+    onUpvoteClicked: React.PropTypes.func.isRequired,
+    onCancelUpvoteClicked: React.PropTypes.func.isRequired,
 
     presentAsReply: React.PropTypes.bool.isRequired,
 
@@ -47,6 +49,8 @@ const PostShowListRow = React.createClass({
       post={this.props.reply}
       onReplyClicked={this.props.onReplyClicked}
       onReportClicked={this.props.onReportClicked}
+      onUpvoteClicked={this.props.onUpvoteClicked}
+      onCancelUpvoteClicked={this.props.onCancelUpvoteClicked}
       onShareClicked={this.props.onShareClicked}
       hideActions={this.props.hideActions}
       presentAsReply={this.props.presentAsReply}

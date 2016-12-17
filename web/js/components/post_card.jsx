@@ -28,6 +28,8 @@ const PostCard = React.createClass({
     onReplyClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
     onShareClicked: React.PropTypes.func,
+    onUpvoteClicked: React.PropTypes.func,
+    onCancelUpvoteClicked: React.PropTypes.func,
 
     presentAsReply: React.PropTypes.bool,
     highlighted: React.PropTypes.bool
@@ -58,6 +60,11 @@ const PostCard = React.createClass({
       ? null
       : (
         <div>
+          {
+            post.user_upvoted
+              ? (<FlatButton label="Upvoted" onClick={this.props.onCancelUpvoteClicked} />)
+              : (<FlatButton label="Upvote" primary={true} onClick={this.props.onUpvoteClicked} />)
+          }
           <FlatButton label="Report" secondary={true} onClick={this.props.onReportClicked} />
         </div>
       )

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import PostShow from 'components/post_show.jsx'
 import { HOST_URL } from '~/host.js'
-import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormUpdateTarget, postFormClearTarget, reportPost, shareLinkShow } from 'actions'
+import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormUpdateTarget, postFormClearTarget, reportPost, shareLinkShow, postOptimisticUpvote, postOptimisticCancelUpvote } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -29,6 +29,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onShareClicked: (post) => {
       dispatch(shareLinkShow(HOST_URL + '/posts/' + post.id))
+    },
+    onUpvoteClicked: (post) => {
+      dispatch(postOptimisticUpvote(post.id))
+      $.post('/api/posts/' + post.id + '/upvotes')
+    },
+    onCancelUpvoteClicked: (post) => {
+      dispatch(postOptimisticCancelUpvote(post.id))
+      $.post('/api/posts/' + post.id + '/upvotes', {_method: 'DELETE'})
     },
     onComponentWillMount: () => {
       const { id } = ownProps.params

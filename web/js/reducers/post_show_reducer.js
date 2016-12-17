@@ -62,6 +62,34 @@ const unloadedPostsFromPostIds = (ids) => (
   ))
 )
 
+const upvotedPost = (p) => ({
+  ...p,
+  upvote_count: p.upvote_count + 1,
+  user_upvoted: true
+})
+
+const upvoteCanceledPost = (p) => ({
+  ...p,
+  upvote_count: p.upvote_count - 1,
+  user_upvoted: false
+})
+
+export const postOptimisticUpvote = (state, postId) => {
+  const post = findPost(state, postId)
+  if (!post) {
+    return state
+  }
+  return mergeRawPosts(state, post.parent_post_id, [upvotedPost(post)])
+}
+
+export const postOptimisticCancelUpvote = (state, postId) => {
+  const post = findPost(state, postId)
+  if (!post) {
+    return state
+  }
+  return mergeRawPosts(state, post.parent_post_id, [upvoteCanceledPost(post)])
+}
+
 export const mergePostPlaceholders = (state, parentId, postIds) => {
   return mergeRawPosts(state, parentId, unloadedPostsFromPostIds(postIds))
 }
@@ -74,6 +102,11 @@ export const mergeRawPosts = (state, parentId, rawPosts) => {
   checkConsistency(state)
   if (rawPosts.length === 0) {
     return state
+  }
+
+  // if root, the assumption is that no valid id should be 0
+  if (!parentId && rawPosts.length === 1 && rawPosts[0].id === state.replyTree[0][0].id) {
+    return mergePostsAtLevel(state, rawPosts, 0)
   }
 
   for (var level = 0; level < state.replyTree.length - 1; level++) {
@@ -90,6 +123,7 @@ export const mergeRawPosts = (state, parentId, rawPosts) => {
   if (reply.id === parentId) {
     return appendPostsAtNewLevel(state, rawPosts)
   }
+
   throw new Error('append for unexpanded replies are not supported now')
 }
 
@@ -126,6 +160,16 @@ const appendPostsAtNewLevel = (state, replies) => {
     replyTree: [...state.replyTree, replies],
     replyIndexes: [...state.replyIndexes, 0]
   }
+}
+
+const findPost = (state, postId) => {
+  var res = null
+  state.replyTree.forEach((posts) => {
+    if (!res) {
+      res = posts.find((p) => (p.id === postId))
+    }
+  })
+  return res
 }
 
 export const collapseReplies = (state, level) => {
@@ -251,6 +295,10 @@ export default (state = defaultState, action) => {
         ...state,
         loading_post_id: null
       }, action.post.parent_post_id, [action.post])
+    case actions.postOptimisticUpvote:
+      return postOptimisticUpvote(state, action.postId)
+    case actions.postOptimisticCancelUpvote:
+      return postOptimisticCancelUpvote(state, action.postId)
     default:
       return state
   }

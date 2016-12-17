@@ -28,6 +28,8 @@ const actions = {
   postFormUpdateErrors: 'POST_FORM_UPDATE_ERRORS',
   postFormUpdateTarget: 'POST_FORM_UPDATE_TARGET',
   postFormClearTarget: 'POST_FORM_CLEAR_TARGET',
+  postOptimisticUpvote: 'POST_OPTIMISITIC_UPVOTE',
+  postOptimisticCancelUpvote: 'POST_OPTIMISITIC_CANCEL_UPVOTE',
   profileLoadUser: 'PROFILE_LOAD_USER',
   profileLoadMorePostedTopics: 'PROFILE_LOAD_MORE_POSTED_POSTS',
   profileShowAvatarForm: 'PROFILE_SHOW_AVATAR_FORM',
@@ -265,6 +267,20 @@ export const postFormUpdateTarget = (post) => {
 export const postFormClearTarget = () => {
   return {
     type: actions.postFormClearTarget
+  }
+}
+
+export const postOptimisticUpvote = (postId) => {
+  return {
+    type: actions.postOptimisticUpvote,
+    postId
+  }
+}
+
+export const postOptimisticCancelUpvote = (postId) => {
+  return {
+    type: actions.postOptimisticCancelUpvote,
+    postId
   }
 }
 
