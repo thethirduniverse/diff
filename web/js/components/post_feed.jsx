@@ -27,6 +27,7 @@ const PostFeed = React.createClass({
             onCardClick={this.props.onCardClick}
 
             hideActions={true}
+            hideMenu={true}
           />
         ))
       }

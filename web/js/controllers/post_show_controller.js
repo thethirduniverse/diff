@@ -2,7 +2,8 @@ import $ from 'jquery'
 import { connect } from 'react-redux'
 
 import PostShow from 'components/post_show.jsx'
-import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormUpdateTarget, postFormClearTarget, reportPost } from 'actions'
+import { HOST_URL } from '~/host.js'
+import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormUpdateTarget, postFormClearTarget, reportPost, shareLinkShow } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -25,6 +26,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onReportClicked: (post) => {
       dispatch(reportPost(post))
+    },
+    onShareClicked: (post) => {
+      dispatch(shareLinkShow(HOST_URL + '/posts/' + post.id))
     },
     onComponentWillMount: () => {
       const { id } = ownProps.params

@@ -16,6 +16,7 @@ const PostShowList = React.createClass({
     hideActions: React.PropTypes.bool.isRequired,
     onReplyClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
+    onShareClicked: React.PropTypes.func,
 
     requestPostLoad: React.PropTypes.func.isRequired,
     cancelPostLoad: React.PropTypes.func.isRequired,
@@ -57,6 +58,7 @@ const PostShowList = React.createClass({
             hideActions={this.props.hideActions}
             onReplyClicked={this.props.onReplyClicked.bind(null, reply)}
             onReportClicked={this.props.onReportClicked.bind(null, reply)}
+            onShareClicked={this.props.onShareClicked.bind(null, reply)}
             presentAsReply={idx !== 0}
             requestPostLoad={this.props.requestPostLoad}
             cancelPostLoad={this.props.cancelPostLoad}

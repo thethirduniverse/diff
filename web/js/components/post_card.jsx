@@ -1,8 +1,12 @@
 import Chip from 'material-ui/Chip'
 import FlatButton from 'material-ui/FlatButton'
+import IconButton from 'material-ui/IconButton'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import React from 'react'
-import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
 import muiThemeable from 'material-ui/styles/muiThemeable'
+import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
 
 import CategoryChip from 'components/category_chip.jsx'
 import ChipList from 'components/chip_list.jsx'
@@ -19,9 +23,11 @@ const PostCard = React.createClass({
     onCardClick: React.PropTypes.func,
 
     hideActions: React.PropTypes.bool,
+    hideMenu: React.PropTypes.bool,
 
     onReplyClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
+    onShareClicked: React.PropTypes.func,
 
     presentAsReply: React.PropTypes.bool,
     highlighted: React.PropTypes.bool
@@ -32,7 +38,7 @@ const PostCard = React.createClass({
   },
 
   render: function() {
-    const { post, presentAsReply, highlighted } = this.props
+    const { post, presentAsReply, highlighted, hideMenu } = this.props
     const clickHandler = this.props.cardClickEnabled
       ? this.handleCardClick.bind(this, this.props.post.id)
       : null
@@ -72,10 +78,22 @@ const PostCard = React.createClass({
         </ChipList>
       )
 
+    const menu = hideMenu
+      ? null
+      : (
+        <IconMenu
+          iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+          style={{position: 'absolute', top: '12px', right: '12px'}}
+        >
+          <MenuItem primaryText="Share" onClick={this.props.onShareClicked}/>
+        </IconMenu>
+      )
+
     return (
       <Card>
-        <CardTitle onClick={clickHandler}>
+        <CardTitle onClick={clickHandler} style={{position: 'relative'}}>
           {headerContent}
+          {menu}
         </CardTitle>
         <CardText
           style={styles.textBlock}

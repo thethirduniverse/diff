@@ -10,6 +10,7 @@ import postFeedReducer from 'reducers/post_feed_reducer.js'
 import postFormReducer from 'reducers/post_form_reducer.js'
 import postShowReducer from 'reducers/post_show_reducer.js'
 import reportReducer from 'reducers/report_reducer.js'
+import shareReducer from 'reducers/share_reducer.js'
 
 export default combineReducers({
   app: appReducer,
@@ -21,5 +22,6 @@ export default combineReducers({
   category: categoryReducer,
   form: formReducer,
   routing: routerReducer,
-  report: reportReducer
+  report: reportReducer,
+  share: shareReducer
 })

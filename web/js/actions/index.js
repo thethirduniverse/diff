@@ -37,7 +37,9 @@ const actions = {
   reportUser: 'REPORT_USER',
   reportPost: 'REPORT_POST',
   reportPosted: 'REPORT_POSTED',
-  reportClear: 'REPORT_CLEAR'
+  reportClear: 'REPORT_CLEAR',
+  shareLinkShow: 'SHARE_LINK_SHOW',
+  shareLinkDismiss: 'SHARE_LINK_DISMISS'
 }
 export default actions
 
@@ -333,5 +335,18 @@ export const reportPosted = () => {
 export const reportClear = () => {
   return {
     type: actions.reportClear
+  }
+}
+
+export const shareLinkShow = (link) => {
+  return {
+    type: actions.shareLinkShow,
+    link
+  }
+}
+
+export const shareLinkDismiss = () => {
+  return {
+    type: actions.shareLinkDismiss
   }
 }

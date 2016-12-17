@@ -20,6 +20,7 @@ const PostShow = React.createClass({
 
     onReplyClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
+    onShareClicked: React.PropTypes.func,
 
     target: React.PropTypes.object
   },
@@ -39,6 +40,7 @@ const PostShow = React.createClass({
         hideActions={!this.props.userSignedIn}
         onReplyClicked={this.props.onReplyClicked}
         onReportClicked={this.props.onReportClicked}
+        onShareClicked={this.props.onShareClicked}
       />)
       : (<CircularProgress />)
     const composeReplyContent = this.props.target

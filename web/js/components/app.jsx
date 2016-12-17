@@ -4,6 +4,7 @@ import React from 'react'
 
 import NavBar from 'components/nav_bar.jsx'
 import ReportController from 'controllers/report_controller.js'
+import ShareController from 'controllers/share_controller.js'
 import Footer from 'components/footer.jsx'
 
 const App = React.createClass({
@@ -59,6 +60,7 @@ const App = React.createClass({
           {this.props.errorDescription}
         </Dialog>
         <ReportController currentUser={this.props.user}/>
+        <ShareController />
         {this.props.children}
         <Footer />
       </div>
