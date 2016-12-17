@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   scope :api do
     devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations', confirmations: 'confirmations', passwords: 'passwords' }
 
-    resources :posts, only: [:index, :show, :create, :update]
+    resources :posts, only: [:index, :show, :create, :update] do
+      resource :upvotes, only: [:create, :destroy]
+    end
     get 'replies' => 'posts#replies'
 
     devise_scope :user do
