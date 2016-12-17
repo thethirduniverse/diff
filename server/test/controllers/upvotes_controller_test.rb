@@ -24,6 +24,7 @@ class UpvotesControllerTest < ActionController::TestCase
 
     p = Post.first
     assert_equal false, p.upvoted_by?(user)
+    assert_equal 0, p.upvote_count
 
     post :create, xhr: true, params: {
       post_id: p.id
@@ -37,6 +38,8 @@ class UpvotesControllerTest < ActionController::TestCase
     assert_equal 204, @response.status
     assert_equal true, p.upvoted_by?(user)
 
+    p.reload
+    assert_equal 1, p.upvote_count
     assert_equal 1, Upvote.where(user: user, post: p).count
   end
 
@@ -56,6 +59,9 @@ class UpvotesControllerTest < ActionController::TestCase
     delete :destroy, xhr: true, params: {
       post_id: p.id
     }
+
+    p.reload
+    assert_equal 0, p.upvote_count
     assert_equal 204, @response.status
     assert_equal false, p.upvoted_by?(user)
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161217181601) do
+ActiveRecord::Schema.define(version: 20161217194104) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20161217181601) do
     t.integer  "creator_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "upvote_count",   default: 0, null: false
     t.index ["creator_id"], name: "index_posts_on_creator_id"
     t.index ["parent_post_id"], name: "index_posts_on_parent_post_id"
     t.index ["root_post_id"], name: "index_posts_on_root_post_id"

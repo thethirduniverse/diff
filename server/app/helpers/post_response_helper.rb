@@ -40,6 +40,7 @@ module PostResponseHelper
       title: p.title,
       content: p.content,
       view: p.view,
+      upvote_count: p.upvote_count,
       categories: p.categories.map do |c|
         category_response c
       end,
@@ -53,6 +54,7 @@ module PostResponseHelper
       title: t.title,
       content: t.content,
       view: t.view,
+      upvote_count: t.upvote_count,
       parent_post_id: t.parent_post_id,
       root_post_id: t.root_post_id,
       categories: t.categories.map do |c|
@@ -69,6 +71,7 @@ module PostResponseHelper
       id: t.id,
       title: t.title,
       view: t.view,
+      upvote_count: t.upvote_count,
       categories: t.categories.map do |c|
         category_response c
       end
@@ -78,6 +81,7 @@ module PostResponseHelper
   def post_reply_response(r)
     {
       'id': r.id,
+      'upvote_count': r.upvote_count,
       'content': r.content,
       'parent_post_id': r.parent_post_id,
       'root_post_id': r.root_post_id,

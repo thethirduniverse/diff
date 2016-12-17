@@ -10,8 +10,15 @@ class UpvotesController < ApplicationController
     post = Post.find(params[:post_id])
     user = current_user
 
-    if post.upvoted_by?(user) ||
-       Upvote.create(post: post, user: user).persisted?
+    upvoted = post.upvoted_by?(user)
+
+    if upvoted
+      render_success
+      return
+    end
+
+    if Upvote.create(post: post, user: user).persisted?
+      post.update(upvote_count: post.upvote_count + 1)
       render_success
     else
       render_create_failure
@@ -23,7 +30,14 @@ class UpvotesController < ApplicationController
     user = current_user
 
     upvote = Upvote.where(post: post, user: user).take
-    if upvote.nil? || upvote.destroy
+
+    if upvote.nil?
+      render_success
+      return
+    end
+
+    if upvote.destroy
+      post.update(upvote_count: post.upvote_count - 1)
       render_success
     else
       render_destroy_failure
