@@ -62,13 +62,13 @@ const PostCard = React.createClass({
         </div>
       )
 
-    const chipsContent = presentAsReply
-      ? null
-      : (
+    const chipsContent =
+      (
         <ChipList>
+          <Chip style={styles.chip}>{this.props.post.upvote_count} upvotes</Chip>
           <Chip style={styles.chip}>{this.props.post.view} views</Chip>
           {
-            post.categories
+            !presentAsReply && post.categories
               ? post.categories.map((c) => (
                 <CategoryChip key={c.id} category={c} />
               ))
