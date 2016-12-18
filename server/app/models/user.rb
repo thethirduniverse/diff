@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class User < ActiveRecord::Base
+  belongs_to :invited_by, class_name: 'User', foreign_key: 'invited_by'
   has_many :posts, foreign_key: 'creator_id'
 
   # Include default devise modules. Others available are:

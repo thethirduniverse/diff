@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'replies' => 'posts#replies'
 
     devise_scope :user do
+      post '/invitation-code' => 'registrations#generate_invitation_code'
       post '/request-reset-password' => 'registrations#request_reset_password'
       post '/users/fetch' => 'sessions#fetch', as: 'fetch_session'
     end
