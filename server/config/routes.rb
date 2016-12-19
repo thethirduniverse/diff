@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get '/posts/*ignored' => 'main#index'
   get '/posts' => 'main#index'
   get '/profiles/*ignored' => 'main#index'
+  get '/invitation' => 'main#index'
 
   get '/account/reset-password/password' => 'main#index', as: 'custom_reset_password'
   get '/account/*ignored' => 'main#index'

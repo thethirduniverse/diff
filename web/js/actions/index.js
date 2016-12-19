@@ -41,7 +41,10 @@ const actions = {
   reportPosted: 'REPORT_POSTED',
   reportClear: 'REPORT_CLEAR',
   shareLinkShow: 'SHARE_LINK_SHOW',
-  shareLinkDismiss: 'SHARE_LINK_DISMISS'
+  shareLinkDismiss: 'SHARE_LINK_DISMISS',
+  inviteShowCode: 'INVITE_SHOW_CODE',
+  inviteShowOldCodes: 'INVITE_SHOW_OLD_CODES',
+  inviteShowError: 'INVITE_SHOW_ERROR'
 }
 export default actions
 
@@ -364,5 +367,27 @@ export const shareLinkShow = (link) => {
 export const shareLinkDismiss = () => {
   return {
     type: actions.shareLinkDismiss
+  }
+}
+
+export const inviteShowCode = (code) => {
+  return {
+    type: actions.inviteShowCode,
+    code
+  }
+}
+
+export const inviteShowOldCodes = (message, codes) => {
+  return {
+    type: actions.inviteShowOldCodes,
+    message,
+    codes
+  }
+}
+
+export const inviteShowError = (message) => {
+  return {
+    type: actions.inviteShowError,
+    message
   }
 }

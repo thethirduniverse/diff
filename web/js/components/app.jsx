@@ -16,6 +16,7 @@ const App = React.createClass({
     userSignedIn: React.PropTypes.bool.isRequired,
     onProfileClicked: React.PropTypes.func,
     onNewTopicClicked: React.PropTypes.func.isRequired,
+    onInviteClicked: React.PropTypes.func.isRequired,
 
     showError: React.PropTypes.bool.isRequired,
     errorDescription: React.PropTypes.string.isRequired,
@@ -43,6 +44,7 @@ const App = React.createClass({
           onTitleClicked = {this.props.onTitleClicked}
           onProfileClicked = {this.props.onProfileClicked}
           onNewTopicClicked = {this.props.onNewTopicClicked}
+          onInviteClicked = {this.props.onInviteClicked}
         />
         <Dialog
           title="Sorry, an error occurred."

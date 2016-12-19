@@ -13,6 +13,7 @@ import ResetPasswordCheckEmailController from 'controllers/reset_password_check_
 import ResetPasswordPasswordController from 'controllers/reset_password_password_controller.js'
 import PostNew from 'components/post_new.jsx'
 import PostShowController from 'controllers/post_show_controller.js'
+import InvitationController from 'controllers/invitation_controller.js'
 
 export default (
   <Route path="/" component={AppController}>
@@ -28,6 +29,7 @@ export default (
         <IndexRoute component={ResetPasswordEmailController} />
       </Route>
     </Route>
+    <Route path="invitation" component={InvitationController} />
     <Route path="posts/:id" component={PostShowController} />
     <Route path="posts" component={PostNew} />
     <Route path="profiles/:id" component={ProfileController} />

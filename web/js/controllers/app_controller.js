@@ -48,6 +48,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onDismissErrorClicked: () => {
       dispatch(appDismissError())
+    },
+    onInviteClicked: () => {
+      dispatch(push('/invitation'))
     }
   }
 }

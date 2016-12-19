@@ -11,6 +11,7 @@ import postFormReducer from 'reducers/post_form_reducer.js'
 import postShowReducer from 'reducers/post_show_reducer.js'
 import reportReducer from 'reducers/report_reducer.js'
 import shareReducer from 'reducers/share_reducer.js'
+import invitationReducer from 'reducers/invitation_reducer.js'
 
 export default combineReducers({
   app: appReducer,
@@ -23,5 +24,6 @@ export default combineReducers({
   form: formReducer,
   routing: routerReducer,
   report: reportReducer,
-  share: shareReducer
+  share: shareReducer,
+  invitation: invitationReducer
 })

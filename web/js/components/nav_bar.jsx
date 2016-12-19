@@ -8,7 +8,7 @@ import React from 'react'
 
 import styles from '~/styles.js'
 
-const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked, onProfileClicked, onNewTopicClicked}) => {
+const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked, onProfileClicked, onNewTopicClicked, onInviteClicked}) => {
   const iconMenu = (
     userSignedIn
       ? <IconMenu
@@ -19,6 +19,7 @@ const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked
         targetOrigin = {{horizontal: 'right', vertical: 'top'}}
       >
         <MenuItem primaryText="New Topic" onClick={onNewTopicClicked} />
+        <MenuItem primaryText="Invite Friends" onClick={onInviteClicked} />
         <MenuItem primaryText="Profile" onClick={onProfileClicked} />
         <MenuItem primaryText="Sign Out" onClick={onSignOutClicked} />
       </IconMenu>
@@ -39,7 +40,8 @@ NavBar.propTypes = {
   onSignInClicked: React.PropTypes.func.isRequired,
   onTitleClicked: React.PropTypes.func.isRequired,
   onProfileClicked: React.PropTypes.func,
-  onNewTopicClicked: React.PropTypes.func.isRequired
+  onNewTopicClicked: React.PropTypes.func.isRequired,
+  onInviteClicked: React.PropTypes.func.isRequired
 }
 
 export default NavBar
