@@ -31,8 +31,12 @@ Rails.application.routes.draw do
   get '/profiles/*ignored' => 'main#index'
   get '/invitation' => 'main#index'
 
-  get '/account/reset-password/password' => 'main#index', as: 'custom_reset_password'
-  get '/account/*ignored' => 'main#index'
+  scope :account do
+    get '/sign-in' => 'main#index', as: 'sign_in'
+    get '/sign-up' => 'main#index', as: 'sign_up'
+    get '/reset-password/password' => 'main#index', as: 'custom_reset_password'
+  end
+
   # You can have the root of your site routed with "root"
   root 'main#index'
 

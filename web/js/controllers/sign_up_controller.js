@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(push('/account/reset-password/email'))
     },
     signUpClicked: (data) => {
-      $.post('/api/users', {user: data})
+      $.post('/api/users', data)
         .done((res) => {
           console.log(res)
           dispatch(push({
@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         })
         .fail((res) => {
           console.log(res)
-          if (res.status === 422) {
+          if (res.status === 422 || res.status === 400) {
             dispatch(userShowSignUpError(res.responseJSON['errors']))
           } else {
             dispatch(userShowSignUpError({form: 'operation failed for unknown reason'}))

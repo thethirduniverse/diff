@@ -9,16 +9,15 @@ class RegistrationsController < Devise::RegistrationsController
   before_action :authenticate_user!, only: [:generate_invitation_code]
 
   def create
-    inviter = check_code(params[:invitation_code])
+    code = get_code(params[:invitation_code])
 
-    unless inviter
+    unless code
       render_invalid_code
       return
     end
 
     super do
-      resource.invited_by = inviter
-      resource.save
+      resource.update(invited_by: code.user) if code.update(used: true)
     end
   end
 
@@ -85,12 +84,11 @@ class RegistrationsController < Devise::RegistrationsController
     }, status: 500
   end
 
-  def check_code(code)
+  def get_code(code)
     return nil if code.nil?
     i = Invitation.find_by_code(code)
     return nil if i.nil? || i.used?
-    return nil unless i.update(used: true)
-    i.user
+    i
   end
 
   # potentially loop forever, but let's be realistic

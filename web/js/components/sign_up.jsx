@@ -26,6 +26,7 @@ var SignUpBox = React.createClass({
     const emailError = this.props.errors ? this.props.errors['email'] : null
     const passwordError = this.props.errors ? this.props.errors['password'] : null
     const confirmationError = this.props.errors ? this.props.errors['password_confirmation'] : null
+    const codeError = this.props.errors ? this.props.errors['invitation_code'] : null
 
     return (
       <Card>
@@ -34,9 +35,10 @@ var SignUpBox = React.createClass({
         {/* eslint-enable react/prop-types */}
           <CardHeader title="Sign Up" />
           <CardText>
-            <Field name="email" label="Email" type="email" fullWidth={true} errorText={emailError} component={renderTextField} />
-            <Field name="password" label="Password" type="password" fullWidth={true} errorText={passwordError} component={renderTextField} />
-            <Field name="password_confirmation" label="Password Confirmation" type="password" fullWidth={true} errorText={confirmationError} component={renderTextField} />
+            <Field name="user[email]" label="Email" type="email" fullWidth={true} errorText={emailError} component={renderTextField} />
+            <Field name="user[password]" label="Password" type="password" fullWidth={true} errorText={passwordError} component={renderTextField} />
+            <Field name="user[password_confirmation]" label="Password Confirmation" type="password" fullWidth={true} errorText={confirmationError} component={renderTextField} />
+            <Field name="invitation_code" label="Invitation Code" type="text" fullWidth={true} errorText={codeError} component={renderTextField} />
           </CardText>
           <CardActions>
             <RaisedButton label="Sign Up" primary={true} style={{margin: 12}} type="submit" />
