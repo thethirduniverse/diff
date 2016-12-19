@@ -91,7 +91,11 @@ const PostCard = React.createClass({
           iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
           style={{position: 'absolute', top: '12px', right: '12px'}}
         >
-          <MenuItem primaryText="Write Refutation" onClick={this.props.onReplyClicked}/>
+          {
+            this.props.hideActions
+              ? null
+              : <MenuItem primaryText="Write Refutation" onClick={this.props.onReplyClicked}/>
+          }
           <MenuItem primaryText="Share" onClick={this.props.onShareClicked}/>
         </IconMenu>
       )
