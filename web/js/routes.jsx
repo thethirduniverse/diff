@@ -11,7 +11,7 @@ import EmailConfirmationController from 'controllers/email_confirmation_controll
 import ResetPasswordEmailController from 'controllers/reset_password_email_controller.js'
 import ResetPasswordCheckEmailController from 'controllers/reset_password_check_email_controller.js'
 import ResetPasswordPasswordController from 'controllers/reset_password_password_controller.js'
-import PostNew from 'components/post_new.jsx'
+import PostNewController from 'controllers/post_new_controller.js'
 import PostShowController from 'controllers/post_show_controller.js'
 import InvitationController from 'controllers/invitation_controller.js'
 
@@ -31,7 +31,7 @@ export default (
     </Route>
     <Route path="invitation" component={InvitationController} />
     <Route path="posts/:id" component={PostShowController} />
-    <Route path="posts" component={PostNew} />
+    <Route path="posts" component={PostNewController} />
     <Route path="profiles/:id" component={ProfileController} />
   </Route>
 )

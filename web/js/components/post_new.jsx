@@ -4,6 +4,11 @@ import PostFormCard from 'components/post_form_card.jsx'
 
 const PostNew = React.createClass({
   propTypes: {
+    onComponentWillMount: React.PropTypes.func.isRequired
+  },
+
+  componentWillMount: function() {
+    this.props.onComponentWillMount()
   },
 
   render: function() {

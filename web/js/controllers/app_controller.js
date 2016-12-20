@@ -4,7 +4,7 @@ import { push } from 'react-router-redux'
 
 import App from 'components/app.jsx'
 import { updatePageAndAjaxCSRFToken } from 'helpers/csrf_token_helpers.js'
-import { userSignOut, appDismissError, postFormCreateRoot } from 'actions'
+import { userSignOut, appDismissError } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -41,7 +41,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(push('/'))
     },
     onNewTopicClicked: () => {
-      dispatch(postFormCreateRoot())
       dispatch(push('/posts'))
     },
     _onProfileClicked: (id) => {
