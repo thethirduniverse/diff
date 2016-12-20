@@ -75,8 +75,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         data: formData(data, target)
       })
         .done((res) => {
-          if (actionType === actionTypes.reply) {
-            dispatch(postShowMergeLoadedPosts(target.id, [res.post]))
+          if (actionType === actionTypes.reply || actionType === actionTypes.edit) {
+            dispatch(postShowMergeLoadedPosts(res.post.parent_post_id, [res.post]))
           } else if (actionType === actionTypes.createRoot) {
             dispatch(push('/posts/' + res.post.id))
           }
