@@ -15,6 +15,7 @@ const PostShowList = React.createClass({
 
     hideActions: React.PropTypes.bool.isRequired,
     onReplyClicked: React.PropTypes.func,
+    onEditClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
     onShareClicked: React.PropTypes.func,
     onUpvoteClicked: React.PropTypes.func.isRequired,
@@ -59,6 +60,7 @@ const PostShowList = React.createClass({
             paginationDotClicked={this.paginationDotClicked(idx)}
             hideActions={this.props.hideActions}
             onReplyClicked={this.props.onReplyClicked.bind(null, reply)}
+            onEditClicked={this.props.onEditClicked.bind(null, reply)}
             onReportClicked={this.props.onReportClicked.bind(null, reply)}
             onShareClicked={this.props.onShareClicked.bind(null, reply)}
             onUpvoteClicked={this.props.onUpvoteClicked.bind(null, reply)}

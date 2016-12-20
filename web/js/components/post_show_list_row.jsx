@@ -18,6 +18,7 @@ const PostShowListRow = React.createClass({
 
     hideActions: React.PropTypes.bool.isRequired,
     onReplyClicked: React.PropTypes.func,
+    onEditClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
     onShareClicked: React.PropTypes.func,
     onUpvoteClicked: React.PropTypes.func.isRequired,
@@ -48,6 +49,7 @@ const PostShowListRow = React.createClass({
       ? (<PostCard
       post={this.props.reply}
       onReplyClicked={this.props.onReplyClicked}
+      onEditClicked={this.props.onEditClicked}
       onReportClicked={this.props.onReportClicked}
       onUpvoteClicked={this.props.onUpvoteClicked}
       onCancelUpvoteClicked={this.props.onCancelUpvoteClicked}

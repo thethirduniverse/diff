@@ -6,6 +6,7 @@ import { Field, reduxForm } from 'redux-form'
 
 import CategoryChip from 'components/category_chip.jsx'
 import ChipList from 'components/chip_list.jsx'
+import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 import { renderTextField } from 'helpers/redux_form_helpers.jsx'
 
 var PostForm = React.createClass({
@@ -25,7 +26,7 @@ var PostForm = React.createClass({
     onNewCategoryRequest: React.PropTypes.func.isRequired,
     categoryInput: React.PropTypes.string.isRequired,
 
-    creatingRoot: React.PropTypes.bool.isRequired,
+    actionType: React.PropTypes.string.isRequired,
 
     errors: React.PropTypes.object
   },
@@ -38,7 +39,7 @@ var PostForm = React.createClass({
   },
 
   render: function() {
-    const {creatingRoot} = this.props
+    const {actionType} = this.props
 
     const categoryChips = this.props.categories.map((c) => (
       <CategoryChip key={c.id} category={c} onRequestDelete={this.props.onRequestDelete} />
@@ -47,13 +48,18 @@ var PostForm = React.createClass({
     return (
       <form>
         {
-          creatingRoot
+          actionType === actionTypes.createRoot
             ? (<Field name="post[title]" label="Title" type="text" fullWidth={true} errorText={this.props.errors.title} component={renderTextField} />)
             : null
         }
         <Field name="post[content]" label="Content" type="text" fullWidth={true} multiLine={true} errorText={this.props.errors.content} component={renderTextField} />
         {
-          creatingRoot
+          actionType === actionTypes.edit
+            ? (<Field name="message" label="Edit Message" type="text" fullWidth={true} errorText={this.props.errors.message} component={renderTextField} />)
+            : null
+        }
+        {
+          actionType === actionTypes.createRoot
             ? (<ChipList>
               {categoryChips}
               {/* Suppose user entered 'a', and there is a category called 'AAA'.

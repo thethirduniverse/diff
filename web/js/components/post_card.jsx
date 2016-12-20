@@ -26,6 +26,7 @@ const PostCard = React.createClass({
     hideMenu: React.PropTypes.bool,
 
     onReplyClicked: React.PropTypes.func,
+    onEditClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
     onShareClicked: React.PropTypes.func,
     onUpvoteClicked: React.PropTypes.func,
@@ -65,6 +66,7 @@ const PostCard = React.createClass({
               ? (<FlatButton label="Upvoted" onClick={this.props.onCancelUpvoteClicked} />)
               : (<FlatButton label="Upvote" primary={true} onClick={this.props.onUpvoteClicked} />)
           }
+          <FlatButton label="Diff it" onClick={this.props.onEditClicked} />
         </div>
       )
 

@@ -1,10 +1,18 @@
 import actions from 'actions'
 
+export const PostFormActionTypes = {
+  reply: 'REPLY',
+  edit: 'EDIT',
+  createRoot: 'CREATE_ROOT',
+  none: 'NONE'
+}
+
 const defaultState = {
   categories: [],
   filter: '',
   errors: {},
-  target: null
+  target: null,
+  actionType: PostFormActionTypes.none
 }
 
 const sortByName = (c1, c2) => {
@@ -39,10 +47,23 @@ export default (state = defaultState, action) => {
         ...state,
         errors: action.errors
       }
-    case actions.postFormUpdateTarget:
+    case actions.postFormCreateRoot:
       return {
         ...state,
-        target: action.post
+        target: null,
+        actionType: PostFormActionTypes.createRoot
+      }
+    case actions.postFormUpdateReplyTarget:
+      return {
+        ...state,
+        target: action.post,
+        actionType: PostFormActionTypes.reply
+      }
+    case actions.postFormUpdateEditTarget:
+      return {
+        ...state,
+        target: action.post,
+        actionType: PostFormActionTypes.edit
       }
     case actions.postFormClearTarget:
       return {

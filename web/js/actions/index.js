@@ -26,7 +26,9 @@ const actions = {
   postFormRemoveCategory: 'POST_FORM_REMOVE_CATEGORY',
   postFormUpdateCategoryFilter: 'POST_FORM_UPDATE_CATEGORY_FILTER',
   postFormUpdateErrors: 'POST_FORM_UPDATE_ERRORS',
-  postFormUpdateTarget: 'POST_FORM_UPDATE_TARGET',
+  postFormCreateRoot: 'POST_FORM_CREATE_ROOT',
+  postFormUpdateReplyTarget: 'POST_FORM_UPDATE_REPLY_TARGET',
+  postFormUpdateEditTarget: 'POST_FORM_UPDATE_EDIT_TARGET',
   postFormClearTarget: 'POST_FORM_CLEAR_TARGET',
   postOptimisticUpvote: 'POST_OPTIMISITIC_UPVOTE',
   postOptimisticCancelUpvote: 'POST_OPTIMISITIC_CANCEL_UPVOTE',
@@ -260,9 +262,22 @@ export const postFormUpdateErrors = (errors) => {
   }
 }
 
-export const postFormUpdateTarget = (post) => {
+export const postFormCreateRoot = () => {
   return {
-    type: actions.postFormUpdateTarget,
+    type: actions.postFormCreateRoot
+  }
+}
+
+export const postFormUpdateReplyTarget = (post) => {
+  return {
+    type: actions.postFormUpdateReplyTarget,
+    post
+  }
+}
+
+export const postFormUpdateEditTarget = (post) => {
+  return {
+    type: actions.postFormUpdateEditTarget,
     post
   }
 }

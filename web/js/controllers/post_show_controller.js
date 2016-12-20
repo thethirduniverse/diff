@@ -1,9 +1,10 @@
 import $ from 'jquery'
 import { connect } from 'react-redux'
+import { initialize } from 'redux-form'
 
 import PostShow from 'components/post_show.jsx'
 import { HOST_URL } from '~/host.js'
-import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormUpdateTarget, postFormClearTarget, reportPost, shareLinkShow, postOptimisticUpvote, postOptimisticCancelUpvote } from 'actions'
+import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormUpdateReplyTarget, postFormUpdateEditTarget, postFormClearTarget, reportPost, shareLinkShow, postOptimisticUpvote, postOptimisticCancelUpvote } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -22,7 +23,17 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onReplyClicked: (post) => {
-      dispatch(postFormUpdateTarget(post))
+      dispatch(postFormUpdateReplyTarget(post))
+      dispatch(initialize('post-form', {}))
+    },
+    onEditClicked: (post) => {
+      dispatch(postFormUpdateEditTarget(post))
+      // work around since redux form initialization does not seem to be working
+      dispatch(initialize('post-form', {
+        post: {
+          content: post.content
+        }
+      }))
     },
     onReportClicked: (post) => {
       dispatch(reportPost(post))

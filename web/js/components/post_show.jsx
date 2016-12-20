@@ -19,12 +19,14 @@ const PostShow = React.createClass({
     location: React.PropTypes.string.isRequired,
 
     onReplyClicked: React.PropTypes.func,
+    onEditClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
     onShareClicked: React.PropTypes.func,
     onUpvoteClicked: React.PropTypes.func.isRequired,
     onCancelUpvoteClicked: React.PropTypes.func.isRequired,
 
-    target: React.PropTypes.object
+    target: React.PropTypes.object,
+    actionType: React.PropTypes.string
   },
 
   componentWillMount: function() {
@@ -41,6 +43,7 @@ const PostShow = React.createClass({
         urlPostId={parseInt(this.props.postId)}
         hideActions={!this.props.userSignedIn}
         onReplyClicked={this.props.onReplyClicked}
+        onEditClicked={this.props.onEditClicked}
         onReportClicked={this.props.onReportClicked}
         onShareClicked={this.props.onShareClicked}
         onUpvoteClicked={this.props.onUpvoteClicked}

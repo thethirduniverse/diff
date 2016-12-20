@@ -5,11 +5,7 @@ import { reset } from 'redux-form'
 
 import PostForm from 'components/post_form.jsx'
 import { postFormAddCategory, postFormRemoveCategory, postFormUpdateCategoryFilter, postFormUpdateErrors, postShowMergeLoadedPosts } from 'actions'
-
-export const ActionTypes = {
-  insert: 'insert',
-  redirect: 'redirect'
-}
+import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 
 const containsFilter = (name, key) => (
   name.toLowerCase().includes(key.toLowerCase())
@@ -19,14 +15,14 @@ const notSelectedFilter = (currentCategories, name) => (
   !currentCategories.find((c) => (c.name === name))
 )
 
-const formData = (data, ownProps) => {
+const formData = (data, target) => {
   // posting as reply
-  if (ownProps.parentPostId) {
+  if (target) {
     return {
       ...data,
       post: {
         content: data.post.content,
-        parent_post_id: ownProps.parentPostId
+        parent_post_id: target.id
       }
     }
   }
@@ -46,19 +42,42 @@ const mapStateToProps = (state, ownProps) => {
     ),
     categoryInput: state.postForm.filter,
     errors: state.postForm.errors,
-    creatingRoot: ownProps.parentPostId === undefined,
+    target: state.postForm.target,
+    actionType: state.postForm.actionType,
     _allCategories: state.category.categories
+  }
+}
+
+const getEndPoint = (target, actionType) => {
+  switch (actionType) {
+    case actionTypes.edit:
+      return '/api/posts/' + target.id
+    default:
+      return '/api/posts'
+  }
+}
+
+const getHttpMethod = (actionType) => {
+  switch (actionType) {
+    case actionTypes.edit:
+      return 'PUT'
+    default:
+      return 'POST'
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    _onSubmit: (data) => {
-      $.post('/api/posts', formData(data, ownProps))
+    _onSubmit: (target, actionType, data) => {
+      $.ajax({
+        url: getEndPoint(target, actionType),
+        type: getHttpMethod(actionType),
+        data: formData(data, target)
+      })
         .done((res) => {
-          if (ownProps.action === ActionTypes.insert) {
-            dispatch(postShowMergeLoadedPosts(ownProps.parentPostId, [res.post]))
-          } else {
+          if (actionType === actionTypes.reply) {
+            dispatch(postShowMergeLoadedPosts(target.id, [res.post]))
+          } else if (actionType === actionTypes.createRoot) {
             dispatch(push('/posts/' + res.post.id))
           }
           dispatch(postFormUpdateErrors({}))
@@ -89,6 +108,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mergeProps = (s, d, o) => {
+  const {target, actionType} = s
   return {
     ...s,
     ...d,
@@ -97,7 +117,7 @@ const mergeProps = (s, d, o) => {
       d._onNewCategoryRequest(s._allCategories, s.categories, text, idx)
     },
     onSubmit: (data) => {
-      d._onSubmit({
+      d._onSubmit(target, actionType, {
         ...data,
         'post[category_ids]': s.categories.map((c) => (c.id))
       })
