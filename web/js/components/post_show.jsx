@@ -53,6 +53,7 @@ const PostShow = React.createClass({
     const composeReplyContent = this.props.target
       ? (<ComposeReplyCard
         target={this.props.target}
+        actionType={this.props.actionType}
       />)
       : null
 

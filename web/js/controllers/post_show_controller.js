@@ -15,6 +15,7 @@ const mapStateToProps = (state, ownProps) => {
     user: state.accountReducer.user,
 
     target: state.postForm.target,
+    actionType: state.postForm.actionType,
 
     location: ownProps.location.pathname
   }
