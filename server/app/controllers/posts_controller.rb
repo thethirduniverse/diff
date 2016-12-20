@@ -78,7 +78,7 @@ class PostsController < ApplicationController
     return unless create_edit_and_render_errors(params[:message], post, old_content, new_content)
 
     post.save!
-    render json: {}, status: 200
+    render_post post
   end
 
   private
