@@ -34,7 +34,7 @@ var PostForm = React.createClass({
   getDefaultProps: () => {
     return {
       submitButtonLabel: 'Submit',
-      secondaryButtonLabel: 'Report'
+      secondaryButtonLabel: 'Revert Changes'
     }
   },
 

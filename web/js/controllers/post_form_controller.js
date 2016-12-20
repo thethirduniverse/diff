@@ -87,6 +87,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           dispatch(postFormUpdateErrors(res.responseJSON.errors))
         })
     },
+    onSecondaryButtonClick: () => {
+      dispatch(reset('post-form'))
+    },
     onRequestDelete: (id) => {
       dispatch(postFormRemoveCategory(id))
     },
