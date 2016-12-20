@@ -9,16 +9,14 @@ const PostFormCard = React.createClass({
 
   render: function() {
     return (
-      <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <Card>
-          <CardTitle
-            title = "Write a new topic"
-          />
-          <CardText>
-            <PostFormController />
-          </CardText>
-        </Card>
-      </div>
+      <Card>
+        <CardTitle
+          title = "Write a new topic"
+        />
+        <CardText>
+          <PostFormController />
+        </CardText>
+      </Card>
     )
   }
 })
