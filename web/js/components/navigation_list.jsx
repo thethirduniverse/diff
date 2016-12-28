@@ -1,5 +1,5 @@
 import React from 'react'
-import {List, ListItem, MakeSelectable} from 'material-ui/List'
+import {List, ListItem, makeSelectable} from 'material-ui/List'
 
 import { contentTypes } from 'reducers/post_feed_reducer.js'
 
@@ -31,7 +31,7 @@ const NavigationList = React.createClass({
   },
 
   render: function() {
-    const SelectableList = MakeSelectable(List)
+    const SelectableList = makeSelectable(List)
     const items = this.props.categories.map((c) => {
       return (<ListItem
         key={c.id}
