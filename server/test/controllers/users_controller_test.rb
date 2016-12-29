@@ -18,4 +18,24 @@ class UsersControllerTest < ActionController::TestCase
     adam.reload
     assert_equal true, adam.avatar.present?
   end
+
+  test 'user can update name and bio' do
+    adam = User.find(1)
+    sign_in adam
+    name = 'Adam Mada'
+    bio = 'Hi everyone'
+    refute_equal name, adam.name
+    refute_equal bio, adam.bio
+
+    put :update, xhr: true, params: {
+      'id': adam.id,
+      'user[name]': name,
+      'user[bio]': bio
+    }
+    assert_equal 204, @response.status
+
+    adam.reload
+    assert_equal name, adam.name
+    assert_equal bio, adam.bio
+  end
 end

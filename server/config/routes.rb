@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get '/profiles/load_posts' => 'profiles#load_posts'
     get '/profiles/:id' => 'profiles#show'
     post '/update-avatar' => 'users#update_avatar'
+    put '/users/:id' => 'users#update'
 
     scope :report do
       post '/user' => 'reports#report_user'
