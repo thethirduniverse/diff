@@ -35,12 +35,12 @@ class ReportsController < ApplicationController
     if report.valid?
       report.save!
       render json: {}, status: 200
-      return true
+      true
     else
       render json: {
         errors: report.errors.messages
       }, status: 422
-      return false
+      false
     end
   end
 end

@@ -2,6 +2,7 @@
 require 'test_helper'
 
 class NotificationTest < ActiveSupport::TestCase
+  # rubocop:disable Metrics/BlockLength
   test 'basic validations' do
     e = BroadcastEvent.create!(content: 'test')
     n = Notification.new(
@@ -40,4 +41,5 @@ class NotificationTest < ActiveSupport::TestCase
     )
     refute_equal true, n.save
   end
+  # rubocop:enable Metrics/BlockLength
 end

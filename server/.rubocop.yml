@@ -10,6 +10,10 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 15
 
+Metrics/BlockLength: 
+  Exclude:
+    - 'db/schema.rb'
+
 Style/IndentationWidth:
   Width: 2
 
