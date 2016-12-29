@@ -22,20 +22,24 @@ class UsersControllerTest < ActionController::TestCase
   test 'user can update name and bio' do
     adam = User.find(1)
     sign_in adam
-    name = 'Adam Mada'
+    fname = 'Adam'
+    lname = 'Mada'
     bio = 'Hi everyone'
-    refute_equal name, adam.name
+    refute_equal fname, adam.first_name
+    refute_equal lname, adam.last_name
     refute_equal bio, adam.bio
 
     put :update, xhr: true, params: {
       'id': adam.id,
-      'user[name]': name,
+      'user[first_name]': fname,
+      'user[last_name]': lname,
       'user[bio]': bio
     }
     assert_equal 204, @response.status
 
     adam.reload
-    assert_equal name, adam.name
+    assert_equal fname, adam.first_name
+    assert_equal lname, adam.last_name
     assert_equal bio, adam.bio
   end
 end
