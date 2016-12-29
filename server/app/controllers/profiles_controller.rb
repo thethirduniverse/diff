@@ -37,9 +37,11 @@ class ProfilesController < ApplicationController
   def profile_response(u)
     {
       id: u.id,
+      name: u.name,
+      bio: u.bio,
       email: u.email,
       posted_posts: posts_feed(user_id: u.id, response_type: PostHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED),
-      avatar: u.avatar.url(:large)
+      avatar: u.avatar.url(:large),
     }
   end
 end

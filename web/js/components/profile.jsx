@@ -2,8 +2,10 @@ import CircularProgress from 'material-ui/CircularProgress'
 import FlatButton from 'material-ui/FlatButton'
 import Paper from 'material-ui/Paper'
 import React from 'react'
+import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
 
 import AvatarForm from 'components/profile_avatar_form.jsx'
+import ProfileForm from 'components/profile_form.jsx'
 import PostListController from 'controllers/post_list_controller.js'
 
 const Profile = React.createClass({
@@ -16,7 +18,13 @@ const Profile = React.createClass({
     onShowAvatarClicked: React.PropTypes.func.isRequired,
     onCancelAvatarClicked: React.PropTypes.func.isRequired,
     showAvatarForm: React.PropTypes.bool.isRequired,
-    avatarFormErrors: React.PropTypes.object
+    avatarFormErrors: React.PropTypes.object,
+
+    onEditInfoClicked: React.PropTypes.func.isRequired,
+    onCancelEditInfoClicked: React.PropTypes.func.isRequired,
+    onSubmitInfoClicked: React.PropTypes.func.isRequired,
+    showInfoForm: React.PropTypes.bool.isRequired,
+    infoFormErrors: React.PropTypes.object
   },
 
   componentWillMount: function() {
@@ -41,13 +49,42 @@ const Profile = React.createClass({
       : avatar
   },
 
+  info: function(user) {
+    return (
+       <Card>
+        <CardTitle title={user.name} />
+        <CardText>
+          {user.bio}
+        </CardText>
+        <CardActions>
+          <FlatButton label="Edit Personal Info" onClick={this.props.onEditInfoClicked}/>
+        </CardActions>
+      </Card>
+    )
+  },
+
+  infoForm: function() {
+    return (<Card>
+      <CardTitle title="Edit Personal Info" />
+      <ProfileForm
+        onSubmitClicked={this.props.onSubmitInfoClicked}
+        onCancelClicked={this.props.onCancelEditInfoClicked}
+        errors={this.props.infoFormErrors}
+        />
+    </Card>)
+  },
+
+  infoContent: function(user) {
+    return this.props.showInfoForm ? this.infoForm() : this.info(user)
+  },
+
   render: function() {
     const user = this.props.user
     const content = user
       ? (
         <div>
           {this.avatarContent()}
-          <h1>{user.email}</h1>
+          {this.infoContent(user)}
           <h1>Posted Topics</h1>
           <PostListController />
         </div>

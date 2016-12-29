@@ -37,6 +37,9 @@ const actions = {
   profileShowAvatarForm: 'PROFILE_SHOW_AVATAR_FORM',
   profileHideAvatarForm: 'PROFILE_HIDE_AVATAR_FORM',
   profileUpdateAvatarFormErrors: 'PROFILE_UPDATE_AVATAR_FORM_ERRORS',
+  profileShowInfoForm: 'PROFILE_SHOW_INFO_FORM',
+  profileHideInfoForm: 'PROFILE_HIDE_INFO_FORM',
+  profileUpdateInfoFormErrors: 'PROFILE_UPDATE_INFO_FORM_ERRORS',
   categoryLoad: 'CATEGORY_LOAD',
   reportUser: 'REPORT_USER',
   reportPost: 'REPORT_POST',
@@ -335,6 +338,25 @@ export const profileHideAvatarForm = () => {
 export const profileUpdateAvatarFormErrors = (errors) => {
   return {
     type: actions.profileUpdateAvatarFormErrors,
+    errors
+  }
+}
+
+export const profileShowInfoForm = () => {
+  return {
+    type: actions.profileShowInfoForm
+  }
+}
+
+export const profileHideInfoForm = () => {
+  return {
+    type: actions.profileHideInfoForm
+  }
+}
+
+export const profileUpdateInfoFormErrors = (errors) => {
+  return {
+    type: actions.profileUpdateInfoFormErrors,
     errors
   }
 }

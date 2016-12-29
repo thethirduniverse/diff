@@ -2,6 +2,8 @@ import actions from 'actions'
 
 const defaultState = {
   user: null,
+  show_info_form: false,
+  info_form_errors: {},
   show_avatar_form: false,
   avatar_form_errors: {}
 }
@@ -40,6 +42,21 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         avatar_form_errors: action.errors
+      }
+    case actions.profileShowInfoForm:
+      return {
+        ...state,
+        show_info_form: true
+      }
+    case actions.profileHideInfoForm:
+      return {
+        ...state,
+        show_info_form: false
+      }
+    case actions.profileUpdateInfoFormErrors:
+      return {
+        ...state,
+        info_form_errors: action.errors
       }
     default:
       return state
