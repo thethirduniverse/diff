@@ -30,7 +30,8 @@ const ProfileForm = React.createClass({
     const { pristine, submitting } = this.props
     return (
       <form>
-        <Field name="user[name]" label="Name" type="text" fullWidth={false} multiLine={false} errorText={this.props.errors.name} component={renderTextField} />
+        <Field name="user[first_name]" label="First Name" type="text" fullWidth={false} multiLine={false} errorText={this.props.errors.first_name} component={renderTextField} />
+        <Field name="user[last_name]" label="Last Name" type="text" fullWidth={false} multiLine={false} errorText={this.props.errors.last_name} component={renderTextField} />
         <Field name="user[bio]" label="Short Bio" type="text" fullWidth={true} multiLine={true} errorText={this.props.errors.name} component={renderTextField} />
         <RaisedButton
           label="Submit"

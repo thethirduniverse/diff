@@ -107,14 +107,18 @@ const merge = (stateProps, dispatchProps, ownProps) => {
 }
 
 const getInfoFormFields = (data) => ({
-  name: data.name,
+  first_name: data.first_name,
+  last_name: data.last_name,
   bio: data.bio
 })
 
 const getDirtyFields = (orig, data) => {
   const dirtyFields = {}
-  if (data.name !== orig.name) {
-    dirtyFields.name = data.name
+  if (data.first_name !== orig.first_name) {
+    dirtyFields.first_name = data.first_name
+  }
+  if (data.last_name !== orig.last_name) {
+    dirtyFields.last_name = data.last_name
   }
   if (data.bio !== orig.bio) {
     dirtyFields.bio = data.bio

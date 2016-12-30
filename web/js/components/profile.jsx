@@ -52,7 +52,7 @@ const Profile = React.createClass({
   info: function(user) {
     return (
        <Card>
-        <CardTitle title={user.name} />
+        <CardTitle title={user.first_name + ' ' + user.last_name} />
         <CardText>
           {user.bio}
         </CardText>
