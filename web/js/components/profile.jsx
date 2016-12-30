@@ -1,6 +1,5 @@
 import CircularProgress from 'material-ui/CircularProgress'
 import FlatButton from 'material-ui/FlatButton'
-import Paper from 'material-ui/Paper'
 import React from 'react'
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { initialize } from 'redux-form'
 
 import Profile from 'components/profile.jsx'
-import { profileLoadUser, profileShowAvatarForm, profileHideAvatarForm, profileUpdateAvatarFormErrors, profileShowInfoForm, profileHideInfoForm, profileUpdateInfoFormErrors } from 'actions'
+import { profileLoadUser, profileShowInfoForm, profileHideInfoForm, profileUpdateInfoFormErrors } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
