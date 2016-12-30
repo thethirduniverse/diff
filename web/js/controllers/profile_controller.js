@@ -31,45 +31,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onComponentWillMount: () => {
       reloadUser()
     },
-
-    onSubmitAvatarClicked: (data) => {
-      console.log(data)
-
-      /* eslint-disable no-undef */
-      var f = new FormData()
-      /* eslint-enable no-undef */
-      f.append('user[avatar]', data.user.avatar)
-
-      $.ajax({
-        url: '/api/update-avatar',
-        data: f,
-        processData: false,
-        contentType: false,
-        type: 'POST'
-      })
-        .done((res) => {
-          dispatch(profileHideAvatarForm())
-          dispatch(profileUpdateAvatarFormErrors({}))
-          reloadUser()
-        })
-        .fail((res) => {
-          dispatch(profileUpdateAvatarFormErrors(res.responseJSON.errors))
-          console.log('update avatar failed with response:')
-          console.log(res)
-        })
-    },
-    onShowAvatarClicked: () => {
-      dispatch(profileShowAvatarForm())
-    },
-    onCancelAvatarClicked: () => {
-      dispatch(profileHideAvatarForm())
-      dispatch(profileUpdateAvatarFormErrors({}))
-    },
     _onSubmitInfoClicked: (data, user) => {
       $.ajax({
         url: '/api/users/' + ownProps.params.id,
-        data: {user: getDirtyFields(user, data.user)},
-        type: 'PUT'
+        data: getInfoUpdateData(user, data.user),
+        type: 'PUT',
+        processData: false,
+        contentType: false
       })
         .done((res) => {
           dispatch(profileHideInfoForm())
@@ -112,18 +80,23 @@ const getInfoFormFields = (data) => ({
   bio: data.bio
 })
 
-const getDirtyFields = (orig, data) => {
-  const dirtyFields = {}
+const getInfoUpdateData = (orig, data) => {
+  /* eslint-disable no-undef */
+  var f = new FormData()
+  /* eslint-enable no-undef */
   if (data.first_name !== orig.first_name) {
-    dirtyFields.first_name = data.first_name
+    f.append('user[first_name]', data.first_name)
   }
   if (data.last_name !== orig.last_name) {
-    dirtyFields.last_name = data.last_name
+    f.append('user[last_name]', data.last_name)
   }
   if (data.bio !== orig.bio) {
-    dirtyFields.bio = data.bio
+    f.append('user[bio]', data.bio)
   }
-  return dirtyFields
+  if (data.avatar) {
+    f.append('user[avatar]', data.avatar)
+  }
+  return f
 }
 
 export default connect(mapStateToProps, mapDispatchToProps, merge)(Profile)

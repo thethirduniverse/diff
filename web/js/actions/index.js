@@ -34,9 +34,6 @@ const actions = {
   postOptimisticCancelUpvote: 'POST_OPTIMISITIC_CANCEL_UPVOTE',
   profileLoadUser: 'PROFILE_LOAD_USER',
   profileLoadMorePostedTopics: 'PROFILE_LOAD_MORE_POSTED_POSTS',
-  profileShowAvatarForm: 'PROFILE_SHOW_AVATAR_FORM',
-  profileHideAvatarForm: 'PROFILE_HIDE_AVATAR_FORM',
-  profileUpdateAvatarFormErrors: 'PROFILE_UPDATE_AVATAR_FORM_ERRORS',
   profileShowInfoForm: 'PROFILE_SHOW_INFO_FORM',
   profileHideInfoForm: 'PROFILE_HIDE_INFO_FORM',
   profileUpdateInfoFormErrors: 'PROFILE_UPDATE_INFO_FORM_ERRORS',
@@ -322,25 +319,6 @@ export const profileLoadMorePostedTopics = (posts, has_more, next_offset) => {
   }
 }
 /* eslint-enable camelcase */
-
-export const profileShowAvatarForm = () => {
-  return {
-    type: actions.profileShowAvatarForm
-  }
-}
-
-export const profileHideAvatarForm = () => {
-  return {
-    type: actions.profileHideAvatarForm
-  }
-}
-
-export const profileUpdateAvatarFormErrors = (errors) => {
-  return {
-    type: actions.profileUpdateAvatarFormErrors,
-    errors
-  }
-}
 
 export const profileShowInfoForm = () => {
   return {

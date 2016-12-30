@@ -4,8 +4,6 @@ const defaultState = {
   user: null,
   show_info_form: false,
   info_form_errors: {},
-  show_avatar_form: false,
-  avatar_form_errors: {}
 }
 
 export default (state = defaultState, action) => {
@@ -27,21 +25,6 @@ export default (state = defaultState, action) => {
             next_offset: action.next_offset
           }
         }
-      }
-    case actions.profileShowAvatarForm:
-      return {
-        ...state,
-        show_avatar_form: true
-      }
-    case actions.profileHideAvatarForm:
-      return {
-        ...state,
-        show_avatar_form: false
-      }
-    case actions.profileUpdateAvatarFormErrors:
-      return {
-        ...state,
-        avatar_form_errors: action.errors
       }
     case actions.profileShowInfoForm:
       return {

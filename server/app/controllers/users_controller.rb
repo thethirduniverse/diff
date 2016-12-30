@@ -4,17 +4,6 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!
 
-  def update_avatar
-    current_user.avatar = params[:user][:avatar]
-    if current_user.save
-      render json: {}, status: 200
-    else
-      render json: {
-        errors: current_user.errors.messages
-      }, status: 400
-    end
-  end
-
   def update
     if current_user.id.to_s != params[:id]
       render_unauthorized
@@ -31,6 +20,6 @@ class UsersController < ApplicationController
   private
 
   def update_params
-    params.require(:user).permit(:first_name, :last_name, :bio)
+    params.require(:user).permit(:first_name, :last_name, :bio, :avatar)
   end
 end
