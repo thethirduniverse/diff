@@ -2,6 +2,7 @@ import actions from 'actions'
 
 export const contentTypes = {
   newest: 'POST_FEED_SHOW_NEWEST',
+  other: 'POST_FEED_SHOW_OTHER',
   category: 'POST_FEED_SHOW_CATEGORY'
 }
 
@@ -9,7 +10,7 @@ const defaultState = {
   posts: [],
   content: {
     type: contentTypes.newest,
-    currentCategoryIndex: 0,
+    currentCategoryId: 0,
     loaded: false,
 
     has_more: true,
@@ -54,17 +55,33 @@ export default (state = defaultState, action) => {
       }
     case actions.postFeedShowCategory:
       const contentTypeWasNotCategory = state.content.type !== contentTypes.category
-      const contentIndexChanged = state.content.currentCategoryIndex !== action.index
-      const changed = contentTypeWasNotCategory || contentIndexChanged
+      const categoryChanged = state.content.currentCategoryId !== action.id
+      if (!contentTypeWasNotCategory && !categoryChanged) {
+        return state
+      }
 
       return {
         ...state,
-        posts: changed ? [] : state.posts,
+        posts: [],
         content: {
           ...state.content,
           type: contentTypes.category,
-          currentCategoryIndex: action.index,
-          loaded: !changed
+          currentCategoryId: action.id,
+          loaded: false
+        }
+      }
+    case actions.postFeedShowOther:
+      if (state.content.type === contentTypes.other) {
+        return state
+      }
+
+      return {
+        ...state,
+        posts: [],
+        content: {
+          ...state.content,
+          type: contentTypes.other,
+          loaded: false
         }
       }
     default:

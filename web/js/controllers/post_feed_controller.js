@@ -10,8 +10,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     posts: state.posts.posts,
     has_more: state.posts.content.has_more,
-    _content: state.posts.content,
-    _categories: state.category.categories
+    _content: state.posts.content
   }
 }
 
@@ -44,7 +43,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const merge = (stateProps, dispatchProps, ownProps) => {
-  const { _content, _categories } = stateProps
+  const { _content } = stateProps
   const { _requestInitialLoad } = dispatchProps
 
   var initialLoadParams = {}
@@ -52,9 +51,8 @@ const merge = (stateProps, dispatchProps, ownProps) => {
 
   switch (_content.type) {
     case contentTypes.category:
-      const category = _categories[_content.currentCategoryIndex]
-      initialLoadParams.category_id = category.id
-      loadMoreParams.category_id = category.id
+      initialLoadParams.category_id = _content.currentCategoryId
+      loadMoreParams.category_id = _content.currentCategoryId
       break
     case contentTypes.newest:
     default:

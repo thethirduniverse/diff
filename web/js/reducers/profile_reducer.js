@@ -3,7 +3,7 @@ import actions from 'actions'
 const defaultState = {
   user: null,
   show_info_form: false,
-  info_form_errors: {},
+  info_form_errors: {}
 }
 
 export default (state = defaultState, action) => {

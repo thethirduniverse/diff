@@ -12,6 +12,7 @@ const actions = {
   postFeedLoadMore: 'POST_FEED_LOAD_MORE',
   postFeedReload: 'POST_FEED_RELOAD',
   postFeedShowNewest: 'POST_FEED_SHOW_NEWEST',
+  postFeedShowOther: 'POST_FEED_SHOW_OTHER',
   postFeedShowCategory: 'POST_FEED_SHOW_CATEGORY',
   postShowLoadTopic: 'POST_SHOW_LOAD_POST',
   postShowShowPreviousReply: 'POST_SHOW_SHOW_PREVIOUS_REPLY',
@@ -162,10 +163,16 @@ export const postFeedShowNewest = () => {
   }
 }
 
-export const postFeedShowCategory = (idx) => {
+export const postFeedShowOther = () => {
+  return {
+    type: actions.postFeedShowOther
+  }
+}
+
+export const postFeedShowCategory = (id) => {
   return {
     type: actions.postFeedShowCategory,
-    index: idx
+    id
   }
 }
 
