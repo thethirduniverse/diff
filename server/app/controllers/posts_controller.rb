@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   include PostHelper
   include PostRenderHelper
   include DiffHelper
+  include FeedSpecification
 
   clear_respond_to
   respond_to :json
@@ -10,13 +11,16 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index, :replies]
 
   def index
-    offset = params[:offset]
+    offset = params[:offset] ? Integer(params[:offset]) : 0
     category_id = params[:category_id]
 
-    render json: posts_feed(
-      offset: offset ? Integer(offset) : 0,
-      category_id: category_id
-    )
+    spec = if category_id
+             CategoryFeedSpecification.new(10, category_id, offset: offset)
+           else
+             NewestFeedSpecification.new(10, offset: offset)
+           end
+
+    render json: posts_feed(spec)
   end
 
   def show

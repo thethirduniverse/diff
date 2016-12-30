@@ -11,9 +11,9 @@ class UsersControllerTest < ActionController::TestCase
     adam = User.find(1)
     sign_in adam
     assert_equal false, adam.avatar.present?
-    put :update, xhr: true, params: { 
+    put :update, xhr: true, params: {
       'id': adam.id,
-      'user[avatar]': fixture_file_upload('images/sample.png', 'image/png') 
+      'user[avatar]': fixture_file_upload('images/sample.png', 'image/png')
     }
 
     assert_equal 204, @response.status

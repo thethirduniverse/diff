@@ -5,29 +5,24 @@ module PostHelper
   include CategoryHelper
   include DiffHelper
 
-  def posts_feed(offset: 0,
-                 category_id: nil,
-                 user_id: nil,
+  def posts_feed(specification,
                  response_type: PostResponseHelper::POST_FEED_RESPONSE_TYPE_DEFAULT)
+    posts = specification.posts
+    has_more = posts.length > specification.batch_size
+    posts = posts[0..specification.batch_size - 1] # slice indexes are inclusive
 
-    posts = index_posts_query(offset, category_id, user_id)
-
-    posts_feed_response(posts, response_type, offset)
-  end
-
-  def index_posts_query(offset, category_id, user_id)
-    base =
-      if category_id && user_id
-        User.find(user_id).posts.joins(:posts_categories).where(posts_categories: { category_id: category_id })
-      elsif user_id
-        User.find(user_id).posts
-      elsif category_id
-        Category.find(category_id).posts
-      else
-        Post
-      end
-
-    base.where('posts.root_post_id IS NULL').order(created_at: :desc).offset(offset).first(BATCH_SIZE + 1)
+    {
+      posts: posts.map do |post|
+        case response_type
+        when PostResponseHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED
+          post_response_simplified post
+        else
+          post_response post
+        end
+      end,
+      has_more: has_more,
+      next_offset: specification.offset + posts.length
+    }
   end
 
   def create_edit_and_render_errors(message, post, old_content, new_content)

@@ -1,27 +1,7 @@
 # frozen_string_literal: true
 module PostResponseHelper
-  BATCH_SIZE = 10
-
   POST_FEED_RESPONSE_TYPE_DEFAULT = :default
   POST_FEED_RESPONSE_TYPE_SIMPLIFIED = :simplified
-
-  def posts_feed_response(posts, response_type, offset)
-    has_more = posts.length > BATCH_SIZE
-    posts = posts[0..BATCH_SIZE - 1] # slice indexes are inclusive
-
-    {
-      posts: posts.map do |post|
-        case response_type
-        when POST_FEED_RESPONSE_TYPE_SIMPLIFIED
-          post_response_simplified post
-        else
-          post_response post
-        end
-      end,
-      has_more: has_more,
-      next_offset: offset + posts.length
-    }
-  end
 
   def post_recursive_response(posts, idx)
     p = posts[idx]

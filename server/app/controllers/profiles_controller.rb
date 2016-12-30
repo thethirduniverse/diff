@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class ProfilesController < ApplicationController
   include PostHelper
+  include FeedSpecification
 
   clear_respond_to
   respond_to :json
@@ -21,9 +22,10 @@ class ProfilesController < ApplicationController
   def load_posts
     id = params[:id]
     offset = params[:offset] ? Integer(params[:offset]) : nil
+    spec = UserFeedSpecification.new(offset, 10, id)
 
     render json: {
-      posted_posts: posts_feed(offset: offset, user_id: id, response_type: PostHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED)
+      posted_posts: posts_feed(spec, response_type: PostHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED)
     }
   end
 
@@ -35,13 +37,14 @@ class ProfilesController < ApplicationController
   end
 
   def profile_response(u)
+    spec = UserFeedSpecification.new(10, u.id)
     {
       id: u.id,
       first_name: u.first_name,
       last_name: u.last_name,
       bio: u.bio,
       email: u.email,
-      posted_posts: posts_feed(user_id: u.id, response_type: PostHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED),
+      posted_posts: posts_feed(spec, response_type: PostHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED),
       avatar: u.avatar.url(:large)
     }
   end
