@@ -46,21 +46,26 @@ const merge = (stateProps, dispatchProps, ownProps) => {
   const { _content } = stateProps
   const { _requestInitialLoad } = dispatchProps
 
-  var initialLoadParams = {}
-  var loadMoreParams = { offset: _content.next_offset }
+  const initialLoadParams = {}
 
   switch (_content.type) {
     case contentTypes.category:
+      initialLoadParams.type = 'category'
       initialLoadParams.category_id = _content.currentCategoryId
-      loadMoreParams.category_id = _content.currentCategoryId
       break
     case contentTypes.newest:
+      initialLoadParams.type = 'newest'
+      break
+    case contentTypes.other:
+      initialLoadParams.type = 'other'
+      break
     default:
       break
   }
 
-  if (!_content.loaded) {
-    _requestInitialLoad(initialLoadParams)
+  const loadMoreParams = {
+    ...initialLoadParams,
+    offset: _content.next_offset
   }
 
   return {
@@ -69,6 +74,16 @@ const merge = (stateProps, dispatchProps, ownProps) => {
     ...ownProps,
     loadMore: () => {
       dispatchProps._loadMore(loadMoreParams)
+    },
+    onComponentWillMount: () => {
+      if (!_content.loaded) {
+        _requestInitialLoad(initialLoadParams)
+      }
+    },
+    onComponentDidUpdate: () => {
+      if (!_content.loaded) {
+        _requestInitialLoad(initialLoadParams)
+      }
     }
   }
 }

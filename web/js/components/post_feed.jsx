@@ -12,7 +12,18 @@ const PostFeed = React.createClass({
     /* Invoked when one of the cards in feed is clicked
      */
     onCardClick: React.PropTypes.func.isRequired,
-    loadMore: React.PropTypes.func.isRequired
+    loadMore: React.PropTypes.func.isRequired,
+
+    onComponentWillMount: React.PropTypes.func.isRequired,
+    onComponentDidUpdate: React.PropTypes.func.isRequired
+  },
+
+  componentWillMount: function() {
+    this.props.onComponentWillMount()
+  },
+
+  componentDidUpdate: function() {
+    this.props.onComponentDidUpdate()
   },
 
   render: function() {
