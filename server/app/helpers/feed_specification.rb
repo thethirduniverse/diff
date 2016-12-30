@@ -43,6 +43,16 @@ module FeedSpecification
     end
   end
 
+  class OtherFeedSpecification < FeedSpecification
+    def initialize(batch_size, offset: 0)
+      super(batch_size, offset)
+    end
+
+    def base
+      Post.includes(:posts_categories).where(posts_categories: { category_id: nil })
+    end
+  end
+
   class UserFeedSpecification < FeedSpecification
     def initialize(batch_size, user_id, offset: 0)
       super(batch_size, offset)

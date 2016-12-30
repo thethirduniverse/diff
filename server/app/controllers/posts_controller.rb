@@ -11,11 +11,15 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index, :replies]
 
   def index
+    type = params[:type]
     offset = params[:offset] ? Integer(params[:offset]) : 0
     category_id = params[:category_id]
 
-    spec = if category_id
+    spec = case type
+           when 'category'
              CategoryFeedSpecification.new(10, category_id, offset: offset)
+           when 'other'
+             OtherFeedSpecification.new(10, offset: offset)
            else
              NewestFeedSpecification.new(10, offset: offset)
            end

@@ -18,7 +18,7 @@ class PostsControllerTest < ActionController::TestCase
 
   test 'index respects category preferences' do
     category = Category.first
-    post :index, xhr: true, params: { category_id: category.id }
+    post :index, xhr: true, params: { type: 'category', category_id: category.id }
 
     json = JSON.parse(@response.body)
     assert_equal 200, @response.status
@@ -27,6 +27,18 @@ class PostsControllerTest < ActionController::TestCase
     json['posts'].each do |t|
       assert_includes t['categories'], 'id' => category.id,
                                        'name' => category.name
+    end
+  end
+
+  test 'index respects other' do
+    post :index, xhr: true, params: { type: 'other' }
+
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+    assert_equal 'application/json', @response.content_type
+    assert_kind_of Array, json['posts']
+    json['posts'].each do |t|
+      assert_equal [], t['categories']
     end
   end
 
