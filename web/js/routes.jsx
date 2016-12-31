@@ -14,6 +14,7 @@ import ResetPasswordPasswordController from 'controllers/reset_password_password
 import PostNewController from 'controllers/post_new_controller.js'
 import PostShowController from 'controllers/post_show_controller.js'
 import InvitationController from 'controllers/invitation_controller.js'
+import EditsController from 'controllers/edits_controller.js'
 
 export default (
   <Route path="/" component={AppController}>
@@ -30,6 +31,7 @@ export default (
       </Route>
     </Route>
     <Route path="invitation" component={InvitationController} />
+    <Route path="posts/:id/edits" component={EditsController} />
     <Route path="posts/:id" component={PostShowController} />
     <Route path="posts" component={PostNewController} />
     <Route path="profiles/:id" component={ProfileController} />
