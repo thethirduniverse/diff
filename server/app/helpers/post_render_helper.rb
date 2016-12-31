@@ -21,13 +21,13 @@ module PostRenderHelper
 
   def render_post(post)
     render json: {
-      post: post_response(post)
+      post: post_response(post, current_user: current_user)
     }
   end
 
   def render_post_list(posts)
     render json: {
-      post: post_recursive_response(posts, 0)
+      post: post_recursive_response(posts, 0, current_user: current_user)
     }
   end
 
