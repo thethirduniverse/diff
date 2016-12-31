@@ -10,8 +10,9 @@ module DiffHelper
 
   # rubocop:disable MethodLength, Metrics/AbcSize
   def create_patch(src, dst)
-    f1 = Tempfile.open('diff-src', Rails.root.join('tmp'))
-    f2 = Tempfile.open('diff-dst', Rails.root.join('tmp'))
+    path = '/tmp/diff/edit-diffs'
+    f1 = Tempfile.open('diff-src-', path)
+    f2 = Tempfile.open('diff-dst-', path)
 
     begin
       f1.print(src)
@@ -19,7 +20,7 @@ module DiffHelper
       f2.print(dst)
       f2.flush
 
-      patch = `git diff --no-index --word-diff --unified=2 #{f1.path} #{f2.path}`
+      patch = `git diff --no-index --no-prefix --unified=2 #{f1.path} #{f2.path}`
     ensure
       f1.close
       f1.unlink
