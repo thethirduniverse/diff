@@ -1,6 +1,7 @@
 import FlatButton from 'material-ui/FlatButton'
 import React from 'react'
 import { Card, CardActions, CardTitle, CardText, CardHeader } from 'material-ui/Card'
+import styles from '~/styles'
 
 import { nameOfUser } from 'helpers/user_helper'
 
@@ -22,7 +23,7 @@ const EditCard = React.createClass({
           title={edit.message}
           subtitle={'version: ' + (edit.version + 1)}
           />
-        <CardText>
+        <CardText style={styles.textBlock}>
           {edit.patch}
         </CardText>
         <CardActions>
