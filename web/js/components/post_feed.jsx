@@ -14,16 +14,22 @@ const PostFeed = React.createClass({
     onCardClick: React.PropTypes.func.isRequired,
     loadMore: React.PropTypes.func.isRequired,
 
-    onComponentWillMount: React.PropTypes.func.isRequired,
-    onComponentDidUpdate: React.PropTypes.func.isRequired
+    onComponentWillMount: React.PropTypes.func,
+    onComponentDidUpdate: React.PropTypes.func
   },
 
   componentWillMount: function() {
-    this.props.onComponentWillMount()
+    const { onComponentWillMount: f } = this.props
+    if (f) {
+      f()
+    }
   },
 
   componentDidUpdate: function() {
-    this.props.onComponentDidUpdate()
+    const { onComponentDidUpdate: f } = this.props
+    if (f) {
+      f()
+    }
   },
 
   render: function() {
