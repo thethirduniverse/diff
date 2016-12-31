@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
     resources :posts, only: [:index, :show, :create, :update] do
       resource :upvotes, only: [:create, :destroy]
+      resource :edits, only: [:show]
     end
     get 'replies' => 'posts#replies'
 
