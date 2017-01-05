@@ -31,7 +31,7 @@ class EditsController < ApplicationController
       first_name: u.first_name,
       last_name: u.last_name,
       bio: u.bio,
-      avatar: u.avatar.url(:large)
+      avatar: u.avatar.url(:thumb)
     }
   end
 end

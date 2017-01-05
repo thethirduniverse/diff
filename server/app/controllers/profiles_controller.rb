@@ -45,7 +45,7 @@ class ProfilesController < ApplicationController
       bio: u.bio,
       email: u.email,
       posted_posts: posts_feed(spec, response_type: PostHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED),
-      avatar: u.avatar.url(:large)
+      avatar: u.avatar.url(:thumb)
     }
   end
 end
