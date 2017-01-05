@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
   belongs_to :parent_post, class_name: 'Post', foreign_key: 'parent_post_id'
   belongs_to :root_post, class_name: 'Post', foreign_key: 'root_post_id'
   belongs_to :creator, class_name: 'User', foreign_key: 'creator_id'
+  belongs_to :last_edit, class_name: 'Edit'
   has_and_belongs_to_many :categories, join_table: :posts_categories
   has_many :edits
   has_many :posts, class_name: 'Post', foreign_key: 'parent_post_id'

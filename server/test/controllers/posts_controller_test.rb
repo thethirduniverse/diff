@@ -333,6 +333,7 @@ class PostsControllerTest < ActionController::TestCase
     assert_equal p.content, 'Some New Content'
     assert_equal 2, Edit.where(post_id: p.id).count
     refute_nil Edit.find_by_message('random edit')
+    assert_equal 'random edit', p.last_edit.message
   end
 
   test 'update must have a different content' do

@@ -25,10 +25,21 @@ module PostHelper
     }
   end
 
+  def update_post_or_render_errors(post, new_content)
+    post.content = new_content
+
+    unless post.valid?
+      render_validation_error post
+      return false
+    end
+
+    true
+  end
+
   def create_edit_and_render_errors(message, post, old_content, new_content)
     e = new_edit(message, post, old_content, new_content)
     e.save!
-    return true
+    return e
   rescue ActiveRecord::RecordInvalid
     render_validation_error e
     return false

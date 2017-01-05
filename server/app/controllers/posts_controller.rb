@@ -73,18 +73,16 @@ class PostsController < ApplicationController
 
   def update
     post = Post.find(params[:id])
-
     old_content = post.content
     new_content = params[:post][:content]
-    post.content = new_content
 
-    unless post.valid?
-      render_validation_error post
-      return
-    end
+    return unless update_post_or_render_errors(post, new_content)
 
-    return unless create_edit_and_render_errors(params[:message], post, old_content, new_content)
+    # may return false
+    edit = create_edit_and_render_errors(params[:message], post, old_content, new_content)
+    return unless edit
 
+    post.last_edit = edit
     post.save!
     render_post post
   end
