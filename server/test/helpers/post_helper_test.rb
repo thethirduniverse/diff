@@ -84,7 +84,6 @@ class PostHelperTest < ActionView::TestCase
   test 'it respects response type' do
     spec = NewestFeedSpecification.new(10)
     res = posts_feed(spec)
-    spec2 = NewestFeedSpecification.new(10)
     res2 = posts_feed(spec, response_type: PostHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED)
 
     refute_nil res[:posts][0][:posts]
