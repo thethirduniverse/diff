@@ -10,6 +10,7 @@ import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
 
 import CategoryChip from 'components/category_chip.jsx'
 import ChipList from 'components/chip_list.jsx'
+import CardHeaderUser from 'components/card/card_header_user.jsx'
 import styles from '~/styles.js'
 
 const PostCard = React.createClass({
@@ -32,6 +33,7 @@ const PostCard = React.createClass({
     onHistoryClicked: React.PropTypes.func,
     onUpvoteClicked: React.PropTypes.func,
     onCancelUpvoteClicked: React.PropTypes.func,
+    onUserHeaderClicked: React.PropTypes.func.isRequired,
 
     presentAsReply: React.PropTypes.bool,
     highlighted: React.PropTypes.bool
@@ -42,7 +44,7 @@ const PostCard = React.createClass({
   },
 
   render: function() {
-    const { post, presentAsReply, highlighted, hideMenu } = this.props
+    const { post, presentAsReply, highlighted, hideMenu, onUserHeaderClicked } = this.props
     const clickHandler = this.props.cardClickEnabled
       ? this.handleCardClick.bind(this, this.props.post.id)
       : null
@@ -110,6 +112,9 @@ const PostCard = React.createClass({
 
     return (
       <Card>
+        {
+          post.last_edit ? CardHeaderUser(post.last_edit.user, onUserHeaderClicked, 'last edited by: ') : null
+        }
         <CardTitle onClick={clickHandler} style={{position: 'relative'}}>
           {headerContent}
           {menu}

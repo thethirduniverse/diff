@@ -19,6 +19,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onCardClick: (id) => {
       dispatch(push('/posts/' + id))
     },
+    onUserHeaderClicked: (user) => {
+      dispatch(push('/profiles/' + user.id))
+    },
     _loadMore: (params) => {
       $.get('/api/posts', params)
         .done((res) => {

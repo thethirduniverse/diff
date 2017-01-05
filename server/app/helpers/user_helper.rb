@@ -12,4 +12,14 @@ module UserHelper
       email: user.email
     }
   end
+
+  def user_header_response(u)
+    {
+      id: u.id,
+      first_name: u.first_name,
+      last_name: u.last_name,
+      bio: u.bio,
+      avatar: u.avatar.url(:thumb)
+    }
+  end
 end

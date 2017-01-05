@@ -25,6 +25,7 @@ const PostShow = React.createClass({
     onHistoryClicked: React.PropTypes.func,
     onUpvoteClicked: React.PropTypes.func.isRequired,
     onCancelUpvoteClicked: React.PropTypes.func.isRequired,
+    onUserHeaderClicked: React.PropTypes.func.isRequired,
 
     target: React.PropTypes.object,
     actionType: React.PropTypes.string
@@ -50,6 +51,7 @@ const PostShow = React.createClass({
         onHistoryClicked={this.props.onHistoryClicked}
         onUpvoteClicked={this.props.onUpvoteClicked}
         onCancelUpvoteClicked={this.props.onCancelUpvoteClicked}
+        onUserHeaderClicked={this.props.onUserHeaderClicked}
       />)
       : (<CircularProgress />)
     const composeReplyContent = this.props.target

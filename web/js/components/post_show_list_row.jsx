@@ -24,6 +24,7 @@ const PostShowListRow = React.createClass({
     onHistoryClicked: React.PropTypes.func,
     onUpvoteClicked: React.PropTypes.func.isRequired,
     onCancelUpvoteClicked: React.PropTypes.func.isRequired,
+    onUserHeaderClicked: React.PropTypes.func.isRequired,
 
     presentAsReply: React.PropTypes.bool.isRequired,
 
@@ -56,6 +57,7 @@ const PostShowListRow = React.createClass({
       onUpvoteClicked={this.props.onUpvoteClicked}
       onCancelUpvoteClicked={this.props.onCancelUpvoteClicked}
       onShareClicked={this.props.onShareClicked}
+      onUserHeaderClicked={this.props.onUserHeaderClicked}
       hideActions={this.props.hideActions}
       presentAsReply={this.props.presentAsReply}
       highlighted={this.props.highlighted}

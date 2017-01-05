@@ -21,6 +21,7 @@ const PostShowList = React.createClass({
     onHistoryClicked: React.PropTypes.func,
     onUpvoteClicked: React.PropTypes.func.isRequired,
     onCancelUpvoteClicked: React.PropTypes.func.isRequired,
+    onUserHeaderClicked: React.PropTypes.func.isRequired,
 
     requestPostLoad: React.PropTypes.func.isRequired,
     cancelPostLoad: React.PropTypes.func.isRequired,
@@ -67,6 +68,7 @@ const PostShowList = React.createClass({
             onHistoryClicked={this.props.onHistoryClicked.bind(null, reply)}
             onUpvoteClicked={this.props.onUpvoteClicked.bind(null, reply)}
             onCancelUpvoteClicked={this.props.onCancelUpvoteClicked.bind(null, reply)}
+            onUserHeaderClicked={this.props.onUserHeaderClicked.bind(null, reply.last_edit ? reply.last_edit.user : null)}
             presentAsReply={idx !== 0}
             requestPostLoad={this.props.requestPostLoad}
             cancelPostLoad={this.props.cancelPostLoad}

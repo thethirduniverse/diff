@@ -13,6 +13,7 @@ const PostFeed = React.createClass({
      */
     onCardClick: React.PropTypes.func.isRequired,
     loadMore: React.PropTypes.func.isRequired,
+    onUserHeaderClicked: React.PropTypes.func.isRequired,
 
     onComponentWillMount: React.PropTypes.func,
     onComponentDidUpdate: React.PropTypes.func
@@ -42,6 +43,7 @@ const PostFeed = React.createClass({
 
             cardClickEnabled={true}
             onCardClick={this.props.onCardClick}
+            onUserHeaderClicked={this.props.onUserHeaderClicked.bind(null, p.last_edit ? p.last_edit.user : null)}
 
             hideActions={true}
             hideMenu={true}

@@ -56,6 +56,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(postOptimisticCancelUpvote(post.id))
       $.post('/api/posts/' + post.id + '/upvotes', {_method: 'DELETE'})
     },
+    onUserHeaderClicked: (user) => {
+      dispatch(push('/profiles/' + user.id))
+    },
     onComponentWillMount: () => {
       const { id } = ownProps.params
       $.get('/api/posts/' + id)

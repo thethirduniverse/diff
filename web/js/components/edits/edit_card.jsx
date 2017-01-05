@@ -1,9 +1,9 @@
 import FlatButton from 'material-ui/FlatButton'
 import React from 'react'
-import { Card, CardActions, CardTitle, CardText, CardHeader } from 'material-ui/Card'
+import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
 
 import styles from '~/styles'
-import { nameOfUser } from 'helpers/user_helper'
+import CardHeaderUser from '~/components/card/card_header_user.jsx'
 
 const EditCard = React.createClass({
   propTypes: {
@@ -23,13 +23,9 @@ const EditCard = React.createClass({
 
     return (
       <Card>
-        <CardHeader
-          title={nameOfUser(user)}
-          subtitle={user.bio}
-          avatar={user.avatar}
-          onClick={onHeaderClicked}
-          style={styles.clickable}
-          />
+        {
+          CardHeaderUser(user, onHeaderClicked)
+        }
         <CardTitle
           title={edit.message}
           subtitle={this.subtitleMessage(edit)}

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 module PostResponseHelper
+  include UserHelper
+
   POST_FEED_RESPONSE_TYPE_DEFAULT = :default
   POST_FEED_RESPONSE_TYPE_SIMPLIFIED = :simplified
 
@@ -38,19 +40,25 @@ module PostResponseHelper
       user_upvoted: t.upvoted_by?(current_user),
       categories: t.categories.map do |c|
         category_response c
-      end
+      end,
+      last_edit: last_edit_response(t)
     }
   end
 
   def post_reply_response(r, current_user: nil)
     {
-      'id': r.id,
-      'upvote_count': r.upvote_count,
-      'user_upvoted': r.upvoted_by?(current_user),
-      'content': r.content,
-      'parent_post_id': r.parent_post_id,
-      'root_post_id': r.root_post_id,
-      'post_ids': r.posts.pluck(:id)
+      id: r.id,
+      upvote_count: r.upvote_count,
+      user_upvoted: r.upvoted_by?(current_user),
+      content: r.content,
+      parent_post_id: r.parent_post_id,
+      root_post_id: r.root_post_id,
+      post_ids: r.posts.pluck(:id),
+      last_edit: last_edit_response(r)
     }
+  end
+
+  def last_edit_response(post)
+    { user: user_header_response(post.last_edit.user) } if post.last_edit
   end
 end
