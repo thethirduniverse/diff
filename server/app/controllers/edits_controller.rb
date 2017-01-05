@@ -20,7 +20,8 @@ class EditsController < ApplicationController
       user: edit_user_response(e.user),
       version: e.version,
       message: e.message,
-      patch: e.patch
+      patch: e.patch,
+      created_at: e.created_at
     }
   end
 
@@ -28,7 +29,9 @@ class EditsController < ApplicationController
     {
       id: u.id,
       first_name: u.first_name,
-      last_name: u.last_name
+      last_name: u.last_name,
+      bio: u.bio,
+      avatar: u.avatar.url(:large)
     }
   end
 end

@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 
 import EditIndex from 'components/edits/edit_index.jsx'
 import { requestEditsLoad } from 'actions/edits'
@@ -28,6 +29,9 @@ const merge = (stateProps, dispatchProps, ownProps) => {
       if (!_state.edits.loaded) {
         requestEditsLoad(postId, _dispatch)
       }
+    },
+    onHeaderClicked: (edit) => {
+      _dispatch(push('/profiles/' + edit.user.id))
     }
   }
 }
