@@ -12,7 +12,10 @@ const defaultState = {
   filter: '',
   errors: {},
   target: null,
-  actionType: PostFormActionTypes.none
+  actionType: PostFormActionTypes.none,
+
+  reviewing: false,
+  reviewData: null
 }
 
 const sortByName = (c1, c2) => {
@@ -69,6 +72,21 @@ export default (state = defaultState, action) => {
       return {
         ...state,
         target: null
+      }
+    case actions.postFormShowReview:
+      return {
+        ...state,
+        reviewing: true,
+        reviewData: {
+          old: action.oldData,
+          new: action.newData
+        }
+      }
+    case actions.postFormHideReview:
+      return {
+        ...state,
+        reviewing: false,
+        reviewData: null
       }
     default:
       return state

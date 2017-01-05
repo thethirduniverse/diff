@@ -6,6 +6,7 @@ import { Field, reduxForm } from 'redux-form'
 
 import CategoryChip from 'components/category_chip.jsx'
 import ChipList from 'components/chip_list.jsx'
+import PostFormReviewDialog from 'components/post_form_review_dialog.jsx'
 import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 import { renderTextField } from 'helpers/redux_form_helpers.jsx'
 
@@ -28,6 +29,11 @@ var PostForm = React.createClass({
 
     actionType: React.PropTypes.string.isRequired,
 
+    reviewing: React.PropTypes.bool.isRequired,
+    reviewData: React.PropTypes.object,
+    onConfirmReviewClicked: React.PropTypes.func.isRequired,
+    onAbandonReviewClicked: React.PropTypes.func.isRequired,
+
     errors: React.PropTypes.object
   },
 
@@ -36,6 +42,18 @@ var PostForm = React.createClass({
       submitButtonLabel: 'Submit',
       secondaryButtonLabel: 'Revert Changes'
     }
+  },
+
+  getReviewDialog: function() {
+    const { actionType, reviewing, reviewData, onConfirmReviewClicked, onAbandonReviewClicked } = this.props
+    return <PostFormReviewDialog
+    open={reviewing}
+    actionType={actionType}
+    oldData={reviewData ? reviewData.old.post : null}
+    newData={reviewData ? reviewData.new.post : null}
+    onConfirmClicked={onConfirmReviewClicked}
+    onAbandonClicked={onAbandonReviewClicked}
+    />
   },
 
   render: function() {
@@ -47,6 +65,7 @@ var PostForm = React.createClass({
 
     return (
       <form>
+        { this.getReviewDialog() }
         {
           actionType === actionTypes.createRoot
             ? (<Field name="post[title]" label="Title" type="text" fullWidth={true} errorText={this.props.errors.title} component={renderTextField} />)

@@ -31,6 +31,8 @@ const actions = {
   postFormUpdateReplyTarget: 'POST_FORM_UPDATE_REPLY_TARGET',
   postFormUpdateEditTarget: 'POST_FORM_UPDATE_EDIT_TARGET',
   postFormClearTarget: 'POST_FORM_CLEAR_TARGET',
+  postFormShowReview: 'POST_FORM_SHOW_REVIEW',
+  postFormHideReview: 'POST_FORM_HIDE_REVIEW',
   postOptimisticUpvote: 'POST_OPTIMISITIC_UPVOTE',
   postOptimisticCancelUpvote: 'POST_OPTIMISITIC_CANCEL_UPVOTE',
   profileLoadUser: 'PROFILE_LOAD_USER',
@@ -292,6 +294,20 @@ export const postFormUpdateEditTarget = (post) => {
 export const postFormClearTarget = () => {
   return {
     type: actions.postFormClearTarget
+  }
+}
+
+export const postFormShowReview = (oldData, newData) => {
+  return {
+    type: actions.postFormShowReview,
+    oldData,
+    newData
+  }
+}
+
+export const postFormHideReview = () => {
+  return {
+    type: actions.postFormHideReview
   }
 }
 

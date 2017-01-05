@@ -4,7 +4,7 @@ import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import PostForm from 'components/post_form.jsx'
-import { postFormAddCategory, postFormRemoveCategory, postFormUpdateCategoryFilter, postFormUpdateErrors, postShowMergeLoadedPosts } from 'actions'
+import { postFormAddCategory, postFormRemoveCategory, postFormUpdateCategoryFilter, postFormUpdateErrors, postShowMergeLoadedPosts, postFormShowReview, postFormHideReview } from 'actions'
 import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 
 const containsFilter = (name, key) => (
@@ -44,7 +44,9 @@ const mapStateToProps = (state, ownProps) => {
     errors: state.postForm.errors,
     target: state.postForm.target,
     actionType: state.postForm.actionType,
-    _allCategories: state.category.categories
+    _allCategories: state.category.categories,
+    reviewing: state.postForm.reviewing,
+    reviewData: state.postForm.reviewData
   }
 }
 
@@ -68,7 +70,7 @@ const getHttpMethod = (actionType) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    _onSubmit: (target, actionType, data) => {
+    _onConfirmReviewClicked: (target, actionType, data) => {
       $.ajax({
         url: getEndPoint(target, actionType),
         type: getHttpMethod(actionType),
@@ -81,6 +83,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(push('/posts/' + res.post.id))
           }
           dispatch(postFormUpdateErrors({}))
+          dispatch(postFormHideReview())
           dispatch(reset('post-form'))
         })
         .fail((res) => {
@@ -106,12 +109,17 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       if (cat) {
         dispatch(postFormAddCategory(cat))
       }
-    }
+    },
+    onAbandonReviewClicked: () => {
+      dispatch(postFormHideReview())
+    },
+    _dispatch: dispatch
   }
 }
 
 const mergeProps = (s, d, o) => {
-  const {target, actionType} = s
+  const {target, actionType, reviewData} = s
+  const {_dispatch} = d
   return {
     ...s,
     ...d,
@@ -120,10 +128,21 @@ const mergeProps = (s, d, o) => {
       d._onNewCategoryRequest(s._allCategories, s.categories, text, idx)
     },
     onSubmit: (data) => {
-      d._onSubmit(target, actionType, {
-        ...data,
-        'post[category_ids]': s.categories.map((c) => (c.id))
-      })
+      _dispatch(postFormShowReview(
+        {
+          post: target
+        },
+        {
+          ...data,
+          post: {
+            ...data.post,
+            category_ids: s.categories.map((c) => (c.id))
+          }
+        }
+      ))
+    },
+    onConfirmReviewClicked: () => {
+      d._onConfirmReviewClicked(target, actionType, reviewData.new)
     }
   }
 }
