@@ -1,10 +1,12 @@
 import $ from 'jquery'
 import { connect } from 'react-redux'
 import { initialize } from 'redux-form'
+import { push } from 'react-router-redux'
 
 import PostShow from 'components/post_show.jsx'
 import { HOST_URL } from '~/host.js'
 import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormUpdateReplyTarget, postFormUpdateEditTarget, postFormClearTarget, reportPost, shareLinkShow, postOptimisticUpvote, postOptimisticCancelUpvote } from 'actions'
+import { editsClear } from '~/actions/edits'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -41,6 +43,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onShareClicked: (post) => {
       dispatch(shareLinkShow(HOST_URL + '/posts/' + post.id))
+    },
+    onHistoryClicked: (post) => {
+      dispatch(editsClear())
+      dispatch(push('/posts/' + post.id + '/edits'))
     },
     onUpvoteClicked: (post) => {
       dispatch(postOptimisticUpvote(post.id))

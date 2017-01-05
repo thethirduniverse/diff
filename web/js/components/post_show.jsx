@@ -22,6 +22,7 @@ const PostShow = React.createClass({
     onEditClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
     onShareClicked: React.PropTypes.func,
+    onHistoryClicked: React.PropTypes.func,
     onUpvoteClicked: React.PropTypes.func.isRequired,
     onCancelUpvoteClicked: React.PropTypes.func.isRequired,
 
@@ -46,6 +47,7 @@ const PostShow = React.createClass({
         onEditClicked={this.props.onEditClicked}
         onReportClicked={this.props.onReportClicked}
         onShareClicked={this.props.onShareClicked}
+        onHistoryClicked={this.props.onHistoryClicked}
         onUpvoteClicked={this.props.onUpvoteClicked}
         onCancelUpvoteClicked={this.props.onCancelUpvoteClicked}
       />)

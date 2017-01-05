@@ -18,6 +18,7 @@ const PostShowList = React.createClass({
     onEditClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
     onShareClicked: React.PropTypes.func,
+    onHistoryClicked: React.PropTypes.func,
     onUpvoteClicked: React.PropTypes.func.isRequired,
     onCancelUpvoteClicked: React.PropTypes.func.isRequired,
 
@@ -63,6 +64,7 @@ const PostShowList = React.createClass({
             onEditClicked={this.props.onEditClicked.bind(null, reply)}
             onReportClicked={this.props.onReportClicked.bind(null, reply)}
             onShareClicked={this.props.onShareClicked.bind(null, reply)}
+            onHistoryClicked={this.props.onHistoryClicked.bind(null, reply)}
             onUpvoteClicked={this.props.onUpvoteClicked.bind(null, reply)}
             onCancelUpvoteClicked={this.props.onCancelUpvoteClicked.bind(null, reply)}
             presentAsReply={idx !== 0}

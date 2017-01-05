@@ -29,6 +29,7 @@ const PostCard = React.createClass({
     onEditClicked: React.PropTypes.func,
     onReportClicked: React.PropTypes.func,
     onShareClicked: React.PropTypes.func,
+    onHistoryClicked: React.PropTypes.func,
     onUpvoteClicked: React.PropTypes.func,
     onCancelUpvoteClicked: React.PropTypes.func,
 
@@ -102,6 +103,7 @@ const PostCard = React.createClass({
               ? null
               : <MenuItem primaryText="Report" onClick={this.props.onReportClicked}/>
           }
+          <MenuItem primaryText="History Edits" onClick={this.props.onHistoryClicked}/>
           <MenuItem primaryText="Share" onClick={this.props.onShareClicked}/>
         </IconMenu>
       )
