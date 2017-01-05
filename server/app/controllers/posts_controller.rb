@@ -43,7 +43,7 @@ class PostsController < ApplicationController
   end
 
   def replies
-    id = params[:id]
+    id = params[:post_id]
 
     render json: {
       id: id,

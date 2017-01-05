@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     _expandMoreClicked: (replyTree, level, index) => {
       const reply = replyTree[level][index]
 
-      $.get('/api/replies', {'id': reply.id})
+      $.get('/api/posts/' + reply.id + '/replies')
         .done((res) => {
           dispatch(postShowMergeLoadedPosts(reply.id, res.posts))
         })

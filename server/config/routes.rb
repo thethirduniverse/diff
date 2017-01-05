@@ -23,8 +23,8 @@ Rails.application.routes.draw do
     resources :posts, only: [:index, :show, :create, :update] do
       resource :upvotes, only: [:create, :destroy]
       resource :edits, only: [:show]
+      get 'replies' => 'posts#replies'
     end
-    get 'replies' => 'posts#replies'
 
     devise_scope :user do
       post '/invitation-code' => 'registrations#generate_invitation_code'
