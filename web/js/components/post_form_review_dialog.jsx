@@ -3,6 +3,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 
+import { visualizeChange } from 'helpers/diff_helper.jsx'
 import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 
 const PostFormReviewDialog = React.createClass({
@@ -21,10 +22,7 @@ const PostFormReviewDialog = React.createClass({
       return null
     }
     if (actionType === actionTypes.edit) {
-      return <div>
-        OldContent: {oldData.content}
-        NewContent: {newData.content}
-      </div>
+      return visualizeChange(oldData.content, newData.content)
     }
     return <div>
       Content: {newData.content}
