@@ -4,7 +4,7 @@ import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import PostForm from 'components/post_form.jsx'
-import { postFormAddCategory, postFormRemoveCategory, postFormUpdateCategoryFilter, postFormUpdateErrors, postShowMergeLoadedPosts, postFormShowReview, postFormHideReview } from 'actions'
+import { postFormAddCategory, postFormRemoveCategory, postFormUpdateCategoryFilter, postFormUpdateErrors, postShowMergeLoadedPosts, postFormShowReview, postFormHideReview, postFormClearTarget } from 'actions'
 import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 
 const containsFilter = (name, key) => (
@@ -84,6 +84,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
           }
           dispatch(postFormUpdateErrors({}))
           dispatch(postFormHideReview())
+          dispatch(postFormClearTarget())
           dispatch(reset('post-form'))
         })
         .fail((res) => {
