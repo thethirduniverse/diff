@@ -10,13 +10,21 @@ const ComposeReplyCard = React.createClass({
     actionType: React.PropTypes.string
   },
 
+  getContentPreview: (target) => {
+    const limit = 100
+    if (target.content.length <= limit) {
+      return target.content
+    }
+    return target.content.substring(0, limit - 3) + '...'
+  },
+
   getTitle: function() {
     const {target, actionType: type} = this.props
     switch (type) {
       case actionTypes.reply:
-        return 'Replying to post:' + target.content
+        return 'Replying post: ' + this.getContentPreview(target)
       case actionTypes.edit:
-        return 'Editing to post:' + target.content
+        return 'Editing post: ' + this.getContentPreview(target)
       default:
         return ''
     }
