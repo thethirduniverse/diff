@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, CardHeader, CardText } from 'material-ui/Card'
 
+import { truncatedContent } from 'helpers/post_helper.js'
 import PostFormController from 'controllers/post_form_controller.js'
 import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 
@@ -10,21 +11,13 @@ const ComposeReplyCard = React.createClass({
     actionType: React.PropTypes.string
   },
 
-  getContentPreview: (target) => {
-    const limit = 100
-    if (target.content.length <= limit) {
-      return target.content
-    }
-    return target.content.substring(0, limit - 3) + '...'
-  },
-
   getTitle: function() {
     const {target, actionType: type} = this.props
     switch (type) {
       case actionTypes.reply:
-        return 'Replying post: ' + this.getContentPreview(target)
+        return 'Replying post: ' + truncatedContent(target.content, 100)
       case actionTypes.edit:
-        return 'Editing post: ' + this.getContentPreview(target)
+        return 'Editing post: ' + truncatedContent(target.content, 100)
       default:
         return ''
     }

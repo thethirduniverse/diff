@@ -11,6 +11,7 @@ import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
 import CategoryChip from 'components/category_chip.jsx'
 import ChipList from 'components/chip_list.jsx'
 import CardHeaderUser from 'components/card/card_header_user.jsx'
+import { truncatedContent } from 'helpers/post_helper.js'
 import styles from '~/styles.js'
 
 const PostCard = React.createClass({
@@ -23,6 +24,7 @@ const PostCard = React.createClass({
     cardClickEnabled: React.PropTypes.bool,
     onCardClick: React.PropTypes.func,
 
+    truncate: React.PropTypes.bool,
     hideActions: React.PropTypes.bool,
     hideMenu: React.PropTypes.bool,
 
@@ -41,6 +43,15 @@ const PostCard = React.createClass({
 
   handleCardClick: function(id) {
     this.props.onCardClick(id)
+  },
+
+  truncateIfNeeded: function(content) {
+    const { truncate } = this.props
+    if (truncate) {
+      return truncatedContent(content, 800)
+    } else {
+      return content
+    }
   },
 
   render: function() {
@@ -128,7 +139,8 @@ const PostCard = React.createClass({
               : null
             /* eslint-enable react/prop-types */
           }>
-          {this.props.post.content}
+
+          {this.truncateIfNeeded(post.content)}
         </CardText>
         <CardActions>
           {chipsContent}

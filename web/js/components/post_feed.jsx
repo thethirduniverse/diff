@@ -45,6 +45,7 @@ const PostFeed = React.createClass({
             onCardClick={this.props.onCardClick}
             onUserHeaderClicked={this.props.onUserHeaderClicked.bind(null, p.last_edit ? p.last_edit.user : null)}
 
+            truncate={true}
             hideActions={true}
             hideMenu={true}
           />
