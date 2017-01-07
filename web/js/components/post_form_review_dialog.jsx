@@ -36,6 +36,7 @@ const PostFormReviewDialog = React.createClass({
           title="Review Your Changes"
           modal={true}
           open={open}
+          autoScrollBodyContent={true}
           actions={[
             <FlatButton
               label="Abandon"
