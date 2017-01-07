@@ -2,6 +2,8 @@ import React from 'react'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
+import { nameOfUser } from 'helpers/user_helper.js'
+import { truncatedContent } from 'helpers/post_helper.js'
 import { ReportTypes } from 'reducers/report_reducer.js'
 import ReportForm from 'components/report_form.jsx'
 
@@ -21,9 +23,9 @@ const ReportDialog = React.createClass({
     }
     switch (report.type) {
       case ReportTypes.user:
-        return 'Report User'
+        return 'Report User: ' + nameOfUser(report.user)
       case ReportTypes.post:
-        return 'Report Post'
+        return 'Report Post: ' + truncatedContent(report.post.content, 100)
       default:
         return ''
     }
@@ -35,14 +37,7 @@ const ReportDialog = React.createClass({
     if (posted) {
       return 'Your report is succesfully posted and will be reviewed by the administrator. We will contact you when review is finished.'
     }
-    switch (report.type) {
-      case ReportTypes.user:
-        return 'Reporting: ' + report.user.email
-      case ReportTypes.post:
-        return 'Reporting: ' + report.post.content
-      default:
-        return ''
-    }
+    return ''
   },
 
   render: function() {
@@ -53,6 +48,7 @@ const ReportDialog = React.createClass({
         title={this._getTitle()}
         open={report.type !== ReportTypes.none}
         onRequestClose={this.props.dismiss}
+        autoScrollBodyContent={true}
       >
         {this._getContent()}
         {
