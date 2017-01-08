@@ -5,7 +5,8 @@ import { push } from 'react-router-redux'
 
 import PostShow from 'components/post_show.jsx'
 import { HOST_URL } from '~/host.js'
-import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormUpdateReplyTarget, postFormUpdateEditTarget, postFormClearTarget, reportPost, shareLinkShow, postOptimisticUpvote, postOptimisticCancelUpvote } from 'actions'
+import { setTarget as editFormSetTarget } from '~/actions/edit_form'
+import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormUpdateReplyTarget, postFormClearTarget, reportPost, shareLinkShow, postOptimisticUpvote, postOptimisticCancelUpvote } from 'actions'
 import { editsClear } from '~/actions/edits'
 
 const mapStateToProps = (state, ownProps) => {
@@ -19,7 +20,9 @@ const mapStateToProps = (state, ownProps) => {
     target: state.postForm.target,
     actionType: state.postForm.actionType,
 
-    location: ownProps.location.pathname
+    location: ownProps.location.pathname,
+
+    showEditForm: state.editForm.display
   }
 }
 
@@ -30,9 +33,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(initialize('post-form', {}))
     },
     onEditClicked: (post) => {
-      dispatch(postFormUpdateEditTarget(post))
+      dispatch(editFormSetTarget(post))
       // work around since redux form initialization does not seem to be working
-      dispatch(initialize('post-form', {
+      dispatch(initialize('edit-form', {
         post: {
           content: post.content
         }

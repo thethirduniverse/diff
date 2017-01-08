@@ -8,6 +8,7 @@ import categoryReducer from 'reducers/category_reducer.js'
 import profileReducer from 'reducers/profile_reducer.js'
 import postFeedReducer from 'reducers/post_feed_reducer.js'
 import postFormReducer from 'reducers/post_form_reducer.js'
+import editForm from 'reducers/edit_form_reducer.js'
 import postShowReducer from 'reducers/post_show_reducer.js'
 import reportReducer from 'reducers/report_reducer.js'
 import shareReducer from 'reducers/share_reducer.js'
@@ -20,6 +21,7 @@ export default combineReducers({
   posts: postFeedReducer,
   postShow: postShowReducer,
   postForm: postFormReducer,
+  editForm,
   profile: profileReducer,
   category: categoryReducer,
   form: formReducer,
