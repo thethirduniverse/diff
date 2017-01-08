@@ -7,14 +7,14 @@ import SelectField from 'material-ui/SelectField'
 import TextField from 'material-ui/TextField'
 import { RadioButtonGroup } from 'material-ui/RadioButton'
 
-export const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField hintText={label}
+export const renderTextField = ({ input, label, meta: { touched, error }, errorText, ...custom }) => {
+  return <TextField hintText={label}
       floatingLabelText={label}
-      errorText={touched && error}
+      errorText={touched ? (error ? error : errorText) : null}
       {...input}
       {...custom}
     />
-)
+}
 
 export const renderCheckbox = ({ input, label }) => (
     <Checkbox label={label}
