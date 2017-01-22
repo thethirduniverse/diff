@@ -39,10 +39,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map',
-      append: `\n//# sourceMappingURL=${path}[url]`
-    })
-  ]
+  devtool: 'eval-cheap-module-source-map',
 };
