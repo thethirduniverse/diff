@@ -32,7 +32,7 @@ const ReportDialog = React.createClass({
   },
 
   _getContent: function() {
-    const {posted, report} = this.props
+    const {posted} = this.props
 
     if (posted) {
       return 'Your report is succesfully posted and will be reviewed by the administrator. We will contact you when review is finished.'
