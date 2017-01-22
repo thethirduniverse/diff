@@ -7,7 +7,6 @@ import { Field, reduxForm } from 'redux-form'
 import CategoryChip from 'components/category_chip.jsx'
 import ChipList from 'components/chip_list.jsx'
 import PostFormReviewDialog from 'components/post_form_review_dialog.jsx'
-import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 import { renderTextField } from 'helpers/redux_form_helpers.jsx'
 
 var PostForm = React.createClass({
@@ -27,8 +26,6 @@ var PostForm = React.createClass({
     onNewCategoryRequest: React.PropTypes.func.isRequired,
     categoryInput: React.PropTypes.string.isRequired,
 
-    actionType: React.PropTypes.string.isRequired,
-
     reviewing: React.PropTypes.bool.isRequired,
     reviewData: React.PropTypes.object,
     onConfirmReviewClicked: React.PropTypes.func.isRequired,
@@ -45,11 +42,10 @@ var PostForm = React.createClass({
   },
 
   getReviewDialog: function() {
-    const { actionType, reviewing, reviewData, onConfirmReviewClicked, onAbandonReviewClicked } = this.props
+    const { reviewing, reviewData, onConfirmReviewClicked, onAbandonReviewClicked } = this.props
     return <PostFormReviewDialog
     open={reviewing}
-    actionType={actionType}
-    oldData={reviewData ? reviewData.old.post : null}
+    onlyShowNew={true}
     newData={reviewData ? reviewData.new.post : null}
     onConfirmClicked={onConfirmReviewClicked}
     onAbandonClicked={onAbandonReviewClicked}

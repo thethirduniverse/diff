@@ -28,7 +28,6 @@ const PostShow = React.createClass({
     onUserHeaderClicked: React.PropTypes.func.isRequired,
 
     target: React.PropTypes.object,
-    actionType: React.PropTypes.string,
     showEditForm: React.PropTypes.bool.isRequired,
     showReplyForm: React.PropTypes.bool.isRequired
   },
@@ -59,7 +58,6 @@ const PostShow = React.createClass({
     const composeReplyContent = this.props.showEditForm || this.props.showReplyForm
       ? (<ComposeReplyCard
         target={this.props.target}
-        actionType={this.props.actionType}
         showEditForm={this.props.showEditForm}
         showReplyForm={this.props.showReplyForm}
       />)

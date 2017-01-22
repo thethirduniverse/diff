@@ -4,7 +4,6 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 
 import PostFormReviewDialog from 'components/post_form_review_dialog.jsx'
-import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 import { renderTextField } from 'helpers/redux_form_helpers.jsx'
 import { truncatedContent } from 'helpers/post_helper.js'
 import { editFormValidator as validate } from 'helpers/validators'
@@ -42,7 +41,6 @@ var EditForm = React.createClass({
     const { reviewing, reviewData, onConfirmReviewClicked, onAbandonReviewClicked } = this.props
     return <PostFormReviewDialog
     open={reviewing}
-    actionType={actionTypes.edit}
     oldData={reviewData ? reviewData.old.post : null}
     newData={reviewData ? reviewData.new.post : null}
     onConfirmClicked={onConfirmReviewClicked}

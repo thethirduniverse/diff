@@ -4,12 +4,11 @@ import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 
 import { visualizeChange } from 'helpers/diff_helper.jsx'
-import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 
 const PostFormReviewDialog = React.createClass({
   propTypes: {
     open: React.PropTypes.bool.isRequired,
-    actionType: React.PropTypes.string.isRequired,
+    onlyShowNew: React.PropTypes.bool,
     oldData: React.PropTypes.object,
     newData: React.PropTypes.object,
     onConfirmClicked: React.PropTypes.func.isRequired,
@@ -17,16 +16,17 @@ const PostFormReviewDialog = React.createClass({
   },
 
   getContent: function() {
-    const { open, actionType, oldData, newData } = this.props
+    const { open, onlyShowNew, oldData, newData } = this.props
     if (!open) {
       return null
     }
-    if (actionType === actionTypes.edit) {
+    if (onlyShowNew) {
+      return <div>
+        Content: {newData.content}
+      </div>
+    } else {
       return visualizeChange(oldData.content, newData.content)
     }
-    return <div>
-      Content: {newData.content}
-    </div>
   },
 
   render: function() {

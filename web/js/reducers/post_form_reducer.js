@@ -1,19 +1,11 @@
 import actions from 'actions/post_form'
 
-export const PostFormActionTypes = {
-  reply: 'REPLY',
-  edit: 'EDIT',
-  createRoot: 'CREATE_ROOT',
-  none: 'NONE'
-}
-
 const defaultState = {
   categories: [],
   filter: '',
   errors: {},
   target: null,
 
-  actionType: PostFormActionTypes.createRoot,
   reviewing: false,
   reviewData: null
 }

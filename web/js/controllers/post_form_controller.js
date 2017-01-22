@@ -4,7 +4,6 @@ import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import PostForm from 'components/post_form.jsx'
-import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 import { addCategory, removeCategory, updateCategoryFilter, updateErrors, showReview, hideReview } from 'actions/post_form'
 
 const containsFilter = (name, key) => (
@@ -28,7 +27,6 @@ const mapStateToProps = (state, ownProps) => {
     categoryInput: state.postForm.filter,
     errors: state.postForm.errors,
     target: state.postForm.target,
-    actionType: state.postForm.actionType,
     _allCategories: state.category.categories,
     reviewing: state.postForm.reviewing,
     reviewData: state.postForm.reviewData
@@ -54,7 +52,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 const mergeProps = (s, d, o) => {
-  const {target, actionType, reviewData, _allCategories, categories} = s
+  const {target, reviewData, _allCategories, categories} = s
   const {_dispatch} = d
   return {
     ...s,

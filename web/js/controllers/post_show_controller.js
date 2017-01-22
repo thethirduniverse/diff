@@ -5,7 +5,7 @@ import { push } from 'react-router-redux'
 
 import PostShow from 'components/post_show.jsx'
 import { HOST_URL } from '~/host.js'
-import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormClearTarget, reportPost, shareLinkShow, postOptimisticUpvote, postOptimisticCancelUpvote } from 'actions'
+import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, reportPost, shareLinkShow, postOptimisticUpvote, postOptimisticCancelUpvote } from 'actions'
 import { editsClear } from '~/actions/edits'
 import { setTarget as editFormSetTarget, clearTarget as editFormClearTarget } from '~/actions/edit_form'
 import { setTarget as replyFormSetTarget, clearTarget as replyFormClearTarget } from '~/actions/reply_form'
@@ -18,8 +18,7 @@ const mapStateToProps = (state, ownProps) => {
     userSignedIn: state.accountReducer.signed_in,
     user: state.accountReducer.user,
 
-    target: state.postForm.target,
-    actionType: state.postForm.actionType,
+    target: state.editForm.target ? state.editForm.target : state.replyForm.target,
 
     location: ownProps.location.pathname,
 

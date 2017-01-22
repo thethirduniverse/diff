@@ -4,26 +4,22 @@ import { Card, CardHeader, CardText } from 'material-ui/Card'
 import { truncatedContent } from 'helpers/post_helper.js'
 import EditFormController from 'controllers/edit_form_controller'
 import ReplyFormController from 'controllers/reply_form_controller'
-import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
 
 const ComposeReplyCard = React.createClass({
   propTypes: {
     target: React.PropTypes.object,
-    actionType: React.PropTypes.string,
     showEditForm: React.PropTypes.bool.isRequired,
     showReplyForm: React.PropTypes.bool.isRequired
   },
 
   getTitle: function() {
-    const {target, actionType: type} = this.props
-    switch (type) {
-      case actionTypes.reply:
-        return 'Replying post: ' + truncatedContent(target.content, 100)
-      case actionTypes.edit:
-        return 'Editing post: ' + truncatedContent(target.content, 100)
-      default:
-        return ''
+    const {target, showEditForm, showReplyForm} = this.props
+    if (showReplyForm) {
+      return 'Replying post: ' + truncatedContent(target.content, 100)
+    } else if (showEditForm) {
+      return 'Replying post: ' + truncatedContent(target.content, 100)
     }
+    return ''
   },
 
   render: function() {
