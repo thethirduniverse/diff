@@ -4,8 +4,8 @@ import { push } from 'react-router-redux'
 import { reset } from 'redux-form'
 
 import PostForm from 'components/post_form.jsx'
-import { postFormAddCategory, postFormRemoveCategory, postFormUpdateCategoryFilter, postFormUpdateErrors, postShowMergeLoadedPosts, postFormShowReview, postFormHideReview, postFormClearTarget } from 'actions'
 import { PostFormActionTypes as actionTypes } from 'reducers/post_form_reducer.js'
+import { addCategory, removeCategory, updateCategoryFilter, updateErrors, showReview, hideReview } from 'actions/post_form'
 
 const containsFilter = (name, key) => (
   name.toLowerCase().includes(key.toLowerCase())
@@ -14,21 +14,6 @@ const containsFilter = (name, key) => (
 const notSelectedFilter = (currentCategories, name) => (
   !currentCategories.find((c) => (c.name === name))
 )
-
-const formData = (data, target) => {
-  // posting as reply
-  if (target) {
-    return {
-      ...data,
-      post: {
-        content: data.post.content,
-        parent_post_id: target.id
-      }
-    }
-  }
-
-  return data
-}
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -50,86 +35,44 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const getEndPoint = (target, actionType) => {
-  switch (actionType) {
-    case actionTypes.edit:
-      return '/api/posts/' + target.id
-    default:
-      return '/api/posts'
-  }
-}
-
-const getHttpMethod = (actionType) => {
-  switch (actionType) {
-    case actionTypes.edit:
-      return 'PUT'
-    default:
-      return 'POST'
-  }
-}
-
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    _onConfirmReviewClicked: (target, actionType, data) => {
-      $.ajax({
-        url: getEndPoint(target, actionType),
-        type: getHttpMethod(actionType),
-        data: formData(data, target)
-      })
-        .done((res) => {
-          if (actionType === actionTypes.reply || actionType === actionTypes.edit) {
-            dispatch(postShowMergeLoadedPosts(res.post.parent_post_id, [res.post]))
-          } else if (actionType === actionTypes.createRoot) {
-            dispatch(push('/posts/' + res.post.id))
-          }
-          dispatch(postFormUpdateErrors({}))
-          dispatch(postFormHideReview())
-          dispatch(postFormClearTarget())
-          dispatch(reset('post-form'))
-        })
-        .fail((res) => {
-          dispatch(postFormUpdateErrors(res.responseJSON.errors))
-        })
-    },
     onSecondaryButtonClick: () => {
       dispatch(reset('post-form'))
     },
     onRequestDelete: (id) => {
-      dispatch(postFormRemoveCategory(id))
+      dispatch(removeCategory(id))
     },
     onUpdateCategoryInput: (text) => {
-      dispatch(postFormUpdateCategoryFilter(text))
-    },
-    _onNewCategoryRequest: (allCategories, currentCategories, text, idx) => {
-      let cat
-      if (idx === -1) {
-        cat = allCategories.find((c) => (containsFilter(c.name, text) && notSelectedFilter(currentCategories, c.name)))
-      } else {
-        cat = allCategories.find((c) => (c.name === text))
-      }
-      if (cat) {
-        dispatch(postFormAddCategory(cat))
-      }
+      dispatch(updateCategoryFilter(text))
     },
     onAbandonReviewClicked: () => {
-      dispatch(postFormHideReview())
+      dispatch(hideReview())
     },
     _dispatch: dispatch
   }
 }
 
 const mergeProps = (s, d, o) => {
-  const {target, actionType, reviewData} = s
+  const {target, actionType, reviewData, _allCategories, categories} = s
   const {_dispatch} = d
   return {
     ...s,
     ...d,
     ...o,
     onNewCategoryRequest: (text, idx) => {
-      d._onNewCategoryRequest(s._allCategories, s.categories, text, idx)
+      let cat
+      if (idx === -1) {
+        cat = _allCategories.find((c) => (containsFilter(c.name, text) && notSelectedFilter(categories, c.name)))
+      } else {
+        cat = _allCategories.find((c) => (c.name === text))
+      }
+      if (cat) {
+        _dispatch(addCategory(cat))
+      }
     },
     onSubmit: (data) => {
-      _dispatch(postFormShowReview(
+      _dispatch(showReview(
         {
           post: target
         },
@@ -143,7 +86,20 @@ const mergeProps = (s, d, o) => {
       ))
     },
     onConfirmReviewClicked: () => {
-      d._onConfirmReviewClicked(target, actionType, reviewData.new)
+      $.ajax({
+        url: '/api/posts',
+        type: 'POST',
+        data: reviewData.new
+      })
+        .done((res) => {
+          _dispatch(push('/posts/' + res.post.id))
+          _dispatch(updateErrors({}))
+          _dispatch(hideReview())
+          _dispatch(reset('post-form'))
+        })
+        .fail((res) => {
+          _dispatch(updateErrors(res.responseJSON.errors))
+        })
     }
   }
 }

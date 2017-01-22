@@ -23,16 +23,6 @@ const actions = {
   postShowStartLoadPost: 'POST_SHOW_START_LOAD_POST',
   postShowCancelLoadPost: 'POST_SHOW_CANCEL_LOAD_POST',
   postShowFinishedLoadPost: 'POST_SHOW_FINISHED_LOAD_POST',
-  postFormAddCategory: 'POST_FORM_ADD_CATEGORY',
-  postFormRemoveCategory: 'POST_FORM_REMOVE_CATEGORY',
-  postFormUpdateCategoryFilter: 'POST_FORM_UPDATE_CATEGORY_FILTER',
-  postFormUpdateErrors: 'POST_FORM_UPDATE_ERRORS',
-  postFormCreateRoot: 'POST_FORM_CREATE_ROOT',
-  postFormUpdateReplyTarget: 'POST_FORM_UPDATE_REPLY_TARGET',
-  postFormUpdateEditTarget: 'POST_FORM_UPDATE_EDIT_TARGET',
-  postFormClearTarget: 'POST_FORM_CLEAR_TARGET',
-  postFormShowReview: 'POST_FORM_SHOW_REVIEW',
-  postFormHideReview: 'POST_FORM_HIDE_REVIEW',
   postOptimisticUpvote: 'POST_OPTIMISITIC_UPVOTE',
   postOptimisticCancelUpvote: 'POST_OPTIMISITIC_CANCEL_UPVOTE',
   profileLoadUser: 'PROFILE_LOAD_USER',
@@ -240,74 +230,6 @@ export const postShowFinishedLoadPost = (post) => {
   return {
     type: actions.postShowFinishedLoadPost,
     post
-  }
-}
-
-export const postFormAddCategory = (category) => {
-  return {
-    type: actions.postFormAddCategory,
-    category
-  }
-}
-
-export const postFormRemoveCategory = (categoryId) => {
-  return {
-    type: actions.postFormRemoveCategory,
-    categoryId
-  }
-}
-
-export const postFormUpdateCategoryFilter = (filter) => {
-  return {
-    type: actions.postFormUpdateCategoryFilter,
-    filter
-  }
-}
-
-export const postFormUpdateErrors = (errors) => {
-  return {
-    type: actions.postFormUpdateErrors,
-    errors
-  }
-}
-
-export const postFormCreateRoot = () => {
-  return {
-    type: actions.postFormCreateRoot
-  }
-}
-
-export const postFormUpdateReplyTarget = (post) => {
-  return {
-    type: actions.postFormUpdateReplyTarget,
-    post
-  }
-}
-
-export const postFormUpdateEditTarget = (post) => {
-  return {
-    type: actions.postFormUpdateEditTarget,
-    post
-  }
-}
-
-export const postFormClearTarget = () => {
-  return {
-    type: actions.postFormClearTarget
-  }
-}
-
-export const postFormShowReview = (oldData, newData) => {
-  return {
-    type: actions.postFormShowReview,
-    oldData,
-    newData
-  }
-}
-
-export const postFormHideReview = () => {
-  return {
-    type: actions.postFormHideReview
   }
 }
 

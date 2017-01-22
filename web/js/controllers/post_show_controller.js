@@ -82,7 +82,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         })
     },
     onComponentWillUnmount: () => {
-      dispatch(postFormClearTarget())
     }
   }
 }

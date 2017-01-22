@@ -1,4 +1,4 @@
-import actions from 'actions'
+import actions from 'actions/post_form'
 
 export const PostFormActionTypes = {
   reply: 'REPLY',
@@ -12,8 +12,8 @@ const defaultState = {
   filter: '',
   errors: {},
   target: null,
-  actionType: PostFormActionTypes.none,
 
+  actionType: PostFormActionTypes.createRoot,
   reviewing: false,
   reviewData: null
 }
@@ -29,51 +29,28 @@ const sortByName = (c1, c2) => {
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case actions.postFormAddCategory:
+    case actions.addCategory:
       return {
         ...state,
         categories: [...state.categories, action.category].sort(sortByName),
         filter: ''
       }
-    case actions.postFormRemoveCategory:
+    case actions.removeCategory:
       return {
         ...state,
         categories: state.categories.filter((c) => (c.id !== action.categoryId)).sort(sortByName)
       }
-    case actions.postFormUpdateCategoryFilter:
+    case actions.updateCategoryFilter:
       return {
         ...state,
         filter: action.filter
       }
-    case actions.postFormUpdateErrors:
+    case actions.updateErrors:
       return {
         ...state,
         errors: action.errors
       }
-    case actions.postFormCreateRoot:
-      return {
-        ...state,
-        target: null,
-        actionType: PostFormActionTypes.createRoot
-      }
-    case actions.postFormUpdateReplyTarget:
-      return {
-        ...state,
-        target: action.post,
-        actionType: PostFormActionTypes.reply
-      }
-    case actions.postFormUpdateEditTarget:
-      return {
-        ...state,
-        target: action.post,
-        actionType: PostFormActionTypes.edit
-      }
-    case actions.postFormClearTarget:
-      return {
-        ...state,
-        target: null
-      }
-    case actions.postFormShowReview:
+    case actions.showReview:
       return {
         ...state,
         reviewing: true,
@@ -82,7 +59,7 @@ export default (state = defaultState, action) => {
           new: action.newData
         }
       }
-    case actions.postFormHideReview:
+    case actions.hideReview:
       return {
         ...state,
         reviewing: false,

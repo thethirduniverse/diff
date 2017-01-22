@@ -56,30 +56,11 @@ var PostForm = React.createClass({
     />
   },
 
-  render: function() {
-    const {actionType} = this.props
-
+  getChipList: function() {
     const categoryChips = this.props.categories.map((c) => (
       <CategoryChip key={c.id} category={c} onRequestDelete={this.props.onRequestDelete} />
     ))
-
-    return (
-      <form>
-        { this.getReviewDialog() }
-        {
-          actionType === actionTypes.createRoot
-            ? (<Field name="post[title]" label="Title" type="text" fullWidth={true} errorText={this.props.errors.title} component={renderTextField} />)
-            : null
-        }
-        <Field name="post[content]" label="Content" type="text" fullWidth={true} multiLine={true} errorText={this.props.errors.content} component={renderTextField} />
-        {
-          actionType === actionTypes.edit
-            ? (<Field name="message" label="Edit Message" type="text" fullWidth={true} errorText={this.props.errors.message} component={renderTextField} />)
-            : null
-        }
-        {
-          actionType === actionTypes.createRoot
-            ? (<ChipList>
+    return <ChipList>
               {categoryChips}
               {/* Suppose user entered 'a', and there is a category called 'AAA'.
          It is the controller that figures out 'AAA' should be in the dateSource
@@ -93,9 +74,16 @@ var PostForm = React.createClass({
            onNewRequest={this.props.onNewCategoryRequest}
            searchText={this.props.categoryInput}
          />
-       </ChipList>)
-            : null
-        }
+       </ChipList>
+  },
+
+  render: function() {
+    return (
+      <form>
+        { this.getReviewDialog() }
+        <Field name="post[title]" label="Title" type="text" fullWidth={true} errorText={this.props.errors.title} component={renderTextField} />
+        <Field name="post[content]" label="Content" type="text" fullWidth={true} multiLine={true} errorText={this.props.errors.content} component={renderTextField} />
+        { this.getChipList() }
         {/* eslint-disable react/prop-types */}
         <RaisedButton label={this.props.submitButtonLabel} primary={true} style={{margin: 12}} onClick={this.props.handleSubmit(this.props.onSubmit)}/>
         {/* eslint-enable react/prop-types */}
