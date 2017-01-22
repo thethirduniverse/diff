@@ -38,5 +38,11 @@ module.exports = {
         loader: 'expose?jQuery!expose?$'
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map',
+      append: `\n//# sourceMappingURL=${path}[url]`
+    })
+  ]
 };
