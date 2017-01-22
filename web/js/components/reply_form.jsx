@@ -42,7 +42,7 @@ var ReplyForm = React.createClass({
     const { reviewing, reviewData, onConfirmReviewClicked, onAbandonReviewClicked } = this.props
     return <PostFormReviewDialog
     open={reviewing}
-    actionType={actionTypes.edit}
+    actionType={actionTypes.reply}
     oldData={reviewData ? reviewData.old.post : null}
     newData={reviewData ? reviewData.new.post : null}
     onConfirmClicked={onConfirmReviewClicked}
