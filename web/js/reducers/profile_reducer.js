@@ -18,9 +18,9 @@ export default (state = defaultState, action) => {
         ...state,
         user: {
           ...state.user,
-          posted_topics: {
-            ...state.user.posted_topics,
-            topics: [...state.user.posted_topics.topics, ...action.topics],
+          posted_posts: {
+            ...state.user.posted_posts,
+            posts: [...state.user.posted_posts.posts, ...action.posts],
             has_more: action.has_more,
             next_offset: action.next_offset
           }

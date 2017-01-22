@@ -22,7 +22,7 @@ class ProfilesController < ApplicationController
   def load_posts
     id = params[:id]
     offset = params[:offset] ? Integer(params[:offset]) : nil
-    spec = UserFeedSpecification.new(offset, 10, id)
+    spec = UserFeedSpecification.new(10, id, offset: offset)
 
     render json: {
       posted_posts: posts_feed(spec, response_type: PostHelper::POST_FEED_RESPONSE_TYPE_SIMPLIFIED)
