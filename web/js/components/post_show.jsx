@@ -29,7 +29,8 @@ const PostShow = React.createClass({
 
     target: React.PropTypes.object,
     actionType: React.PropTypes.string,
-    showEditForm: React.PropTypes.bool.isRequired
+    showEditForm: React.PropTypes.bool.isRequired,
+    showReplyForm: React.PropTypes.bool.isRequired
   },
 
   componentWillMount: function() {
@@ -55,11 +56,12 @@ const PostShow = React.createClass({
         onUserHeaderClicked={this.props.onUserHeaderClicked}
       />)
       : (<CircularProgress />)
-    const composeReplyContent = this.props.target || this.props.showEditForm
+    const composeReplyContent = this.props.showEditForm || this.props.showReplyForm
       ? (<ComposeReplyCard
         target={this.props.target}
         actionType={this.props.actionType}
         showEditForm={this.props.showEditForm}
+        showReplyForm={this.props.showReplyForm}
       />)
       : null
 

@@ -5,9 +5,10 @@ import { push } from 'react-router-redux'
 
 import PostShow from 'components/post_show.jsx'
 import { HOST_URL } from '~/host.js'
-import { setTarget as editFormSetTarget } from '~/actions/edit_form'
-import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormUpdateReplyTarget, postFormClearTarget, reportPost, shareLinkShow, postOptimisticUpvote, postOptimisticCancelUpvote } from 'actions'
+import { postShowLoadTopic, postShowMergePostPlaceholders, postShowMergeLoadedPosts, postFormClearTarget, reportPost, shareLinkShow, postOptimisticUpvote, postOptimisticCancelUpvote } from 'actions'
 import { editsClear } from '~/actions/edits'
+import { setTarget as editFormSetTarget, clearTarget as editFormClearTarget } from '~/actions/edit_form'
+import { setTarget as replyFormSetTarget, clearTarget as replyFormClearTarget } from '~/actions/reply_form'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -22,17 +23,20 @@ const mapStateToProps = (state, ownProps) => {
 
     location: ownProps.location.pathname,
 
-    showEditForm: state.editForm.display
+    showEditForm: state.editForm.display,
+    showReplyForm: state.replyForm.display
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onReplyClicked: (post) => {
-      dispatch(postFormUpdateReplyTarget(post))
-      dispatch(initialize('post-form', {}))
+      dispatch(editFormClearTarget()) // this is bad
+      dispatch(replyFormSetTarget(post))
+      dispatch(initialize('reply-form', {}))
     },
     onEditClicked: (post) => {
+      dispatch(replyFormClearTarget()) // this is bad
       dispatch(editFormSetTarget(post))
       // work around since redux form initialization does not seem to be working
       dispatch(initialize('edit-form', {
