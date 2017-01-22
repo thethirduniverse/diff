@@ -5,7 +5,6 @@ import { Field, reduxForm } from 'redux-form'
 
 import PostFormReviewDialog from 'components/post_form_review_dialog.jsx'
 import { renderTextField } from 'helpers/redux_form_helpers.jsx'
-import { truncatedContent } from 'helpers/post_helper.js'
 import { replyFormValidator as validate } from 'helpers/validators'
 
 var ReplyForm = React.createClass({
@@ -32,11 +31,6 @@ var ReplyForm = React.createClass({
     }
   },
 
-  getTitle: function() {
-    const { target } = this.props
-    return 'Writing refutation of post: ' + truncatedContent(target.content, 100)
-  },
-
   getReviewDialog: function() {
     const { reviewing, reviewData, onConfirmReviewClicked, onAbandonReviewClicked } = this.props
     return <PostFormReviewDialog
@@ -52,7 +46,6 @@ var ReplyForm = React.createClass({
     return (
       <form>
         { this.getReviewDialog() }
-        { this.getTitle() }
         <Field name="post[content]" label="Content" type="text" fullWidth={true} multiLine={true} errorText={this.props.errors.content} component={renderTextField} />
         {/* eslint-disable react/prop-types */}
         <RaisedButton label={this.props.submitButtonLabel} primary={true} style={{margin: 12}} onClick={this.props.handleSubmit(this.props.onSubmit)}/>

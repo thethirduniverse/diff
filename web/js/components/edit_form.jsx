@@ -5,7 +5,6 @@ import { Field, reduxForm } from 'redux-form'
 
 import PostFormReviewDialog from 'components/post_form_review_dialog.jsx'
 import { renderTextField } from 'helpers/redux_form_helpers.jsx'
-import { truncatedContent } from 'helpers/post_helper.js'
 import { editFormValidator as validate } from 'helpers/validators'
 
 var EditForm = React.createClass({
@@ -32,11 +31,6 @@ var EditForm = React.createClass({
     }
   },
 
-  getTitle: function() {
-    const { target } = this.props
-    return 'Editing post: ' + truncatedContent(target.content, 100)
-  },
-
   getReviewDialog: function() {
     const { reviewing, reviewData, onConfirmReviewClicked, onAbandonReviewClicked } = this.props
     return <PostFormReviewDialog
@@ -52,7 +46,6 @@ var EditForm = React.createClass({
     return (
       <form>
         { this.getReviewDialog() }
-        { this.getTitle() }
         <Field name="post[content]" label="Content" type="text" fullWidth={true} multiLine={true} errorText={this.props.errors.content} component={renderTextField} />
         <Field name="message" label="Edit Message" type="text" fullWidth={true} errorText={this.props.errors.message} component={renderTextField} />
         {/* eslint-disable react/prop-types */}

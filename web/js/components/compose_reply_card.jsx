@@ -17,7 +17,7 @@ const ComposeReplyCard = React.createClass({
     if (showReplyForm) {
       return 'Replying post: ' + truncatedContent(target.content, 100)
     } else if (showEditForm) {
-      return 'Replying post: ' + truncatedContent(target.content, 100)
+      return 'Editing post: ' + truncatedContent(target.content, 100)
     }
     return ''
   },
