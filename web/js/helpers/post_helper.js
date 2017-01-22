@@ -1,4 +1,7 @@
 export const truncatedContent = (content, limit) => {
+  if (!content) {
+    return ''
+  }
   if (content.length <= limit) {
     return content
   }
