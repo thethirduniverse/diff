@@ -18,6 +18,8 @@ const _endpointForType = (type) => {
       return '/api/report/user'
     case ReportTypes.post:
       return '/api/report/post'
+    case ReportTypes.edit:
+      return '/api/report/edit'
     default:
       return ''
   }
@@ -37,6 +39,13 @@ const _paramsForPosting = (report, formData, currentUser) => {
         report: {
           ...formData.report,
           post_id: report.post.id
+        }
+      }
+    case ReportTypes.edit:
+      return {
+        report: {
+          ...formData.report,
+          edit_id: report.edit.id
         }
       }
     default:

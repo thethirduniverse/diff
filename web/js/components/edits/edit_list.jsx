@@ -5,11 +5,12 @@ import EditCard from './edit_card.jsx'
 const EditList = React.createClass({
   propTypes: {
     edits: React.PropTypes.array.isRequired,
-    onHeaderClicked: React.PropTypes.func.isRequired
+    onHeaderClicked: React.PropTypes.func.isRequired,
+    onReportEditClicked: React.PropTypes.func.isRequired
   },
 
   render: function() {
-    const { edits, onHeaderClicked } = this.props
+    const { edits, onHeaderClicked, onReportEditClicked } = this.props
     return (
       <div>
         {
@@ -18,6 +19,7 @@ const EditList = React.createClass({
               edit={e}
               key={e.version}
               onHeaderClicked={onHeaderClicked.bind(null, e)}
+              onReportEditClicked={onReportEditClicked.bind(null, e)}
               />
           ))
         }

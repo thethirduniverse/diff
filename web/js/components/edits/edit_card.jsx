@@ -8,7 +8,8 @@ import CardHeaderUser from '~/components/card/card_header_user.jsx'
 const EditCard = React.createClass({
   propTypes: {
     edit: React.PropTypes.object.isRequired,
-    onHeaderClicked: React.PropTypes.func.isRequired
+    onHeaderClicked: React.PropTypes.func.isRequired,
+    onReportEditClicked: React.PropTypes.func.isRequired
   },
 
   subtitleMessage: (edit) => {
@@ -18,7 +19,7 @@ const EditCard = React.createClass({
   },
 
   render: function() {
-    const { edit, onHeaderClicked } = this.props
+    const { edit, onHeaderClicked, onReportEditClicked } = this.props
     const { user } = edit
 
     return (
@@ -34,7 +35,10 @@ const EditCard = React.createClass({
           {edit.patch}
         </CardText>
         <CardActions>
-          <FlatButton label="action" />
+          <FlatButton
+            label="Report Edit"
+            onClick={onReportEditClicked}
+            />
         </CardActions>
       </Card>
     )

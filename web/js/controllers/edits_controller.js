@@ -3,6 +3,7 @@ import { push } from 'react-router-redux'
 
 import EditIndex from 'components/edits/edit_index.jsx'
 import { requestEditsLoad } from 'actions/edits'
+import { reportEdit } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -13,6 +14,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    onReportEditClicked: (edit) => {
+      dispatch(reportEdit(edit))
+    },
     _dispatch: dispatch
   }
 }

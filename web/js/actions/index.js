@@ -33,6 +33,7 @@ const actions = {
   categoryLoad: 'CATEGORY_LOAD',
   reportUser: 'REPORT_USER',
   reportPost: 'REPORT_POST',
+  reportEdit: 'REPORT_EDIT',
   reportPosted: 'REPORT_POSTED',
   reportClear: 'REPORT_CLEAR',
   shareLinkShow: 'SHARE_LINK_SHOW',
@@ -302,6 +303,13 @@ export const reportPost = (post) => {
   return {
     type: actions.reportPost,
     post
+  }
+}
+
+export const reportEdit = (edit) => {
+  return {
+    type: actions.reportEdit,
+    edit
   }
 }
 

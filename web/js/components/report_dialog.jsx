@@ -26,6 +26,8 @@ const ReportDialog = React.createClass({
         return 'Report User: ' + nameOfUser(report.user)
       case ReportTypes.post:
         return 'Report Post: ' + truncatedContent(report.post.content, 100)
+      case ReportTypes.edit:
+        return 'Report Edit: ' + truncatedContent(report.edit.patch, 100)
       default:
         return ''
     }

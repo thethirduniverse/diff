@@ -4,9 +4,6 @@ import EditList from './edit_list.jsx'
 
 const EditIndex = React.createClass({
   propTypes: {
-    edits: React.PropTypes.array.isRequired,
-    onHeaderClicked: React.PropTypes.func.isRequired,
-
     onComponentWillMount: React.PropTypes.func.isRequired
   },
 
@@ -20,8 +17,7 @@ const EditIndex = React.createClass({
         <div className="row">
           <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <EditList
-              edits={this.props.edits}
-              onHeaderClicked={this.props.onHeaderClicked}
+              {...this.props}
               />
           </div>
         </div>
