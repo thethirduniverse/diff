@@ -9,7 +9,8 @@ const EditCard = React.createClass({
   propTypes: {
     edit: React.PropTypes.object.isRequired,
     onHeaderClicked: React.PropTypes.func.isRequired,
-    onReportEditClicked: React.PropTypes.func.isRequired
+    onReportEditClicked: React.PropTypes.func.isRequired,
+    hideActions: React.PropTypes.bool.isRequired
   },
 
   subtitleMessage: (edit) => {
@@ -18,8 +19,21 @@ const EditCard = React.createClass({
     return version + ' ' + time
   },
 
+  getActions: function() {
+    const {onReportEditClicked, hideActions} = this.props
+    if (hideActions) {
+      return null
+    }
+    return <CardActions>
+      <FlatButton
+        label="Report Edit"
+        onClick={onReportEditClicked}
+        />
+    </CardActions>
+  },
+
   render: function() {
-    const { edit, onHeaderClicked, onReportEditClicked } = this.props
+    const { edit, onHeaderClicked } = this.props
     const { user } = edit
 
     return (
@@ -34,12 +48,7 @@ const EditCard = React.createClass({
         <CardText style={styles.textBlock}>
           {edit.patch}
         </CardText>
-        <CardActions>
-          <FlatButton
-            label="Report Edit"
-            onClick={onReportEditClicked}
-            />
-        </CardActions>
+        { this.getActions() }
       </Card>
     )
   }

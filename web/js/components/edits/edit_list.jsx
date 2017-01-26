@@ -6,11 +6,12 @@ const EditList = React.createClass({
   propTypes: {
     edits: React.PropTypes.array.isRequired,
     onHeaderClicked: React.PropTypes.func.isRequired,
-    onReportEditClicked: React.PropTypes.func.isRequired
+    onReportEditClicked: React.PropTypes.func.isRequired,
+    hideActions: React.PropTypes.bool.isRequired
   },
 
   render: function() {
-    const { edits, onHeaderClicked, onReportEditClicked } = this.props
+    const { edits, onHeaderClicked, onReportEditClicked, hideActions } = this.props
     return (
       <div>
         {
@@ -18,6 +19,7 @@ const EditList = React.createClass({
             <EditCard
               edit={e}
               key={e.version}
+              hideActions={hideActions}
               onHeaderClicked={onHeaderClicked.bind(null, e)}
               onReportEditClicked={onReportEditClicked.bind(null, e)}
               />

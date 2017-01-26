@@ -7,6 +7,8 @@ import { reportEdit } from 'actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    hideActions: !state.accountReducer.signed_in,
+
     edits: state.edits.edits,
     _state: state
   }
