@@ -17,4 +17,12 @@ class ReportMailer < ApplicationMailer
     @content = report.content
     mail(subject: 'New Post Report Created')
   end
+
+  def report_edit_email(report)
+    @creator = report.creator
+    @edit = report.edit
+    @post = report.edit.post
+    @content = report.content
+    mail(subject: 'New Edit Report Created')
+  end
 end

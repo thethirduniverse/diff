@@ -14,6 +14,11 @@ class ReportsController < ApplicationController
     ReportMailer.delay.report_post_email(report) if render_response(report)
   end
 
+  def report_edit
+    report = EditReport.new(report_edit_params)
+    ReportMailer.delay.report_edit_email(report) if render_response(report)
+  end
+
   private
 
   def report_user_params
@@ -23,6 +28,11 @@ class ReportsController < ApplicationController
 
   def report_post_params
     ps = params.require(:report).permit(:post_id, :content)
+    params_with_current_user(ps)
+  end
+
+  def report_edit_params
+    ps = params.require(:report).permit(:edit_id, :content)
     params_with_current_user(ps)
   end
 

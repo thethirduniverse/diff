@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     scope :report do
       post '/user' => 'reports#report_user'
       post '/post' => 'reports#report_post'
+      post '/edit' => 'reports#report_edit'
     end
   end
 

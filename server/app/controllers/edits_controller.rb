@@ -17,6 +17,7 @@ class EditsController < ApplicationController
 
   def edit_response(e)
     {
+      id: e.id,
       user: edit_user_response(e.user),
       version: e.version,
       message: e.message,
