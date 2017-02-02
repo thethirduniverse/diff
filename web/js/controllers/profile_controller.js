@@ -9,6 +9,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     userID: ownProps.params.id,
     user: state.profile.user,
+    showEditButton: state.profile.viewingSelf,
     showAvatarForm: state.profile.show_avatar_form,
     avatarFormErrors: state.profile.avatar_form_errors,
     showInfoForm: state.profile.show_info_form,
@@ -20,7 +21,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   const reloadUser = () => {
     $.get('/api/profiles/' + ownProps.params.id)
       .done((res) => {
-        dispatch(profileLoadUser(res.user))
+        dispatch(profileLoadUser(res.user, res.viewing_self))
       })
       .fail((res) => {
         console.log('load user with response:')

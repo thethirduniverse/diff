@@ -12,6 +12,7 @@ const Profile = React.createClass({
     userID: React.PropTypes.string.isRequired,
     user: React.PropTypes.object,
 
+    showEditButton: React.PropTypes.bool.isRequired,
     onEditInfoClicked: React.PropTypes.func.isRequired,
     onCancelEditInfoClicked: React.PropTypes.func.isRequired,
     onSubmitInfoClicked: React.PropTypes.func.isRequired,
@@ -24,6 +25,7 @@ const Profile = React.createClass({
   },
 
   info: function(user) {
+    const {showEditButton} = this.props
     return (
        <Card>
         <CardHeader
@@ -34,7 +36,11 @@ const Profile = React.createClass({
           {user.bio}
         </CardText>
         <CardActions>
-          <FlatButton label="Edit Personal Info" onClick={this.props.onEditInfoClicked}/>
+          {
+            showEditButton
+              ? (<FlatButton label="Edit Personal Info" onClick={this.props.onEditInfoClicked} />)
+              : null
+          }
         </CardActions>
       </Card>
     )

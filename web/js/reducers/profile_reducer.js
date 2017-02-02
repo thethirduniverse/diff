@@ -2,6 +2,7 @@ import actions from 'actions'
 
 const defaultState = {
   user: null,
+  viewingSelf: false,
   show_info_form: false,
   info_form_errors: {}
 }
@@ -11,7 +12,8 @@ export default (state = defaultState, action) => {
     case actions.profileLoadUser:
       return {
         ...state,
-        user: action.user
+        user: action.user,
+        viewingSelf: action.viewingSelf
       }
     case actions.profileLoadMorePostedTopics:
       return {

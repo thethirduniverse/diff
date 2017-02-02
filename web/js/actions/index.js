@@ -248,10 +248,11 @@ export const postOptimisticCancelUpvote = (postId) => {
   }
 }
 
-export const profileLoadUser = (user) => {
+export const profileLoadUser = (user, viewingSelf) => {
   return {
     type: actions.profileLoadUser,
-    user
+    user,
+    viewingSelf
   }
 }
 
