@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -30,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170126234632) do
     t.string   "queue"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+    t.index %w(priority run_at), name: "delayed_jobs_priority"
   end
 
   create_table "edits", force: :cascade do |t|
@@ -113,7 +114,7 @@ ActiveRecord::Schema.define(version: 20170126234632) do
     t.integer  "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id", "user_id"], name: "index_upvotes_on_post_id_and_user_id"
+    t.index %w(post_id user_id), name: "index_upvotes_on_post_id_and_user_id"
   end
 
   create_table "users", force: :cascade do |t|
