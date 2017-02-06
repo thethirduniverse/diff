@@ -1,4 +1,4 @@
-secret_key_base: 'examplekeybase'
+SECRET_KEY_BASE: 'exampleKeyBase'
 
 mailer_email: 'example@gmail.com'
 mailer_password: '12345678'
