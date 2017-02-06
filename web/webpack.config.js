@@ -4,7 +4,8 @@ const path = require('path')
 module.exports = {
   entry: "./js/debatable.jsx",
   output: {
-    filename: "bundle.js"
+    filename: "bundle.js",
+    path: __dirname + '/../server/public'
   },
   resolve: {
     alias: {
