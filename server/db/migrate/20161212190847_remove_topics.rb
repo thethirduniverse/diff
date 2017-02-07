@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 class RemoveTopics < ActiveRecord::Migration[5.0]
   def up
-    drop_table :topics
-
     remove_column :edits, :topic_id, :integer
     remove_column :replies, :topic_id, :integer
     remove_column :replies, :root_topic_id, :integer
     remove_column :reports, :topic_id, :integer
+
+    drop_table :topics
   end
 
   def down
