@@ -31,6 +31,8 @@ server/tmp
 # Ignore bundled js
 server/public/bundle.js
 server/public/bundle.js.map
+server/public/bundle-*.js
+server/public/bundle-*.js.map
 
 # Ignore user uploaded images
 server/public/system/*

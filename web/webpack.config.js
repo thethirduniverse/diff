@@ -1,10 +1,11 @@
 const webpack = require('webpack')
 const path = require('path')
+const WebpackShellPlugin = require('webpack-shell-plugin')
 
 module.exports = {
   entry: "./js/debatable.jsx",
   output: {
-    filename: "bundle.js",
+    filename: "bundle-[hash].js",
     path: __dirname + '/../server/public'
   },
   resolve: {
@@ -40,5 +41,11 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new WebpackShellPlugin({
+      onBuildStart:['./scripts/remove_bundle_js.py'],
+      dev: false
+    })
+  ],
   devtool: 'eval-cheap-module-source-map',
 };
