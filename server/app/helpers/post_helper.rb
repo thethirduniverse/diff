@@ -25,6 +25,18 @@ module PostHelper
     }
   end
 
+  def update_parent_reply_count_or_render_errors(post)
+    unless post.parent_post.nil?
+      post.parent_post.reply_count += 1
+
+      unless post.parent_post.save
+        render_error(:parent_post, 'Unable to update reply count for parent.')
+        return false
+      end
+    end
+    true
+  end
+
   def update_post_or_render_errors(post, new_content)
     post.content = new_content
 

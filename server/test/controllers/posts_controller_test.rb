@@ -304,6 +304,32 @@ class PostsControllerTest < ActionController::TestCase
     assert_equal 1, p2.root_post.id
   end
 
+  test 'reply_count is updated' do
+    adam = User.find(1)
+    sign_in adam
+    post :create, xhr: true, params: {
+      'post[title]': 'New Post',
+      'post[content]': 'New Content'
+    }
+    json = JSON.parse(@response.body)
+    assert_equal 200, @response.status
+
+    root_id = json['post']['id']
+
+    post :create, xhr: true, params: {
+      'post[content]': 'Reply 1',
+      'post[parent_post_id]': root_id
+    }
+    assert_equal 200, @response.status
+    post :create, xhr: true, params: {
+      'post[content]': 'Reply 2',
+      'post[parent_post_id]': root_id
+    }
+    assert_equal 200, @response.status
+
+    assert_equal 2, Post.find(root_id).reply_count
+  end
+
   # update
   test 'user can make update' do
     adam = User.find(1)

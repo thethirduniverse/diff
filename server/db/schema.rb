@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170126234632) do
+ActiveRecord::Schema.define(version: 20170218160403) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -30,7 +31,7 @@ ActiveRecord::Schema.define(version: 20170126234632) do
     t.string   "queue"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+    t.index %w(priority run_at), name: "delayed_jobs_priority"
   end
 
   create_table "edits", force: :cascade do |t|
@@ -85,6 +86,7 @@ ActiveRecord::Schema.define(version: 20170126234632) do
     t.datetime "updated_at",                 null: false
     t.integer  "upvote_count",   default: 0, null: false
     t.integer  "last_edit_id"
+    t.integer  "reply_count",    default: 0, null: false
     t.index ["creator_id"], name: "index_posts_on_creator_id"
     t.index ["parent_post_id"], name: "index_posts_on_parent_post_id"
     t.index ["root_post_id"], name: "index_posts_on_root_post_id"
@@ -113,7 +115,7 @@ ActiveRecord::Schema.define(version: 20170126234632) do
     t.integer  "post_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id", "user_id"], name: "index_upvotes_on_post_id_and_user_id"
+    t.index %w(post_id user_id), name: "index_upvotes_on_post_id_and_user_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -68,6 +68,8 @@ class PostsController < ApplicationController
     edit = create_edit_and_render_errors('Initial Edit.', post, '', post.content)
     return unless edit
 
+    return unless update_parent_reply_count_or_render_errors(post)
+
     post.last_edit = edit
     post.save!
     render_post post

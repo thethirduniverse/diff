@@ -37,6 +37,7 @@ module PostResponseHelper
       title: t.title,
       view: t.view,
       upvote_count: t.upvote_count,
+      reply_count: t.reply_count,
       user_upvoted: t.upvoted_by?(current_user),
       categories: t.categories.map do |c|
         category_response c
@@ -49,6 +50,7 @@ module PostResponseHelper
     {
       id: r.id,
       upvote_count: r.upvote_count,
+      reply_count: r.reply_count,
       user_upvoted: r.upvoted_by?(current_user),
       content: r.content,
       parent_post_id: r.parent_post_id,
