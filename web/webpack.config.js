@@ -2,6 +2,32 @@ const webpack = require('webpack')
 const path = require('path')
 const WebpackShellPlugin = require('webpack-shell-plugin')
 
+const prod = process.env.DIFF_ENV == 'production'
+
+const plugins = [
+  new WebpackShellPlugin({
+    onBuildStart: ['./scripts/remove_bundle_js.py'],
+    dev: false
+  })
+]
+
+if (prod) {
+  plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+          warnings: false
+      }
+    })
+  )
+  plugins.push(
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
+  )
+}
+
 module.exports = {
   entry: "./js/debatable.jsx",
   output: {
@@ -41,11 +67,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new WebpackShellPlugin({
-      onBuildStart:['./scripts/remove_bundle_js.py'],
-      dev: false
-    })
-  ],
-  devtool: 'eval-cheap-module-source-map',
+  plugins: plugins,
+  devtool: prod ? '' : 'eval-cheap-module-source-map'
 };
