@@ -3,6 +3,7 @@ import React from 'react'
 import { Card, CardTitle, CardText, CardActions } from 'material-ui/Card'
 import muiThemeable from 'material-ui/styles/muiThemeable'
 
+import ResponsiveMargin from 'components/common/responsive_margin.jsx'
 import styles from '~/styles.js'
 
 const InvitationPage = React.createClass({
@@ -37,43 +38,39 @@ const InvitationPage = React.createClass({
     const codesContent = oldCodes.length >= 1 ? this.getOldCodesContent(oldCodes) : null
 
     return (<div>
-        {message}
-        {codeContent}
-        {codesContent}
-      </div>)
+      {message}
+      {codeContent}
+      {codesContent}
+    </div>)
   },
 
   render: function() {
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <Card>
-              {/* eslint-disable react/prop-types */}
-              <CardTitle
-                style={{...styles.title, color: this.props.muiTheme.palette.primary2Color}}>
-                Invite friends to join diff!
+      <ResponsiveMargin>
+        <Card>
+          {/* eslint-disable react/prop-types */}
+          <CardTitle
+            style={{ ...styles.title, color: this.props.muiTheme.palette.primary2Color }}>
+            Invite friends to join diff!
                 {/* eslint-enable react/prop-types */}
-              </CardTitle>
-              <CardText>
-                <p>Diff is not yet open to the public. But don't worry, you can still invite friends to join. Simple generate a code and give it to your friend, and your friend will be able to register using the code! </p>
-                {this.getContent()}
-              </CardText>
-              <CardActions>
-                <FlatButton
-                  primary={true}
-                  disabled={this.props.limitExceeded}
-                  label={this.props.generated
-                    ? 'Generate Another Code'
-                    : 'Generate Invitation Code'
-                  }
-                  onClick={this.props.generateClicked}
-                />
-              </CardActions>
-            </Card>
-          </div>
-        </div>
-      </div>
+          </CardTitle>
+          <CardText>
+            <p>Diff is not yet open to the public. But don't worry, you can still invite friends to join. Simple generate a code and give it to your friend, and your friend will be able to register using the code! </p>
+            {this.getContent()}
+          </CardText>
+          <CardActions>
+            <FlatButton
+              primary={true}
+              disabled={this.props.limitExceeded}
+              label={this.props.generated
+                ? 'Generate Another Code'
+                : 'Generate Invitation Code'
+              }
+              onClick={this.props.generateClicked}
+              />
+          </CardActions>
+        </Card>
+      </ResponsiveMargin>
     )
   }
 })

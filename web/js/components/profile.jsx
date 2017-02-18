@@ -3,6 +3,7 @@ import FlatButton from 'material-ui/FlatButton'
 import React from 'react'
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card'
 
+import ResponsiveMargin from 'components/common/responsive_margin.jsx'
 import ProfileForm from 'components/profile_form.jsx'
 import PostListController from 'controllers/post_list_controller.js'
 
@@ -74,13 +75,9 @@ const Profile = React.createClass({
       : (<CircularProgress />)
 
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            {content}
-          </div>
-        </div>
-      </div>
+      <ResponsiveMargin>
+        {content}
+      </ResponsiveMargin>
     )
   }
 })

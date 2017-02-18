@@ -1,5 +1,7 @@
 import React from 'react'
 
+import ResponsiveMargin from 'components/common/responsive_margin.jsx'
+
 const AccountPage = React.createClass({
   propTypes: {
     onComponentWillMount: React.PropTypes.func.isRequired,
@@ -12,13 +14,9 @@ const AccountPage = React.createClass({
 
   render: function() {
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            {this.props.children}
-          </div>
-        </div>
-      </div>
+      <ResponsiveMargin>
+        {this.props.children}
+      </ResponsiveMargin>
     )
   }
 })
