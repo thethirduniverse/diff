@@ -54,42 +54,43 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = if params[:post][:parent_post_id].blank?
-             create_root_post
-           else
-             create_reply_post
-           end
-
-    unless post.valid?
-      render_validation_error post
-      return
-    end
+    post = new_post_from_params
 
     edit = create_edit_and_render_errors('Initial Edit.', post, '', post.content)
     return unless edit
 
-    return unless update_parent_reply_count_or_render_errors(post)
-
     post.last_edit = edit
-    post.save!
+    Post.transaction do
+      update_parent_reply_count(post)
+      post.save!
+    end
     render_post post
+
+  rescue ActiveRecord::RecordInvalid => exception
+    handle_transaction_record_invalid_exception(exception, post)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def update
     post = Post.find(params[:id])
-    old_content = post.content
     new_content = params[:post][:content]
 
-    return unless update_post_or_render_errors(post, new_content)
-
     # may return false
-    edit = create_edit_and_render_errors(params[:message], post, old_content, new_content)
+    edit = create_edit_and_render_errors(params[:message], post, post.content, new_content)
     return unless edit
 
+    post.content = new_content
     post.last_edit = edit
-    post.save!
+
+    Post.transaction do
+      post.save!
+    end
     render_post post
+
+  rescue ActiveRecord::RecordInvalid => exception
+    handle_transaction_record_invalid_exception(exception, post)
   end
+  # rubocop:enable Metrics/AbcSize
 
   private
 
@@ -120,7 +121,23 @@ class PostsController < ApplicationController
     Post.new(ps)
   end
 
+  def new_post_from_params
+    if params[:post][:parent_post_id].blank?
+      create_root_post
+    else
+      create_reply_post
+    end
+  end
+
   def add_categories(post)
     post.categories << params[:post][:category_ids].map { |id| Category.find_by_id(id) }.compact if params[:post][:category_ids]
+  end
+
+  def handle_transaction_record_invalid_exception(exception, post)
+    if exception.record == post.parent_post
+      render_error :parent_post, exception.record.errors
+    else
+      render_validation_error exception.record
+    end
   end
 end

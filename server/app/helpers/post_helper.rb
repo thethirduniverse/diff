@@ -25,42 +25,26 @@ module PostHelper
     }
   end
 
-  def update_parent_reply_count_or_render_errors(post)
-    unless post.parent_post.nil?
-      post.parent_post.reply_count += 1
+  def update_parent_reply_count(post)
+    return if post.parent_post.nil?
 
-      unless post.parent_post.save
-        render_error(:parent_post, 'Unable to update reply count for parent.')
-        return false
-      end
-    end
-    true
-  end
-
-  def update_post_or_render_errors(post, new_content)
-    post.content = new_content
-
-    unless post.valid?
-      render_validation_error post
-      return false
-    end
-
-    true
+    post.parent_post.reply_count += 1
+    post.parent_post.save!
   end
 
   def create_edit_and_render_errors(message, post, old_content, new_content)
     e = new_edit(message, post, old_content, new_content)
     e.save!
-    return e
+    e
   rescue ActiveRecord::RecordInvalid
     render_validation_error e
-    return false
+    false
   rescue ContentNotChangedError
-    render_error(:content, 'New content must be different from the old content.')
-    return false
+    render_content_not_changed_error old_content
+    false
   rescue CommandFailedError
-    render_error(:edit, 'Unable to create the edit for post update. Diff failed.')
-    return false
+    render_error(:edit, ['Unable to create the edit for post update. Diff failed.'])
+    false
   end
 
   def new_edit(message, post, old_content, new_content)
@@ -69,5 +53,13 @@ module PostHelper
              version: Edit.where(post_id: post.id).count,
              message: message,
              patch: create_patch(old_content, new_content))
+  end
+
+  def render_content_not_changed_error(old_content)
+    if old_content.blank?
+      render_error(:content, ['can\'t be blank'])
+    else
+      render_error(:content, ['New content must be different from the old content.'])
+    end
   end
 end
