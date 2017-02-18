@@ -8,7 +8,7 @@ import React from 'react'
 
 import styles from '~/styles.js'
 
-const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked, onProfileClicked, onNewTopicClicked, onInviteClicked}) => {
+const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked, onProfileClicked, onNewTopicClicked, onInviteClicked, onAboutClicked}) => {
   const iconMenu = (
     userSignedIn
       ? <IconMenu
@@ -21,6 +21,7 @@ const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked
         <MenuItem primaryText="New Topic" onClick={onNewTopicClicked} />
         <MenuItem primaryText="Invite Friends" onClick={onInviteClicked} />
         <MenuItem primaryText="Profile" onClick={onProfileClicked} />
+        <MenuItem primaryText="About Diff" onClick={onAboutClicked} />
         <MenuItem primaryText="Sign Out" onClick={onSignOutClicked} />
       </IconMenu>
       : <FlatButton label="Login" onClick={onSignInClicked}/>
@@ -31,7 +32,16 @@ const NavBar = ({userSignedIn, onSignOutClicked, onSignInClicked, onTitleClicked
     onTitleTouchTap = {onTitleClicked}
     showMenuIconButton = {false}
     iconElementRight = {iconMenu}
-  />
+    >
+      { /* hacky code to make the button looks exactly like the right icon button */}
+      {
+        userSignedIn
+          ? null
+          : (<div style={{ marginTop: '8px', marginRight: '-16px', marginLeft: 'auto' }}>
+            <FlatButton style={{ marginTop: '7px', color: 'white' }} label="About Diff" onClick={onAboutClicked} />
+          </div>)
+      }
+    </AppBar>
 }
 
 NavBar.propTypes = {
@@ -41,7 +51,8 @@ NavBar.propTypes = {
   onTitleClicked: React.PropTypes.func.isRequired,
   onProfileClicked: React.PropTypes.func,
   onNewTopicClicked: React.PropTypes.func.isRequired,
-  onInviteClicked: React.PropTypes.func.isRequired
+  onInviteClicked: React.PropTypes.func.isRequired,
+  onAboutClicked: React.PropTypes.func.isRequired
 }
 
 export default NavBar

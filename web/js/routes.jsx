@@ -15,6 +15,7 @@ import PostNewController from 'controllers/post_new_controller.js'
 import PostShowController from 'controllers/post_show_controller.js'
 import InvitationController from 'controllers/invitation_controller.js'
 import EditsController from 'controllers/edits_controller.js'
+import About from 'components/about/about.jsx'
 
 export default (
   <Route path="/" component={AppController}>
@@ -35,5 +36,6 @@ export default (
     <Route path="posts/:id" component={PostShowController} />
     <Route path="posts" component={PostNewController} />
     <Route path="profiles/:id" component={ProfileController} />
+    <Route path="about" component={About}/>
   </Route>
 )

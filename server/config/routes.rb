@@ -5,6 +5,7 @@ def index_aliases
     /posts
     /profiles/*ignores
     /invitation
+    /about
   ).each do |url|
     get url => 'main#index'
   end

@@ -51,6 +51,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onInviteClicked: () => {
       dispatch(push('/invitation'))
+    },
+    onAboutClicked: () => {
+      dispatch(push('/about'))
     }
   }
 }
