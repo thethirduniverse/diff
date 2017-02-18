@@ -22,5 +22,4 @@ class MainController < ApplicationController
       categories: default_categories
     }.to_json.html_safe
   end
-
 end

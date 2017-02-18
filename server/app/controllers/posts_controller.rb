@@ -94,45 +94,6 @@ class PostsController < ApplicationController
 
   private
 
-  def create_root_post
-    ps = params.require(:post).permit(:title, :content)
-    ps[:creator_id] = current_user.id
-
-    post = Post.new(ps)
-    add_categories post
-
-    post
-  end
-
-  def create_reply_post
-    ps = params.require(:post).permit(:content, :parent_post_id)
-    ps[:creator_id] = current_user.id
-
-    parent = Post.find_by_id(ps[:parent_post_id])
-
-    unless parent.nil?
-      ps[:root_post_id] = if parent.root_post_id.nil?
-                            parent.id
-                          else
-                            parent.root_post_id
-                          end
-    end
-
-    Post.new(ps)
-  end
-
-  def new_post_from_params
-    if params[:post][:parent_post_id].blank?
-      create_root_post
-    else
-      create_reply_post
-    end
-  end
-
-  def add_categories(post)
-    post.categories << params[:post][:category_ids].map { |id| Category.find_by_id(id) }.compact if params[:post][:category_ids]
-  end
-
   def handle_transaction_record_invalid_exception(exception, post)
     if exception.record == post.parent_post
       render_error :parent_post, exception.record.errors
