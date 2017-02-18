@@ -80,7 +80,7 @@ const PostCard = React.createClass({
               ? (<FlatButton label="Upvoted" onClick={this.props.onCancelUpvoteClicked} />)
               : (<FlatButton label="Upvote" primary={true} onClick={this.props.onUpvoteClicked} />)
           }
-          <FlatButton label="Diff it" onClick={this.props.onEditClicked} />
+          <FlatButton label="Diff it" onClick={this.props.onReplyClicked} />
         </div>
       )
 
@@ -109,7 +109,7 @@ const PostCard = React.createClass({
           {
             this.props.hideActions
               ? null
-              : <MenuItem primaryText="Write Refutation" onClick={this.props.onReplyClicked}/>
+              : <MenuItem primaryText="Edit" onClick={this.props.onEditClicked}/>
           }
           {
             this.props.hideActions
